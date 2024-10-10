@@ -278,7 +278,6 @@ import {
     ComboboxInput,
     ComboboxItem,
     ComboboxItemIndicator,
-    ComboboxLabel,
     ComboboxRoot,
     ComboboxSeparator,
     ComboboxTrigger,

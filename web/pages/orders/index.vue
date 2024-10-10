@@ -96,8 +96,4 @@ const customActions = actions.map((action) => {
     action.name === 'print' ? (action.showButton = true) : null;
     return action;
 });
-
-onMounted(async () => {
-    await fetchDataPaginate(perPage, currentPage);
-});
 </script>

@@ -57,7 +57,6 @@
 
 <script setup lang="ts">
 const auth = useAuth();
-const router = useRouter();
 
 const logout = () => {
     try {
@@ -69,7 +68,7 @@ const logout = () => {
             transition: 'zoom',
         });
         setTimeout(() => {
-            router.push('/login');
+            navigateTo('/login');
         }, 2000);
     } catch (error) {
         console.log(error);

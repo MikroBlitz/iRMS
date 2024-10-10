@@ -46,7 +46,7 @@
         </div>
 
         <!-- PosModal Component -->
-        <PosModal
+        <ModalPOS
             v-if="showModal"
             :visible="showModal"
             :title="modalTitle"

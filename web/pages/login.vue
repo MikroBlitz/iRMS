@@ -96,7 +96,6 @@ import { useMagicKeys } from '@vueuse/core';
 const auth = useAuth();
 const loading = ref(false);
 const errors = ref(null);
-const router = useRouter();
 
 const keys = useMagicKeys();
 const continueLogin = keys['Enter'];
@@ -116,9 +115,9 @@ const login = async () => {
         await auth.login(credentials.email, credentials.password);
         await auth.getUser();
         if (auth.user.role == 2 || auth.user.role == 3) {
-            router.push('/pos');
+            navigateTo('/pos');
         } else {
-            router.push('/dashboard');
+            navigateTo('/dashboard');
         }
     } catch (error: any) {
         console.error(error);

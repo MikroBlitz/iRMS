@@ -23,7 +23,7 @@
                 :paginator-info="paginatorInfo"
             />
 
-            <TableCrudModal
+            <ModalCRUD
                 v-if="showModal"
                 :visible="showModal"
                 :title="modalTitle"
@@ -34,7 +34,7 @@
                 @close="closeCrudModal"
             />
 
-            <TableConfirmationModal
+            <ModalConfirm
                 v-if="isConfirmModalOpen"
                 :is-open="isConfirmModalOpen"
                 title="Confirm Deletion"
