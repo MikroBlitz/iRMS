@@ -198,7 +198,10 @@
             </div>
         </div>
 
-        <div v-if="receiptVisible" class="h-[700px] overflow-y-scroll p-4">
+        <div
+            v-if="receiptVisible"
+            class="h-[700px] bg-card rounded-lg overflow-y-scroll p-2"
+        >
             <PosReceipt />
         </div>
     </div>
@@ -252,14 +255,14 @@ const toggleReceipt = () => {
 const cartStore = useCart();
 const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
 
-const change: ComputedRef<number> = computed(() =>
-    parseFloat((cashTendered.value - totalAmount).toFixed(2)),
-);
-
 const customerName: any = inject('customerName');
 const cashTendered: any = inject('cashTendered');
 const paymentMethod: any = inject('paymentMethod');
 const status: any = inject('status');
+
+const change: ComputedRef<number> = computed(() =>
+    parseFloat((cashTendered.value - totalAmount).toFixed(2)),
+);
 
 const numbers: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const appendZero = () => {

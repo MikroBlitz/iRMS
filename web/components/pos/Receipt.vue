@@ -1,10 +1,10 @@
 <template>
     <div id="receipt" class="min-h-screen flex items-center justify-center">
         <div
-            class="bg-white p-6 rounded-lg shadow-md w-full max-w-md text-sm font-mono border border-gray-300"
+            class="bg-white p-6 rounded shadow-md w-full text-xs max-w-md font-mono border border-gray-300"
         >
             <!-- Store Information (Header) -->
-            <div class="text-center mb-4 text-black">
+            <div class="text-center mb-2 text-black">
                 <h1 class="text-lg font-bold">
                     {{ storeName }}
                 </h1>
@@ -15,61 +15,61 @@
             </div>
 
             <!-- POS & Customer Information -->
-            <div class="flex justify-between mb-4 text-black">
+            <div class="flex justify-between text-black">
                 <div>
                     <p>POS {{ posId }}</p>
                     <p>{{ customerType }}</p>
                 </div>
                 <div>
-                    <p>{{ cashierName }}</p>
+                    <p>{{ auth.user.name }}</p>
                 </div>
             </div>
 
             <!-- Itemized List -->
-            <table class="w-full text-sm mb-4 text-black">
+            <table class="w-full mb-4 text-black">
                 <thead>
                     <tr class="border-b border-gray-300">
-                        <th class="text-left py-2">Item</th>
-                        <th class="text-right py-2">Qty</th>
-                        <th class="text-right py-2">Price</th>
-                        <th class="text-right py-2">Total</th>
+                        <th class="text-left py-1">Item</th>
+                        <th class="text-right py-1">Qty</th>
+                        <th class="text-right py-1">Price</th>
+                        <th class="text-right py-1">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        v-for="item in items"
-                        :key="item.id"
+                        v-for="i in cartStore.cartItems"
+                        :key="i.id"
                         class="border-b border-gray-300"
                     >
-                        <td class="py-2">
-                            {{ item.name }}
+                        <td class="py-1">
+                            {{ i.item }}
                         </td>
-                        <td class="text-right py-2">
-                            {{ item.quantity }}
+                        <td class="text-right py-1">
+                            {{ i.qty }}
                         </td>
-                        <td class="text-right py-2">
-                            {{ formatPrice(item.price) }}
+                        <td class="text-right py-1">
+                            {{ formatPrice(i.price) }}
                         </td>
-                        <td class="text-right py-2">
-                            {{ formatPrice(item.total) }}
+                        <td class="text-right py-1">
+                            {{ formatPrice(i.amount) }}
                         </td>
                     </tr>
                 </tbody>
             </table>
 
             <!-- Subtotals and Discounts -->
-            <div class="mb-4 space-y-2 text-black">
+            <div class="mb-4 space-y-1 text-black">
                 <div class="flex justify-between">
                     <p>Subtotal:</p>
-                    <p>{{ formatPrice(subtotal) }}</p>
+                    <p>{{ currencyFormat(cartStore.totalAmount) }}</p>
                 </div>
                 <div class="flex justify-between">
-                    <p>Less 12% VAT:</p>
-                    <p>{{ formatPrice(vatAmount) }}</p>
+                    <p>Less 10% discount:</p>
+                    <p>{{ currencyFormat(cartStore.promotionAmount) }}</p>
                 </div>
                 <div class="flex justify-between">
-                    <p>Less 20% SC Discount:</p>
-                    <p>{{ formatPrice(discount) }}</p>
+                    <p>Tax 12%:</p>
+                    <p>{{ currencyFormat(cartStore.totalTax) }}</p>
                 </div>
             </div>
 
@@ -77,58 +77,68 @@
             <div class="mb-4 font-bold text-black">
                 <div class="flex justify-between">
                     <p>Total:</p>
-                    <p>{{ formatPrice(totalAmount) }}</p>
+                    <p>
+                        {{
+                            currencyFormat(
+                                cartStore.totalAmountWithTaxAndDiscount,
+                            )
+                        }}
+                    </p>
                 </div>
                 <div class="flex justify-between">
                     <p>Payment Received:</p>
-                    <p>{{ formatPrice(paymentReceived) }}</p>
+                    <p>{{ currencyFormat(cashTendered) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Change:</p>
-                    <p>{{ formatPrice(change) }}</p>
+                    <p>{{ currencyFormat(change) }}</p>
                 </div>
             </div>
 
             <!-- Sales Information -->
-            <div class="mb-4 space-y-2 text-black">
-                <div class="flex justify-between">
-                    <p>VAT Sales:</p>
-                    <p>{{ formatPrice(vatSales) }}</p>
-                </div>
-                <div class="flex justify-between">
-                    <p>Non-VAT Sales:</p>
-                    <p>{{ formatPrice(nonVatSales) }}</p>
-                </div>
-                <div class="flex justify-between">
-                    <p>Zero-Rated Sales:</p>
-                    <p>{{ formatPrice(zeroRatedSales) }}</p>
-                </div>
-                <div class="flex justify-between">
-                    <p>Total VAT:</p>
-                    <p>{{ formatPrice(totalVat) }}</p>
-                </div>
-            </div>
+            <!--            <div class="mb-4 space-y-2 text-black"> -->
+            <!--                <div class="flex justify-between"> -->
+            <!--                    <p>VAT Sales:</p> -->
+            <!--                    <p>{{ formatPrice(vatSales) }}</p> -->
+            <!--                </div> -->
+            <!--                <div class="flex justify-between"> -->
+            <!--                    <p>Non-VAT Sales:</p> -->
+            <!--                    <p>{{ formatPrice(nonVatSales) }}</p> -->
+            <!--                </div> -->
+            <!--                <div class="flex justify-between"> -->
+            <!--                    <p>Zero-Rated Sales:</p> -->
+            <!--                    <p>{{ formatPrice(zeroRatedSales) }}</p> -->
+            <!--                </div> -->
+            <!--                <div class="flex justify-between"> -->
+            <!--                    <p>Total VAT:</p> -->
+            <!--                    <p>{{ formatPrice(totalVat) }}</p> -->
+            <!--                </div> -->
+            <!--            </div> -->
 
             <!-- Transaction Details -->
-            <div class="mb-4 text-black">
+            <div class="mb-2 text-black">
                 <p>Transaction #: {{ transactionNumber }}</p>
                 <p>Date/Time: {{ transactionDate }}</p>
             </div>
 
             <!-- Footer Message -->
-            <div class="text-center text-xs mt-6 text-black">
+            <div class="border-t text-center pt-4 text-black">
                 <p>FOR ONGOING PROMOS</p>
-                <p>Visit: {{ website }}</p>
-                <p>Thank you, please come again!</p>
+                <p>visit: {{ website }}</p>
+                <p class="font-bold">Thank you, please come again!</p>
             </div>
 
             <!-- Customer Signature Area -->
-            <div class="border-t border-gray-300 mt-6 text-xs pt-4 text-black">
-                <p>Customer: ___________________________</p>
-                <p>Address: ___________________________</p>
-                <p>TIN: ___________________________</p>
-                <p>SC ID No.: ___________________________</p>
-                <p>Signature: ___________________________</p>
+            <div class="space-y-1 pt-4 text-black">
+                <div class="border-b">
+                    <p>Customer: {{ customerName }}</p>
+                </div>
+                <div class="border-b">
+                    <p>Address: {{ customerAddress }}</p>
+                </div>
+                <div class="border-b">
+                    <p>Signature:</p>
+                </div>
             </div>
 
             <!-- Print Button -->
@@ -145,17 +155,37 @@
 </template>
 
 <script setup lang="ts">
+import { useCart } from '~/stores/useCart';
+
+const auth = useAuth();
+const cartStore = useCart();
+const customerName = inject('customerName');
+const customerAddress = ref('');
+const customerType = ref('Guest');
+
+const date = new Date();
+const toISOString = (date: Date) =>
+    date.toISOString().slice(0, 19).replace('T', ' ');
+const transactionDate = toISOString(date);
+
+const cashTendered: any = inject('cashTendered');
+
+const change: ComputedRef<number> = computed(() =>
+    parseFloat(
+        (cashTendered.value - cartStore.totalAmountWithTaxAndDiscount).toFixed(
+            2,
+        ),
+    ),
+);
+
 const storeName = ref('Shop Name');
 const storeAddress = ref('Store Address');
 const vatNumber = ref('000-000-000-000');
 const minNumber = ref('123456789');
 const serialNumber = ref('AB98765XYZ');
 const posId = ref('001');
-const customerType = ref('Guest');
-const cashierName = ref('Louie Corpin');
 const transactionNumber = ref('00000000001');
-const transactionDate = ref('10/25/2019 09:05:42');
-const website = ref('www.xyzgeneral.com');
+const website = ref('www.website.com');
 
 const items = reactive([
     {
@@ -181,23 +211,18 @@ const items = reactive([
     },
 ]);
 
-const subtotal = ref(161.45);
-const vatAmount = ref(4.71);
-const discount = ref(7.86);
-const totalAmount = ref(161.45);
-const paymentReceived = ref(200.0);
-const change = ref(38.55);
-const vatSales = ref(116.09);
-const nonVatSales = ref(31.43);
-const zeroRatedSales = ref(0.0);
-const totalVat = ref(13.93);
+// const vatSales = ref(0.0);
+// const nonVatSales = ref(0.0);
+// const zeroRatedSales = ref(0.0);
+// const totalVat = ref(0.0);
 
 const printReceipt = () => {
-    const receiptElement = document.getElementById('receipt').innerHTML;
-    const originalContent = document.body.innerHTML;
-    document.body.innerHTML = receiptElement;
-    window.print();
-    document.body.innerHTML = originalContent;
+    // const receiptElement = document.getElementById('receipt').innerHTML;
+    // const originalContent = document.body.innerHTML;
+    // document.body.innerHTML = receiptElement;
+    // window.print();
+    // document.body.innerHTML = originalContent;
+    alert('Printing not supported yet');
 };
 </script>
 
