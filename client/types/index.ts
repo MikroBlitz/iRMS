@@ -1,3 +1,16 @@
+export type AuthUser = {
+    id: string;
+    role: number | null;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    complete_name: string;
+};
+
+export type AuthState = {
+    user: AuthUser;
+};
+
 export type User = {
     id?: string;
     name?: string;
@@ -152,4 +165,11 @@ export type LinkItem = {
     items?: LinkItem[];
     model?: string;
     roles?: number[] | null;
+};
+
+export type PaginatorInfo = {
+    currentPage: number;
+    lastPage: number;
+    perPage: number;
+    total: number;
 };

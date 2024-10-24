@@ -18,6 +18,8 @@
                 :is-loading="isLoading"
                 :data="modelData"
                 :actions="actions"
+                :paginator-info="paginatorInfo"
+                @page-change="handlePageChange"
             />
 
             <TableCrudModal
@@ -72,7 +74,13 @@ const {
     page,
     isLoading,
     actions,
+    paginatorInfo,
 } = await useModelCrud(modelName, modelFields);
+
+const handlePageChange = (page: number) => {
+    fetchDataPaginate(paginatorInfo.value.perPage, page);
+    console.log(fetchDataPaginate(paginatorInfo.value.perPage, page));
+};
 
 onMounted(() => {
     fetchDataPaginate(perPage, page);

@@ -1,4 +1,4 @@
-import type { CrudModalField } from '~/types';
+import type { AuthState, CrudModalField } from '~/types';
 import { useGraphQLQuery } from '~/composables/useGraphQLQuery';
 import {
     handleGraphQLError,
@@ -13,9 +13,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const modelData = ref([]);
     const modalFields = ref(fields);
     const isLoading = ref(false);
+    const paginatorInfo = ref<any>(null);
 
     const page = inject('currentPage', 1);
-    const perPage = inject('perPage', 50);
+    const perPage = inject('perPage', 10);
 
     const {
         showModal,
@@ -125,7 +126,9 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         () => result.value,
         (newResult) => {
             if (newResult) {
-                modelData.value = newResult[`${pluralName}Paginate`].data;
+                const queryResult = newResult[`${pluralName}Paginate`];
+                modelData.value = queryResult.data;
+                paginatorInfo.value = queryResult.paginatorInfo;
             }
         },
         { immediate: true },
@@ -154,5 +157,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         page,
         isLoading,
         actions,
+        paginatorInfo,
     };
 }

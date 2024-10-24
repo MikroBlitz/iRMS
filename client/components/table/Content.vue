@@ -23,6 +23,7 @@
                 :actions="actions"
                 primary-key="id"
                 class="w-full"
+                :paginator-info="paginatorInfo"
             />
         </template>
 
@@ -48,6 +49,7 @@ defineProps({
     data: Array,
     headers: Array,
     actions: Array,
+    paginatorInfo: Object | null,
 });
 
 const auth = useAuth();

@@ -87,6 +87,15 @@ export const useCart = defineStore('cart', {
                 cartItem.amount = cartItem.qty * cartItem.price;
             }
         },
+        updateQuantity(product: CartProduct) {
+            const cartItem: any = this.cartItems.find(
+                (item) => item.item === product.item,
+            );
+            if (cartItem && !isNaN(product.qty)) {
+                cartItem.qty = product.qty;
+                cartItem.amount = cartItem.qty * cartItem.price;
+            }
+        },
         clearCart() {
             this.cartItems = [];
         },
