@@ -11,6 +11,15 @@ export const userFilter = gql`
     }
 `;
 
+export const users = gql`
+    query users {
+        users {
+            ...user
+        }
+    }
+    ${userFragment}
+`;
+
 export const filterCustomer = gql`
     query filterCustomer {
         filterCustomer(filter: "role = 0") {

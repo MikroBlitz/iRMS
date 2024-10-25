@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import gql from 'graphql-tag';
 import { CustomerFragment } from './Fragment';
 
 export const customerFilter = gql`
@@ -7,6 +7,15 @@ export const customerFilter = gql`
             id
         }
     }
+`;
+
+export const customers = gql`
+    query customers {
+        customers {
+            ...customer
+        }
+    }
+    ${CustomerFragment}
 `;
 
 export const customersPaginate = gql`

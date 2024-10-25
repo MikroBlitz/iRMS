@@ -10,6 +10,15 @@ export const productFilter = gql`
     }
 `;
 
+export const products = gql`
+    query products {
+        products {
+            ...product
+        }
+    }
+    ${ProductFragment}
+`;
+
 export const productsPaginate = gql`
     query productsPaginate($first: Int!, $page: Int) {
         productsPaginate(first: $first, page: $page) {

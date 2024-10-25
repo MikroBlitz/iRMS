@@ -3,6 +3,8 @@
         <Button
             v-for="(btn, index) in crudButtons"
             :key="index"
+            :disabled="disabledButtons.includes(btn.id)"
+            :class="disabledButtons.includes(btn.id) ? 'hidden' : ''"
             variant="outline"
             size="icon"
             class="rounded-full hover:bg-gray-500"
@@ -29,17 +31,28 @@ import { Button } from '~/components/ui/button';
 import type { CrudButton } from '~/types';
 
 const props = defineProps({
-    onCreate: Function,
-    onRefresh: Function,
+    onCreate: {
+        type: Function,
+        default: () => {},
+    },
+    onRefresh: {
+        type: Function,
+        default: () => {},
+    },
+    disabledButtons: {
+        type: Array as PropType<string[]>,
+        default: () => [],
+    },
 });
 
 const clickedIndex = ref<number | null>(null);
 
-const handleClick = (index: number, action: Function) => {
-    if (crudButtons[index].iconName === 'mdi:refresh') {
+const handleClick = (index: number, action: Function | undefined) => {
+    if (crudButtons[index] && crudButtons[index].iconName === 'mdi:refresh') {
         clickedIndex.value = index;
     }
-    action();
+
+    if (action) action();
 
     setTimeout(() => {
         clickedIndex.value = null;
@@ -48,22 +61,18 @@ const handleClick = (index: number, action: Function) => {
 
 const crudButtons: CrudButton[] = [
     {
+        id: 'create',
         iconName: 'mdi:add',
         iconSize: 20,
         iconClass: 'text-green-500',
         action: props.onCreate,
     },
     {
+        id: 'refresh',
         iconName: 'mdi:refresh',
         iconSize: 20,
         iconClass: 'text-blue-500',
         action: props.onRefresh,
-    },
-    {
-        iconName: 'mdi:filter-cog',
-        iconSize: 20,
-        iconClass: 'text-yellow-800',
-        action: () => alert('Filter action'),
     },
 ];
 </script>

@@ -144,8 +144,4 @@ const emit = defineEmits<{
 const onPageChange = (page: number) => {
     emit('page-change', page);
 };
-
-const getNestedValue = (obj: any, path: string) => {
-    return path.split('.').reduce((curr, key) => curr?.[key], obj);
-};
 </script>

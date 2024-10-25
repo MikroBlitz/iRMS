@@ -10,6 +10,15 @@ export const categoryFilter = gql`
     }
 `;
 
+export const categories = gql`
+    query categories {
+        categories {
+            ...category
+        }
+    }
+    ${CategoryFragment}
+`;
+
 export const categoriesPaginate = gql`
     query categoriesPaginate($first: Int!, $page: Int) {
         categoriesPaginate(first: $first, page: $page) {

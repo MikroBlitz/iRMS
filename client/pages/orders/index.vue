@@ -4,7 +4,16 @@
             <Title>{{ pageTitle }}</Title>
         </Head>
         <main v-auto-animate class="max-w-screen-2xl mx-auto">
-            <TableHeader :title="pageTitle" :icon="icon" />
+            <TableHeader :title="pageTitle" :icon="icon">
+                <template #actions>
+                    <TableCRUD
+                        :on-refresh="
+                            () => fetchDataPaginate(perPage, currentPage)
+                        "
+                        :disabled-buttons="['create']"
+                    />
+                </template>
+            </TableHeader>
 
             <TableContent
                 :headers="modelHeaders"
@@ -12,7 +21,6 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
-                @page-change="handlePageChange"
             />
 
             <TableCrudModal
@@ -95,18 +103,9 @@ const {
     closeCrudModal,
     fetchDataPaginate,
     perPage,
-    page,
+    currentPage,
     isLoading,
     actions,
     paginatorInfo,
 } = await useModelCrud(modelName, modelFields);
-
-const handlePageChange = (page: number) => {
-    fetchDataPaginate(paginatorInfo.value.perPage, page);
-    console.log(fetchDataPaginate(paginatorInfo.value.perPage, page));
-};
-
-onMounted(() => {
-    fetchDataPaginate(perPage, page);
-});
 </script>

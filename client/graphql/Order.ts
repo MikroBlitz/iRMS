@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import gql from 'graphql-tag';
 import { OrderFragment } from './Fragment';
 
 export const orderFilter = gql`
@@ -7,6 +7,15 @@ export const orderFilter = gql`
             id
         }
     }
+`;
+
+export const orders = gql`
+    query orders {
+        orders {
+            ...order
+        }
+    }
+    ${OrderFragment}
 `;
 
 export const ordersPaginate = gql`

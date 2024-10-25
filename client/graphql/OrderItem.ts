@@ -9,6 +9,15 @@ export const orderItemFilter = gql`
     }
 `;
 
+export const orderItems = gql`
+    query orderItems {
+        orderItems {
+            ...orderItem
+        }
+    }
+    ${OrderItemFragment}
+`;
+
 export const orderItemsPaginate = gql`
     query orderItemsPaginate($first: Int!, $page: Int) {
         orderItemsPaginate(first: $first, page: $page) {

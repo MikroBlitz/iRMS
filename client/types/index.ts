@@ -1,6 +1,6 @@
 export type AuthUser = {
     id: string;
-    role: number | null;
+    role: any;
     first_name: string;
     middle_name: string;
     last_name: string;
@@ -37,6 +37,7 @@ export type Stock = {
 };
 
 export type CrudButton = {
+    id: string;
     iconName: string;
     iconSize: number;
     iconClass: string;

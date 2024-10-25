@@ -8,7 +8,9 @@
                 <template #actions>
                     <TableCRUD
                         :on-create="openCreateModal"
-                        :on-refresh="() => fetchDataPaginate(perPage, page)"
+                        :on-refresh="
+                            () => fetchDataPaginate(perPage, currentPage)
+                        "
                     />
                 </template>
             </TableHeader>
@@ -19,7 +21,6 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
-                @page-change="handlePageChange"
             />
 
             <TableCrudModal
@@ -96,16 +97,11 @@ const {
     closeCrudModal,
     fetchDataPaginate,
     perPage,
-    page,
+    currentPage,
     isLoading,
     actions,
     paginatorInfo,
 } = await useModelCrud(modelName, modelFields);
-
-const handlePageChange = (page: number) => {
-    fetchDataPaginate(paginatorInfo.value.perPage, page);
-    console.log(fetchDataPaginate(paginatorInfo.value.perPage, page));
-};
 
 const handleSubmit = async (formData: any) => {
     if (formData.price) {
@@ -113,8 +109,4 @@ const handleSubmit = async (formData: any) => {
     }
     handleCrudSubmit(formData);
 };
-
-onMounted(() => {
-    fetchDataPaginate(perPage, page);
-});
 </script>

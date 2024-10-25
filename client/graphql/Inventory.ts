@@ -11,6 +11,15 @@ export const inventoryFilter = gql`
     }
 `;
 
+export const inventories = gql`
+    query inventories {
+        inventories {
+            ...inventory
+        }
+    }
+    ${InventoryFragment}
+`;
+
 export const inventoriesPaginate = gql`
     query inventoriesPaginate($first: Int!, $page: Int) {
         inventoriesPaginate(first: $first, page: $page) {

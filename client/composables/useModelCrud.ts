@@ -1,4 +1,4 @@
-import type { AuthState, CrudModalField } from '~/types';
+import type { CrudModalField, PaginatorInfo } from '~/types';
 import { useGraphQLQuery } from '~/composables/useGraphQLQuery';
 import {
     handleGraphQLError,
@@ -13,10 +13,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const modelData = ref([]);
     const modalFields = ref(fields);
     const isLoading = ref(false);
-    const paginatorInfo = ref<any>(null);
 
-    const page = inject('currentPage', 1);
-    const perPage = inject('perPage', 10);
+    const currentPage = 1;
+    const perPage = 50;
+    const paginatorInfo = ref<PaginatorInfo>();
 
     const {
         showModal,
@@ -28,19 +28,32 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         closeCrudModal,
     } = useCrudModal(model, checkAuth());
 
-    const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION } =
+    // GraphQL Dynamic Queries & Mutations
+    const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION, GET_ALL_QUERY } =
         await useGraphQLQuery(model);
 
+    // GraphQL Queries
+    const { refetch: refetch_all, loading: queryLoading_all } =
+        useQuery(GET_ALL_QUERY);
     const {
         result,
         refetch,
         loading: queryLoading,
-    } = useQuery(PAGINATE_QUERY, { first: perPage, page: page });
+    } = useQuery(PAGINATE_QUERY, { first: perPage, page: currentPage });
 
+    // GraphQL Mutations
     const { mutate: upsertMutation, loading: upsertLoading } =
         useMutation(UPSERT_MUTATION);
     const { mutate: deleteMutation, loading: deleteLoading } =
         useMutation(DELETE_MUTATION);
+
+    const fetchData = async () => {
+        checkAuth()
+            ? ((isLoading.value = true),
+              await refetch_all(),
+              (isLoading.value = false))
+            : toasts('You are not authorized to view.', { type: 'warning' });
+    };
     const fetchDataPaginate = async (first: number, page: number) => {
         checkAuth()
             ? ((isLoading.value = true),
@@ -61,7 +74,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                       { type: 'success' },
                   ),
                   closeCrudModal(),
-                  fetchDataPaginate(perPage, page))
+                  fetchDataPaginate(perPage, currentPage))
                 : toasts('You are not authorized to create.', {
                       type: 'warning',
                   });
@@ -122,28 +135,21 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
 
     const actions = crudActions(openEditModal, deleteModel, toasts);
 
-    watch(
-        () => result.value,
-        (newResult) => {
-            if (newResult) {
-                const queryResult = newResult[`${pluralName}Paginate`];
-                modelData.value = queryResult.data;
-                paginatorInfo.value = queryResult.paginatorInfo;
-            }
-        },
-        { immediate: true },
-    );
+    const queryResults = computed(() => {
+        if (result.value) {
+            const queryResult = result.value[`${pluralName}Paginate`];
+            modelData.value = queryResult.data;
+            paginatorInfo.value = queryResult.paginatorInfo;
+        }
+        return modelData.value;
+    });
 
-    watch(
-        [queryLoading, upsertLoading, deleteLoading],
-        ([newQueryLoading, newUpsertLoading, newDeleteLoading]) => {
-            isLoading.value =
-                newQueryLoading || newUpsertLoading || newDeleteLoading;
-        },
+    const loadingValue = computed(
+        () => queryLoading.value || upsertLoading.value || deleteLoading.value,
     );
 
     return {
-        modelData,
+        modelData: queryResults,
         selectedModel,
         showModal,
         modalTitle,
@@ -153,10 +159,11 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         handleCrudSubmit,
         closeCrudModal,
         fetchDataPaginate,
-        perPage,
-        page,
-        isLoading,
+        fetchData,
+        isLoading: loadingValue,
         actions,
+        currentPage,
+        perPage,
         paginatorInfo,
     };
 }
