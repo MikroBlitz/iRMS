@@ -1,44 +1,34 @@
 import type { CrudModalField } from '~/types';
+import { useGraphQLQuery } from '~/composables/useGraphQLQuery';
+import {
+    handleGraphQLError,
+    transformGraphQLInputData,
+} from '~/utils/dataHelper';
+import { checkAuth } from '~/utils/authHelpers';
 
 export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const pluralName = getPluralName(model);
     const singularName = getSingularName(model);
-    const capitalizedName = getCapSingularName(model);
-
-    const auth = useAuth();
-    const permission = auth.user.role === 1 || auth.user.role === 3;
 
     const modelData = ref([]);
-    const selectedModel = ref(null);
-    const showModal = ref(false);
-    const modalTitle = ref(`Create ${toTitleCase(singularName)}`);
-    const modalButtonText = ref('Create');
     const modalFields = ref(fields);
     const isLoading = ref(false);
 
     const page = inject('currentPage', 1);
     const perPage = inject('perPage', 50);
 
-    // Dynamically import GraphQL queries and mutations
-    let PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION;
-    try {
-        const graphqlModule = await import(`~/graphql/${capitalizedName}.ts`);
-        PAGINATE_QUERY = graphqlModule[`${pluralName}Paginate`];
-        UPSERT_MUTATION = graphqlModule[`upsert${capitalizedName}`];
-        DELETE_MUTATION = graphqlModule[`delete${capitalizedName}`];
+    const {
+        showModal,
+        modalTitle,
+        modalButtonText,
+        selectedModel,
+        openCreateModal,
+        openEditModal,
+        closeCrudModal,
+    } = useCrudModal(model, checkAuth());
 
-        if (!PAGINATE_QUERY || !UPSERT_MUTATION || !DELETE_MUTATION) {
-            throw new Error(
-                `Required GraphQL operations not found for model: ${model}`,
-            );
-        }
-    } catch (error) {
-        console.error(
-            `Error importing GraphQL operations for ${model}:`,
-            error,
-        );
-        throw error;
-    }
+    const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION } =
+        await useGraphQLQuery(model);
 
     const {
         result,
@@ -46,67 +36,24 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         loading: queryLoading,
     } = useQuery(PAGINATE_QUERY, { first: perPage, page: page });
 
+    const { mutate: upsertMutation, loading: upsertLoading } =
+        useMutation(UPSERT_MUTATION);
+    const { mutate: deleteMutation, loading: deleteLoading } =
+        useMutation(DELETE_MUTATION);
     const fetchDataPaginate = async (first: number, page: number) => {
-        permission
+        checkAuth()
             ? ((isLoading.value = true),
               await refetch({ first, page }),
               (isLoading.value = false))
             : toasts('You are not authorized to view.', { type: 'warning' });
     };
 
-    const { mutate: upsertMutation, loading: upsertLoading } =
-        useMutation(UPSERT_MUTATION);
-    const { mutate: deleteMutation, loading: deleteLoading } =
-        useMutation(DELETE_MUTATION);
-
-    const openCreateModal = () => {
-        permission
-            ? ((selectedModel.value = null),
-              (modalTitle.value = `Create ${capitalizedName}`),
-              (modalButtonText.value = 'Create'),
-              (showModal.value = true))
-            : toasts('You are not authorized to create.', { type: 'warning' });
-    };
-
-    const openEditModal = (model: any) => {
-        permission
-            ? ((selectedModel.value = model),
-              (modalTitle.value = `Edit ${capitalizedName}`),
-              (modalButtonText.value = 'Update'),
-              (showModal.value = true))
-            : toasts('You are not authorized to edit.', { type: 'warning' });
-    };
-
     const handleCrudSubmit = async (formData: any) => {
-        const input = JSON.parse(
-            JSON.stringify(formData, (key, value) =>
-                key === '__typename' ? undefined : value,
-            ),
-        );
-
-        Object.keys(input).forEach((key) => {
-            const value = input[key];
-
-            // TODO: improve graphql 'connect' relationships (e.g., user_id)
-            key.endsWith('_id')
-                ? ((input[key.replace('_id', '')] = { connect: value }),
-                  delete input[key])
-                : null;
-
-            // TODO: improve 'upsert' relationships (e.g., users)
-            Array.isArray(value)
-                ? (input[key] = {
-                      upsert: value.map((item: any) => ({
-                          id: item.id,
-                          ...item,
-                      })),
-                  })
-                : null;
-        });
+        const input = transformGraphQLInputData(formData);
 
         try {
             isLoading.value = true;
-            permission
+            checkAuth()
                 ? (await upsertMutation({ input }),
                   toasts(
                       `${toTitleCase(singularName)} ${selectedModel.value ? 'updated' : 'created'}.`,
@@ -118,27 +65,18 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                       type: 'warning',
                   });
         } catch (error: any) {
-            const graphQLError = error?.graphQLErrors?.[0];
-            const errorMessage =
-                graphQLError?.extensions?.debugMessage ||
-                graphQLError?.message ||
-                'An error occurred';
-            toasts(`Failed: ${errorMessage}`, {
-                type: 'error',
-            });
-            console.error('Something went wrong, Please try again.', error);
+            handleGraphQLError(
+                error,
+                selectedModel.value ? 'update' : 'create',
+            );
         } finally {
             isLoading.value = false;
         }
     };
 
-    const closeCrudModal = () => {
-        showModal.value = false;
-    };
-
     const deleteModel = async (id: string) => {
         try {
-            permission
+            checkAuth()
                 ? ((isLoading.value = true),
                   await deleteMutation({ id: [id] }),
                   (modelData.value = modelData.value.filter(
@@ -151,18 +89,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                       type: 'warning',
                   });
         } catch (error: any) {
-            const graphQLError = error?.graphQLErrors?.[0];
-            const errorMessage =
-                graphQLError?.extensions?.debugMessage ||
-                graphQLError?.message ||
-                'An error occurred';
-            toasts(
-                `Failed to delete ${toTitleCase(singularName)}: ${errorMessage}`,
-                {
-                    type: 'error',
-                },
-            );
-            console.error('Something went wrong, Please try again.', error);
+            handleGraphQLError(error, 'delete');
         } finally {
             isLoading.value = false;
         }
