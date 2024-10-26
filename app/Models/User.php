@@ -42,7 +42,7 @@ class User extends Authenticatable
     {
         parent::boot();
         static::saving(function ($user) {
-            $user->complete_name = self::complete_name($user);
+            $user->name = self::name($user);
         });
     }
 
@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    protected static function complete_name(User $user): string
+    protected static function name(User $user): string
     {
         $obj = [
             $user->first_name,
@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
-        return empty($search) ? $query : $query->where('complete_name', 'like', "%{$search}%");
+        return empty($search) ? $query : $query->where('name', 'like', "%{$search}%");
     }
 
     public function scopeFilterCustomer(Builder $query, ?string $filter): Builder
