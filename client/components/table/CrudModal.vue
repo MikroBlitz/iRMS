@@ -63,6 +63,17 @@
                         @keyup.enter="handleSubmit"
                     />
 
+                    <!-- File Field -->
+                    <input
+                        v-if="field.type === 'file'"
+                        :id="field.name"
+                        type="file"
+                        :required="field.required"
+                        class="mt-1 block w-full rounded-md border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
+                        v-on="form[field.name]"
+                        @keyup.enter="handleSubmit"
+                    />
+
                     <!-- Checkbox Field -->
                     <input
                         v-if="field.type === 'checkbox'"
@@ -139,7 +150,7 @@
                     <Button variant="ghost" @click="closeModal">
                         Cancel
                     </Button>
-                    <Button type="submit" class="bg-primary dark:bg-secondary">
+                    <Button type="submit" class="bg-emerald-700">
                         {{ submitButtonText }}
                     </Button>
                 </div>

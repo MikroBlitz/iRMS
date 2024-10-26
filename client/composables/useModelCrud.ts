@@ -29,12 +29,12 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     } = useCrudModal(model, checkAuth());
 
     // GraphQL Dynamic Queries & Mutations
-    const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION, GET_ALL_QUERY } =
+    const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION } =
         await useGraphQLQuery(model);
 
     // GraphQL Queries
-    const { refetch: refetch_all, loading: queryLoading_all } =
-        useQuery(GET_ALL_QUERY);
+    // const { refetch: refetch_all, loading: queryLoading_all } =
+    //     useQuery(GET_ALL_QUERY);
     const {
         result,
         refetch,
@@ -47,13 +47,13 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const { mutate: deleteMutation, loading: deleteLoading } =
         useMutation(DELETE_MUTATION);
 
-    const fetchData = async () => {
-        checkAuth()
-            ? ((isLoading.value = true),
-              await refetch_all(),
-              (isLoading.value = false))
-            : toasts('You are not authorized to view.', { type: 'warning' });
-    };
+    // const fetchData = async () => {
+    //     checkAuth()
+    //         ? ((isLoading.value = true),
+    //           await refetch_all(),
+    //           (isLoading.value = false))
+    //         : toasts('You are not authorized to view.', { type: 'warning' });
+    // };
     const fetchDataPaginate = async (first: number, page: number) => {
         checkAuth()
             ? ((isLoading.value = true),
@@ -135,7 +135,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
 
     const actions = crudActions(openEditModal, deleteModel, toasts);
 
-    const queryResults = computed(() => {
+    const queryPaginatedData = computed(() => {
         if (result.value) {
             const queryResult = result.value[`${pluralName}Paginate`];
             modelData.value = queryResult.data;
@@ -149,7 +149,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     );
 
     return {
-        modelData: queryResults,
+        modelData: queryPaginatedData,
         selectedModel,
         showModal,
         modalTitle,
@@ -159,7 +159,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         handleCrudSubmit,
         closeCrudModal,
         fetchDataPaginate,
-        fetchData,
         isLoading: loadingValue,
         actions,
         currentPage,

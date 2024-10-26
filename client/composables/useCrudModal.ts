@@ -4,15 +4,14 @@ export function useCrudModal(model: string, auth: boolean) {
     const capitalizedName = getCapSingularName(model);
 
     const showModal = ref(false);
-    const modalTitle = ref(`Create ${model}`);
+    const modalTitle = ref(`Add ${model}`);
     const modalButtonText = ref('Create');
     const selectedModel = ref(null);
 
     const openCreateModal = () => {
         checkAuth()
             ? ((selectedModel.value = null),
-              (modalTitle.value = `Create ${capitalizedName}`),
-              (modalButtonText.value = 'Create'),
+              (modalTitle.value = `Add new ${capitalizedName}`),
               (showModal.value = true))
             : toasts('You are not authorized to create.', { type: 'warning' });
     };
