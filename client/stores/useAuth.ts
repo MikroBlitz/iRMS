@@ -11,7 +11,7 @@ export const useAuth = defineStore('auth', {
             first_name: '',
             middle_name: '',
             last_name: '',
-            complete_name: '',
+            name: '',
         },
     }),
     actions: {
@@ -33,7 +33,7 @@ export const useAuth = defineStore('auth', {
             this.$state.user.first_name = response.data[0].first_name;
             this.$state.user.middle_name = response.data[0].middle_name;
             this.$state.user.last_name = response.data[0].last_name;
-            this.$state.user.complete_name = response.data[0].complete_name;
+            this.$state.user.name = response.data[0].name;
             // console.log(response.data[0]);
         },
         async logout() {
@@ -46,7 +46,7 @@ export const useAuth = defineStore('auth', {
             this.$state.user.first_name = '';
             this.$state.user.middle_name = '';
             this.$state.user.last_name = '';
-            this.$state.user.complete_name = '';
+            this.$state.user.name = '';
         },
     },
     persist: true,

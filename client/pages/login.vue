@@ -124,7 +124,7 @@ const login = async () => {
             hideProgressBar: true,
         });
     } finally {
-        loading.value = true;
+        loading.value = false;
     }
 };
 

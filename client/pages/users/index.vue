@@ -67,7 +67,7 @@ const modelHeaders: Headers[] = [
         },
         label: 'Role',
     },
-    { key: 'complete_name', label: 'Name' },
+    { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
 ];
 

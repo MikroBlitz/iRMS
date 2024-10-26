@@ -100,8 +100,8 @@
                                 />
                                 <ComboboxTrigger>
                                     <Icon
-                                        name="radix-icons:chevron-down"
-                                        class="h-4 w-4"
+                                        name="mdi:chevron-down"
+                                        class="size-4"
                                     />
                                 </ComboboxTrigger>
                             </ComboboxAnchor>
@@ -120,15 +120,13 @@
                                                 field.model as string,
                                             )"
                                             :key="option.id"
-                                            :value="option.name"
+                                            :value="option.id"
                                             class="flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none rounded hover:bg-accent"
                                         >
                                             <ComboboxItemIndicator
                                                 class="absolute left-0 w-[25px] inline-flex items-center justify-center"
                                             >
-                                                <Icon
-                                                    name="radix-icons:check"
-                                                />
+                                                <Icon name="mdi:check" />
                                             </ComboboxItemIndicator>
                                             <span>
                                                 {{
@@ -153,7 +151,7 @@
                         :id="field.name"
                         v-model="form[field.name]"
                         :required="field.required"
-                        class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
+                        class="mt-1 block w-full rounded border-none outline-none p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
                     >
                         <option selected value="">
                             Select {{ field.model }}

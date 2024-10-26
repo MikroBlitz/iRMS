@@ -4,7 +4,7 @@ export type User = {
     first_name: string | null;
     middle_name: string | null;
     last_name: string | null;
-    complete_name: string | null;
+    name: string | null;
     email: string | null;
     password: string | null;
     email_verified_at: string | null;

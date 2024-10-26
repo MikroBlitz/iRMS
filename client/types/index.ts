@@ -4,7 +4,7 @@ export type AuthUser = {
     first_name: string;
     middle_name: string;
     last_name: string;
-    complete_name: string;
+    name: string;
 };
 
 export type AuthState = {

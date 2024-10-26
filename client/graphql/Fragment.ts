@@ -6,7 +6,7 @@ export const userFragment = gql`
         first_name
         middle_name
         last_name
-        complete_name
+        name
         email
         password
         role
@@ -87,7 +87,7 @@ export const CustomerFragment = gql`
             first_name
             middle_name
             last_name
-            complete_name
+            name
         }
         user_id
         name
@@ -126,7 +126,7 @@ export const OrderFragment = gql`
         #                first_name
         #                middle_name
         #                last_name
-        #                complete_name
+        #                name
         #            }
         #        }
         #        order_items {

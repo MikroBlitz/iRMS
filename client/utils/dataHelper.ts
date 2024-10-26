@@ -11,16 +11,18 @@ export const transformGraphQLInputData = (formData: any) => {
     Object.keys(input).forEach((key) => {
         const value = input[key];
 
-        // TODO: improve graphql 'connect' relationships (e.g., user_id)
+        // for select fields
         key.endsWith('_id')
             ? ((input[key.replace('_id', '')] = { connect: value }),
               delete input[key])
             : null;
 
-        // TODO: improve 'upsert' relationships (e.g., users)
+        // for combobox fields
+        key === 'user' ? (input.user = { connect: value.id || value }) : null;
+
         Array.isArray(value)
             ? (input[key] = {
-                  upsert: value.map((item: any) => ({
+                  upsert: value.map((item) => ({
                       id: item.id,
                       ...item,
                   })),
