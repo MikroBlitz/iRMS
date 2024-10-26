@@ -12,6 +12,8 @@ class Inventory extends Model
 {
     use HasFactory, softDeletes;
 
+    protected $fillable = ['product_id'];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

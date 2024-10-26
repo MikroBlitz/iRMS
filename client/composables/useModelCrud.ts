@@ -32,9 +32,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const { PAGINATE_QUERY, UPSERT_MUTATION, DELETE_MUTATION } =
         await useGraphQLQuery(model);
 
-    // GraphQL Queries
-    // const { refetch: refetch_all, loading: queryLoading_all } =
-    //     useQuery(GET_ALL_QUERY);
     const {
         result,
         refetch,
@@ -47,13 +44,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const { mutate: deleteMutation, loading: deleteLoading } =
         useMutation(DELETE_MUTATION);
 
-    // const fetchData = async () => {
-    //     checkAuth()
-    //         ? ((isLoading.value = true),
-    //           await refetch_all(),
-    //           (isLoading.value = false))
-    //         : toasts('You are not authorized to view.', { type: 'warning' });
-    // };
     const fetchDataPaginate = async (first: number, page: number) => {
         checkAuth()
             ? ((isLoading.value = true),

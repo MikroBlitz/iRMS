@@ -35,4 +35,13 @@ class Product extends Model
             ->orWhere('sku', 'like', "%{$search}%");
     }
 
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::created(function ($product) {
+            $product->inventories()->create([
+                'product_id' => $product->id,
+            ]);
+        });
+    }
 }

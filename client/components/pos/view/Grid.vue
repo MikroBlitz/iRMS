@@ -40,7 +40,7 @@
                 </div>
                 <NuxtImg
                     alt="prod-image"
-                    :src="product.image"
+                    :src="product.image || noImage"
                     class="rounded-md h-20 md:h-32 w-auto"
                 />
             </div>
@@ -77,7 +77,7 @@
 
             <!-- Cart icon (hidden by default) -->
             <div
-                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity transition duration-300 hover:bg-primary/50 rounded"
+                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-primary/60 rounded"
             >
                 <Icon
                     name="mdi:cart-arrow-down"
@@ -92,6 +92,7 @@
 <script setup lang="ts">
 import { useCart } from '~/stores/useCart';
 
+const noImage = 'https://static.thenounproject.com/png/340719-200.png';
 const cartStore = useCart();
 
 // TODO: fix types

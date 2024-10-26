@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->integer('qty')->default(0);
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->unique(['product_id', 'location']);
             $table->timestamps();
             $table->softDeletes();

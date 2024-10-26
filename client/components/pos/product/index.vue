@@ -1,6 +1,6 @@
 <template>
     <div
-        class="max-w-7xl xl:min-w-[1000px] p-0.5 flex-grow overflow-y-hidden border-2 rounded-md border-secondary dark:border-primary"
+        class="max-w-7xl md:min-w-[800px] p-0.5 flex-grow overflow-y-hidden border-2 rounded-md border-secondary dark:border-primary"
     >
         <PosProductHeader
             class="mb-0.5"

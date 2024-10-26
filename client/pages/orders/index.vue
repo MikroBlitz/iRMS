@@ -108,4 +108,8 @@ const {
     actions,
     paginatorInfo,
 } = await useModelCrud(modelName, modelFields);
+
+onMounted(async () => {
+    await fetchDataPaginate(perPage, currentPage);
+});
 </script>
