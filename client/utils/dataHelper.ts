@@ -1,8 +1,5 @@
-export const getNestedValue = (item: any, key: any) => {
-    return key
-        .split('.')
-        .reduce((acc: any, part: any) => acc && acc[part], item);
-};
+export const getNestedValue = (item: any, key: any) =>
+    key.split('.').reduce((acc: any, part: any) => acc && acc[part], item);
 
 export const transformGraphQLInputData = (formData: any) => {
     const input = JSON.parse(

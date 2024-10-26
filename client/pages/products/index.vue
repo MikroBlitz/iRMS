@@ -74,7 +74,7 @@ const modelFields: CrudModalField[] = [
     {
         name: 'category_id',
         label: 'Category',
-        type: 'select',
+        type: 'combobox',
         model: 'Category',
         queryName: 'categoryFilter',
         optionTitle: 'name',

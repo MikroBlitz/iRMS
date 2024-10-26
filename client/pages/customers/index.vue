@@ -70,7 +70,7 @@ const modelFields: CrudModalField[] = [
     {
         name: 'user_id',
         label: 'Customer Account',
-        type: 'select',
+        type: 'combobox',
         model: 'User',
         queryName: 'filterCustomer',
         optionTitle: 'complete_name',

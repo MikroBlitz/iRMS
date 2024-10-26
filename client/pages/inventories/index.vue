@@ -61,7 +61,7 @@ const modelFields: CrudModalField[] = [
     {
         name: 'product_id',
         label: 'Product *',
-        type: 'select',
+        type: 'combobox',
         required: true,
         model: 'Product',
         queryName: 'productFilter',
