@@ -42,3 +42,5 @@ logs
 # Local env files
 .env.*
 !.env.example
+rr
+.rr.yaml
