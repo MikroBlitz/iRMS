@@ -17,9 +17,6 @@
         <PosTable>
             <TableHeader>
                 <TableRow>
-                    <!--                    <TableHead class="md:w-[50px]"> -->
-                    <!--                        <strong>ID</strong> -->
-                    <!--                    </TableHead> -->
                     <TableHead class="md:w-[480px]">
                         <strong>ITEM</strong>
                     </TableHead>
@@ -33,18 +30,11 @@
             </TableHeader>
             <TableBody v-auto-animate>
                 <TableRow v-for="product in products" :key="product.item">
-                    <!--                    <TableCell class="md:w-[50px]"> -->
-                    <!--                        {{ product.id }} -->
-                    <!--                    </TableCell> -->
-                    <TableCell
-                        class="font-bold overflow-hidden transition duration-300"
-                    >
+                    <TableCell class="font-bold overflow-hidden transition duration-300">
                         <div class="flex items-center gap-2">
                             <span
                                 class="flex items-center cursor-pointer"
-                                @click="
-                                    () => cartStore.deleteCartItem(product.item)
-                                "
+                                @click="() => cartStore.deleteCartItem(product.item)"
                             >
                                 <Icon
                                     name="mdi:remove"
@@ -63,26 +53,23 @@
                         </div>
                     </TableCell>
                     <TableCell>
-                        <NumberField :default-value="product.qty" :min="0">
+                        <NumberField :default-value="product.qty" :min="1">
                             <NumberFieldContent>
                                 <NumberFieldDecrement
-                                    @click.prevent="
-                                        () => cartStore.reduceQuantity(product)
-                                    "
+                                    @click.prevent="updateQuantity(product, -1)"
                                 />
-                                <NumberFieldInput :value="product.qty" />
+                                <NumberFieldInput
+                                    :value="product.qty"
+                                    @input="onQuantityInput($event, product)"
+                                />
                                 <NumberFieldIncrement
-                                    @click.prevent="
-                                        () => addQuantityWithStockCheck(product)
-                                    "
+                                    @click.prevent="updateQuantity(product, 1)"
                                 />
                             </NumberFieldContent>
                         </NumberField>
                     </TableCell>
                     <TableCell class="text-right">
-                        <span class="font-bold">{{
-                            currencyFormat(product.amount)
-                        }}</span>
+                        <span class="font-bold">{{ currencyFormat(product.amount) }}</span>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -104,16 +91,39 @@ import { useCart } from '~/stores/useCart';
 const cartStore = useCart();
 
 defineProps({
-    products: Object,
+    products: Array,
 });
 
-const addQuantityWithStockCheck = (product: any) => {
-    if (product.qty < product.stock) {
-        cartStore.addQuantity(product);
-    } else {
+// Update quantity by a fixed increment (like -1 or +1)
+const updateQuantity = (product: any, change: number) => {
+    if (product.qty + change >= 1 && product.qty + change <= product.stock) {
+        product.qty += change;
+        product.amount = product.qty * product.price;
+        cartStore.updateCartItem(product);
+    } else if (product.qty + change > product.stock) {
         toasts('Sorry, that is the maximum quantity available!', {
             type: 'warning',
         });
+    }
+};
+
+// Handle manual input of quantity
+const onQuantityInput = (event: Event, product: any) => {
+    const input = parseInt((event.target as HTMLInputElement).value, 10);
+
+    if (!isNaN(input) && input >= 1 && input <= product.stock) {
+        // Update quantity and total amount if input is valid and not zero
+        product.qty = input;
+        product.amount = product.qty * product.price;
+        cartStore.updateCartItem(product);
+    } else if (input > product.stock) {
+        toasts('Sorry, that is the maximum quantity available!', {
+            type: 'warning',
+        });
+    } else {
+        // Reset to minimum quantity if the input is invalid or below 1
+        product.qty = 1;
+        product.amount = product.qty * product.price;
     }
 };
 </script>
