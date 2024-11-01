@@ -1,8 +1,5 @@
 <template>
-    <div
-        id="receipt"
-        class="min-h-screen flex items-center justify-center py-6"
-    >
+    <div id="receipt" class="min-h-screen flex items-center justify-center">
         <div
             class="bg-white p-6 rounded-lg shadow-md w-full max-w-md text-sm font-mono border border-gray-300"
         >
@@ -138,7 +135,7 @@
             <div class="mt-6 text-center">
                 <button
                     class="bg-blue-500 text-white px-4 py-2 rounded shadow"
-                    @click=""
+                    @click="printReceipt"
                 >
                     Print Receipt
                 </button>
@@ -149,7 +146,7 @@
 
 <script setup lang="ts">
 const storeName = ref('Shop Name');
-const storeAddress = ref('Kalye Manobol, Biliran, Biliran');
+const storeAddress = ref('Store Address');
 const vatNumber = ref('000-000-000-000');
 const minNumber = ref('123456789');
 const serialNumber = ref('AB98765XYZ');
@@ -195,13 +192,13 @@ const nonVatSales = ref(31.43);
 const zeroRatedSales = ref(0.0);
 const totalVat = ref(13.93);
 
-// const printReceipt = () => {
-//     const receiptElement = document.getElementById('receipt').innerHTML;
-//     const originalContent = document.body.innerHTML;
-//     document.body.innerHTML = receiptElement;
-//     window.print();
-//     document.body.innerHTML = originalContent;
-// };
+const printReceipt = () => {
+    const receiptElement = document.getElementById('receipt').innerHTML;
+    const originalContent = document.body.innerHTML;
+    document.body.innerHTML = receiptElement;
+    window.print();
+    document.body.innerHTML = originalContent;
+};
 </script>
 
 <style scoped>

@@ -1,6 +1,7 @@
 <template>
     <div
         v-if="visible"
+        v-auto-animate
         class="fixed z-50 inset-0 bg-primary/10 backdrop-blur-sm flex items-center justify-center text-foreground"
     >
         <div
@@ -185,11 +186,21 @@
                             }}</span>
                         </template>
                     </Button>
+                    <Button
+                        :disabled="change < 0 || loading"
+                        variant="secondary"
+                        class="p-8 transition duration-300 dark:hover:bg-accent w-[100px]"
+                        @click.prevent="toggleReceipt()"
+                    >
+                        <Icon name="mdi:printer-receipt-edit" size="36" />
+                    </Button>
                 </div>
             </div>
         </div>
 
-        <PosReceipt />
+        <div v-if="receiptVisible" class="h-[700px] overflow-y-scroll p-4">
+            <PosReceipt />
+        </div>
     </div>
 </template>
 
@@ -231,7 +242,12 @@ defineProps({
 
 const router = useRouter();
 const form = ref<Record<string, any>>({});
+const receiptVisible = ref(false);
 const loading = ref(false);
+
+const toggleReceipt = () => {
+    receiptVisible.value = !receiptVisible.value;
+};
 
 const cartStore = useCart();
 const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
