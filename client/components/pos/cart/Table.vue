@@ -53,7 +53,7 @@
                         </div>
                     </TableCell>
                     <TableCell>
-                        <NumberField :default-value="product.qty" :min="1">
+                        <NumberField :default-value="product.qty" :min="0">
                             <NumberFieldContent>
                                 <NumberFieldDecrement
                                     @click.prevent="updateQuantity(product, -1)"
@@ -94,12 +94,10 @@ defineProps({
     products: Array,
 });
 
-// Update quantity by a fixed increment (like -1 or +1)
 const updateQuantity = (product: any, change: number) => {
     if (product.qty + change >= 1 && product.qty + change <= product.stock) {
         product.qty += change;
-        product.amount = product.qty * product.price;
-        cartStore.updateCartItem(product);
+		product.amount = product.qty * product.price;
     } else if (product.qty + change > product.stock) {
         toasts('Sorry, that is the maximum quantity available!', {
             type: 'warning',
@@ -107,21 +105,17 @@ const updateQuantity = (product: any, change: number) => {
     }
 };
 
-// Handle manual input of quantity
 const onQuantityInput = (event: Event, product: any) => {
     const input = parseInt((event.target as HTMLInputElement).value, 10);
 
     if (!isNaN(input) && input >= 1 && input <= product.stock) {
-        // Update quantity and total amount if input is valid and not zero
         product.qty = input;
         product.amount = product.qty * product.price;
-        cartStore.updateCartItem(product);
     } else if (input > product.stock) {
         toasts('Sorry, that is the maximum quantity available!', {
             type: 'warning',
         });
     } else {
-        // Reset to minimum quantity if the input is invalid or below 1
         product.qty = 1;
         product.amount = product.qty * product.price;
     }
