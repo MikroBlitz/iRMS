@@ -1,4 +1,4 @@
-<template>
+<template> 
   <div id="receipt" class="min-h-screen flex items-center justify-center py-6">
     <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md text-sm font-mono border border-gray-300">
       
@@ -127,57 +127,84 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      storeName: 'NIPROSOFT I.T SERVICES',
-      storeAddress: 'Kalye Manobol, BIliran, Biliran',
-      vatNumber: '000-000-000-000',
-      minNumber: '123456789',
-      serialNumber: 'AB98765XYZ',
-      posId: '001',
-      customerType: 'Guest',
-      cashierName: 'Louie Corpin',
-      transactionNumber: '00000000001',
-      transactionDate: '10/25/2019 09:05:42',
-      items: [
-        { id: 1, name: 'Del Monte Fruit Cocktail 825g', quantity: 1, price: 99.75, total: 99.75 },
-        { id: 2, name: 'Argentina C/Beef 150g', quantity: 1, price: 30.25, total: 30.25 },
-        { id: 3, name: 'Ambroxol Tab 75mg', quantity: 2, price: 22.00, total: 44.00 }
-      ],
-      subtotal: 161.45,
-      vatAmount: 4.71,
-      discount: 7.86,
-      totalAmount: 161.45,
-      paymentReceived: 200.00,
-      change: 38.55,
-      vatSales: 116.09,
-      nonVatSales: 31.43,
-      zeroRatedSales: 0.00,
-      totalVat: 13.93,
-      website: 'www.xyzgeneral.com'
-    };
-  },
-  methods: {
-    formatPrice(value) {
-      return `₱${value.toFixed(2)}`;
-    },
-    printReceipt() {
+import { ref, reactive, computed, defineComponent } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const storeName = ref('NIPROSOFT I.T SERVICES');
+    const storeAddress = ref('Kalye Manobol, Biliran, Biliran');
+    const vatNumber = ref('000-000-000-000');
+    const minNumber = ref('123456789');
+    const serialNumber = ref('AB98765XYZ');
+    const posId = ref('001');
+    const customerType = ref('Guest');
+    const cashierName = ref('Louie Corpin');
+    const transactionNumber = ref('00000000001');
+    const transactionDate = ref('10/25/2019 09:05:42');
+    const website = ref('www.xyzgeneral.com');
+
+    const items = reactive([
+      { id: 1, name: 'Del Monte Fruit Cocktail 825g', quantity: 1, price: 99.75, total: 99.75 },
+      { id: 2, name: 'Argentina C/Beef 150g', quantity: 1, price: 30.25, total: 30.25 },
+      { id: 3, name: 'Ambroxol Tab 75mg', quantity: 2, price: 22.00, total: 44.00 }
+    ]);
+
+    const subtotal = ref(161.45);
+    const vatAmount = ref(4.71);
+    const discount = ref(7.86);
+    const totalAmount = ref(161.45);
+    const paymentReceived = ref(200.00);
+    const change = ref(38.55);
+    const vatSales = ref(116.09);
+    const nonVatSales = ref(31.43);
+    const zeroRatedSales = ref(0.00);
+    const totalVat = ref(13.93);
+
+    const formatPrice = (value) => `₱${value.toFixed(2)}`;
+
+    const printReceipt = () => {
       const receiptElement = document.getElementById("receipt").innerHTML;
       const originalContent = document.body.innerHTML;
       document.body.innerHTML = receiptElement;
       window.print();
       document.body.innerHTML = originalContent;
-    }
+    };
+
+    return {
+      storeName,
+      storeAddress,
+      vatNumber,
+      minNumber,
+      serialNumber,
+      posId,
+      customerType,
+      cashierName,
+      transactionNumber,
+      transactionDate,
+      items,
+      subtotal,
+      vatAmount,
+      discount,
+      totalAmount,
+      paymentReceived,
+      change,
+      vatSales,
+      nonVatSales,
+      zeroRatedSales,
+      totalVat,
+      website,
+      formatPrice,
+      printReceipt
+    };
   }
-}
+});
 </script>
 
 <style scoped>
-/* Hide the print button when printing */
 @media print {
   button {
     display: none;
   }
 }
 </style>
+
