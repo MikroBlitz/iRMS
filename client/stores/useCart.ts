@@ -87,13 +87,35 @@ export const useCart = defineStore('cart', {
                 cartItem.amount = cartItem.qty * cartItem.price;
             }
         },
-        updateQuantity(product: CartProduct) {
-            const cartItem: any = this.cartItems.find(
-                (item) => item.item === product.item,
+        updateQuantity(product: any, change: number) {
+            if (
+                product.qty + change >= 1 &&
+                product.qty + change <= product.stock
+            ) {
+                product.qty += change;
+                product.amount = product.qty * product.price;
+            } else if (product.qty + change > product.stock) {
+                toasts('Sorry, that is the maximum quantity available!', {
+                    type: 'warning',
+                });
+            }
+        },
+        onQuantityInput(event: Event, product: any) {
+            const input = parseInt(
+                (event.target as HTMLInputElement).value,
+                10,
             );
-            if (cartItem && !isNaN(product.qty)) {
-                cartItem.qty = product.qty;
-                cartItem.amount = cartItem.qty * cartItem.price;
+
+            if (!isNaN(input) && input >= 1 && input <= product.stock) {
+                product.qty = input;
+                product.amount = product.qty * product.price;
+            } else if (input > product.stock) {
+                toasts('Sorry, that is the maximum quantity available!', {
+                    type: 'warning',
+                });
+            } else {
+                product.qty = 1;
+                product.amount = product.qty * product.price;
             }
         },
         clearCart() {

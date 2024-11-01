@@ -30,11 +30,15 @@
             </TableHeader>
             <TableBody v-auto-animate>
                 <TableRow v-for="product in products" :key="product.item">
-                    <TableCell class="font-bold overflow-hidden transition duration-300">
+                    <TableCell
+                        class="font-bold overflow-hidden transition duration-300"
+                    >
                         <div class="flex items-center gap-2">
                             <span
                                 class="flex items-center cursor-pointer"
-                                @click="() => cartStore.deleteCartItem(product.item)"
+                                @click="
+                                    () => cartStore.deleteCartItem(product.item)
+                                "
                             >
                                 <Icon
                                     name="mdi:remove"
@@ -56,20 +60,31 @@
                         <NumberField :default-value="product.qty" :min="0">
                             <NumberFieldContent>
                                 <NumberFieldDecrement
-                                    @click.prevent="updateQuantity(product, -1)"
+                                    @click.prevent="
+                                        cartStore.updateQuantity(product, -1)
+                                    "
                                 />
                                 <NumberFieldInput
                                     :value="product.qty"
-                                    @input="onQuantityInput($event, product)"
+                                    @input="
+                                        cartStore.onQuantityInput(
+                                            $event,
+                                            product,
+                                        )
+                                    "
                                 />
                                 <NumberFieldIncrement
-                                    @click.prevent="updateQuantity(product, 1)"
+                                    @click.prevent="
+                                        cartStore.updateQuantity(product, 1)
+                                    "
                                 />
                             </NumberFieldContent>
                         </NumberField>
                     </TableCell>
                     <TableCell class="text-right">
-                        <span class="font-bold">{{ currencyFormat(product.amount) }}</span>
+                        <span class="font-bold">{{
+                            currencyFormat(product.amount)
+                        }}</span>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -87,37 +102,11 @@ import {
 } from '@/components/ui/table';
 import { currencyFormat } from '~/utils/pos';
 import { useCart } from '~/stores/useCart';
+import type { CartProduct } from '~/types';
 
 const cartStore = useCart();
 
 defineProps({
-    products: Array,
+    products: Array as PropType<CartProduct[]>,
 });
-
-const updateQuantity = (product: any, change: number) => {
-    if (product.qty + change >= 1 && product.qty + change <= product.stock) {
-        product.qty += change;
-		product.amount = product.qty * product.price;
-    } else if (product.qty + change > product.stock) {
-        toasts('Sorry, that is the maximum quantity available!', {
-            type: 'warning',
-        });
-    }
-};
-
-const onQuantityInput = (event: Event, product: any) => {
-    const input = parseInt((event.target as HTMLInputElement).value, 10);
-
-    if (!isNaN(input) && input >= 1 && input <= product.stock) {
-        product.qty = input;
-        product.amount = product.qty * product.price;
-    } else if (input > product.stock) {
-        toasts('Sorry, that is the maximum quantity available!', {
-            type: 'warning',
-        });
-    } else {
-        product.qty = 1;
-        product.amount = product.qty * product.price;
-    }
-};
 </script>

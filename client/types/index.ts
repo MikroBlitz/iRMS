@@ -47,11 +47,14 @@ export type CrudButton = {
 
 export type CartProduct = {
     id?: any;
-    item?: string | undefined;
+    item?: string | any;
     price?: number | undefined;
     qty?: number | undefined;
     amount?: number | undefined;
     stock?: Stock[] | any;
+    totalAmount?: number | any;
+    totalTax?: number | any;
+    promotionAmount?: number | any;
 };
 
 export type Order = {
