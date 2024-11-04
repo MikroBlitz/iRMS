@@ -14,8 +14,8 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const modalFields = ref(fields);
     const isLoading = ref(false);
 
-    const currentPage = 1;
-    const perPage = 50;
+    const currentPage: number = 1;
+    const perPage: number = 50;
     const paginatorInfo = ref<PaginatorInfo>();
 
     const {

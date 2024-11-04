@@ -11,8 +11,8 @@ export const logs = gql`
 `;
 
 export const logsPaginate = gql`
-    query logsPaginate($search: String) {
-        logsPaginate(search: $search) {
+    query logsPaginate($search: String, $first: Int!, $page: Int) {
+        logsPaginate(search: $search, first: $first, page: $page) {
             data {
                 ...log
             }

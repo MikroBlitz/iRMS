@@ -34,49 +34,17 @@ definePageMeta({
     layout: 'app-layout',
 });
 
-const modelName = 'order';
+const modelName = 'log';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:cart-outline';
+const icon = 'mdi:blog';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
-    { key: (val) => convertToBasicDateTime(val.date), label: 'Date' },
-    {
-        key: 'customer_guest',
-        label: 'Customer',
-    },
-    {
-        key: (val) =>
-            val.order_items
-                .map((item: any) => `${item.product.name}(${item.qty})`)
-                .join(', '),
-        label: 'Items (Qty)',
-    },
-    {
-        key: (val) => {
-            const paymentTypes: Record<number, string> = {
-                0: 'Cash',
-                1: 'Gcash',
-                2: 'Bank Transfer',
-            };
-            return paymentTypes[val.payment];
-        },
-        label: 'Payment',
-    },
-    { key: (val) => currencyFormat(val.total_amount), label: 'Total Amount' },
-    { key: (val) => currencyFormat(val.cash_tendered), label: 'Cash Tendered' },
-    { key: (val) => currencyFormat(val.change), label: 'Change' },
-    {
-        key: (val) => {
-            const statusTypes: Record<number, string> = {
-                0: 'Completed',
-                1: 'On-Hold',
-                2: 'Cancelled',
-            };
-            return statusTypes[val.status];
-        },
-        label: 'Status',
-    },
+    { key: (val) => convertToBasicDateTime(val.created_at), label: 'Date' },
+    { key: 'user.name', label: 'User' },
+    { key: 'event', label: 'Event' },
+    { key: 'ip_address', label: 'IP' },
+    { key: 'browser', label: 'Browser' },
 ];
 
 const modelFields: CrudModalField[] = [];

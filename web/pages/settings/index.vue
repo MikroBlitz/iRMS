@@ -65,6 +65,13 @@ const itemLinks = [
         iconColor: 'text-foreground',
     },
     {
+        title: 'Logs',
+        path: '/settings/logs',
+        icon: 'mdi:blog',
+        textColor: 'text-foreground',
+        iconColor: 'text-foreground',
+    },
+    {
         title: 'Recycle Bin',
         path: '/settings/recycle-bin',
         icon: 'mdi:trash-can-outline',
