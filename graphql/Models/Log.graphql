@@ -1,0 +1,31 @@
+type Log {
+    id: ID!
+    ip_address: String
+    browser: String
+    loggable: Loggable
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+input LogInput {
+    ip_address: String
+    browser: String
+}
+
+union Loggable = User | Customer | Order | Job | Product | Category | Inventory
+
+extend type Query {
+    logs(
+        search: String @scope(name: "search")
+    ): [Log!]! @all
+    logsPaginate(
+        search: String @scope(name: "search")
+    ): [Log!]! @paginate
+}
+
+extend type Mutation {
+    upsertLog(input: LogInput! @spread): Log @upsert
+    deleteLog(id: [ID!] @eq): [Log] @delete
+    restoreLog(id: [ID!] @eq): [Log] @restore
+}
