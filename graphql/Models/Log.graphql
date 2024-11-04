@@ -1,19 +1,20 @@
 type Log {
     id: ID!
+    user: User @belongsTo
+    event: String
     ip_address: String
     browser: String
-    loggable: Loggable
-    created_at: DateTime!
-    updated_at: DateTime!
+    created_at: DateTime
+    updated_at: DateTime
     deleted_at: DateTime
 }
 
 input LogInput {
+    user: ConnectUserRelation
+    event: String
     ip_address: String
     browser: String
 }
-
-union Loggable = User | Customer | Order | Job | Product | Category | Inventory
 
 extend type Query {
     logs(

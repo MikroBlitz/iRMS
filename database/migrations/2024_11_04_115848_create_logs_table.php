@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_address')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('event')->nullable();
+            $table->ipAddress()->nullable();
             $table->string('browser')->nullable();
-            $table->morphs('loggable');
             $table->timestamps();
             $table->softDeletes();
         });

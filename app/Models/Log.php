@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Log extends Model
@@ -13,13 +13,13 @@ class Log extends Model
 
     protected $fillable = ['user_id', 'ip_address', 'browser'];
 
-    public function loggable(): MorphTo
-    {
-        return $this->morphTo();
-    }
-
     public function scopeSearch($query, $search)
     {
         return $query->where('id', 'like', '%' . $search . '%');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

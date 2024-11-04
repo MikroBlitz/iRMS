@@ -10,7 +10,7 @@ type User {
     jobs(status: JobStatus): [Job!]! @hasMany(type: PAGINATOR, scopes: ["userType"])
     role: Int # TODO: use enum
     customers: [Customer!]! @hasMany
-    logs: [Log!]! @morphMany
+    logs: [Log] @hasMany
     created_at: DateTime
     updated_at: DateTime
     deleted_at: DateTime
@@ -26,20 +26,20 @@ input UserInput {
     password: String @hash
     role: Int # TODO: use enum
     customers: ConnectCustomersRelation
-    logs: ConnectUserRelation
+    logs: ConnectUsersRelation
 }
 
 input ConnectUserRelation {
     id: ID
     connect: ID
-    upsert: UserInput!
+    upsert: UserInput
     delete: ID
 }
 
 input ConnectUsersRelation {
     id: [ID]
     connect: [ID]
-    upsert: [UserInput!]
+    upsert: [UserInput]
     delete: [ID]
 }
 
