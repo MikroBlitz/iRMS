@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from '~/plugins/axios';
+import { upsertLog } from '~/graphql/Log.ts';
 
 const $axios = axios().provide.axios;
 
@@ -20,10 +21,27 @@ export const useAuth = defineStore('auth', {
         },
         async login(email: string, password: string) {
             this.resetUser();
-            await $axios.post('/login', {
-                email: email,
-                password: password,
-            });
+            try {
+                await $axios.post('/login', {
+                    email: email,
+                    password: password,
+                });
+            } catch (error) {
+                console.error('Login failed:', error);
+            } finally {
+                const response = await $axios.get('/api/authenticated-user');
+                const userId = response.data[0].id;
+                const { mutate } = useMutation(upsertLog);
+                const logInput = {
+                    ip_address: '127.0.0.1',
+                    browser: 'Test',
+                    event: 'login',
+                    user: {
+                        connect: userId.toString(),
+                    },
+                };
+                await mutate({ input: logInput });
+            }
         },
         async getUser() {
             const response = await $axios.get('/api/authenticated-user');
@@ -37,8 +55,26 @@ export const useAuth = defineStore('auth', {
             // console.log(response.data[0]);
         },
         async logout() {
-            this.resetUser();
-            await $axios.post('/logout');
+            try {
+                const response = await $axios.get('/api/authenticated-user');
+                const userId = response.data[0].id;
+                const { mutate } = useMutation(upsertLog);
+                const log = {
+                    ip_address: '127.0.0.1',
+                    browser: 'Test',
+                    event: 'logout',
+                    user: {
+                        connect: userId.toString(),
+                    },
+                };
+
+                await mutate({ input: log });
+            } catch (error) {
+                console.error('Logout failed:', error);
+            } finally {
+                this.resetUser();
+                await $axios.post('/logout');
+            }
         },
         resetUser() {
             this.$state.user.id = '';

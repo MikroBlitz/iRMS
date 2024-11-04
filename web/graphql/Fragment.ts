@@ -5,9 +5,14 @@ export const logFragment = gql`
         id
         ip_address
         browser
+        event
+        user {
+            id
+            name
+        }
         created_at
-        updated_at
         deleted_at
+        updated_at
     }
 `;
 
