@@ -88,7 +88,8 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                   )),
                   toasts(`${toTitleCase(singularName)} deleted.`, {
                       type: 'success',
-                  }))
+                  }),
+                  fetchDataPaginate(perPage, currentPage))
                 : toasts('You are not authorized to delete.', {
                       type: 'warning',
                   });

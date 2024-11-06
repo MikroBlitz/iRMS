@@ -20,9 +20,8 @@ export const useAuth = defineStore('auth', {
             await $axios.get('/sanctum/csrf-cookie');
         },
         async login(email: string, password: string) {
-            // TODO: refactor logs
-            this.resetUser();
             try {
+                this.resetUser();
                 await $axios.post('/login', {
                     email: email,
                     password: password,
@@ -31,17 +30,12 @@ export const useAuth = defineStore('auth', {
                 console.error('Login failed:', error);
             } finally {
                 const response = await $axios.get('/api/authenticated-user');
+
                 const userId = response.data[0].id;
                 const { mutate } = useMutation(upsertLog);
-                const logInput = {
-                    ip_address: '127.0.0.1',
-                    browser: 'Test',
-                    event: 'login',
-                    user: {
-                        connect: userId.toString(),
-                    },
-                };
-                await mutate({ input: logInput });
+                const log = authLogs(userId, 'Login');
+
+                await mutate({ input: log });
             }
         },
         async getUser() {
@@ -53,28 +47,21 @@ export const useAuth = defineStore('auth', {
             this.$state.user.middle_name = response.data[0].middle_name;
             this.$state.user.last_name = response.data[0].last_name;
             this.$state.user.name = response.data[0].name;
-            // console.log(response.data[0]);
         },
         async logout() {
             try {
                 const response = await $axios.get('/api/authenticated-user');
+
                 const userId = response.data[0].id;
                 const { mutate } = useMutation(upsertLog);
-                const log = {
-                    ip_address: '127.0.0.1',
-                    browser: 'Test',
-                    event: 'logout',
-                    user: {
-                        connect: userId.toString(),
-                    },
-                };
-
+                const log = authLogs(userId, 'Logout');
                 await mutate({ input: log });
+
+                await $axios.post('/logout');
             } catch (error) {
                 console.error('Logout failed:', error);
             } finally {
                 this.resetUser();
-                await $axios.post('/logout');
             }
         },
         resetUser() {
