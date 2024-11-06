@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from '~/plugins/axios';
-import { upsertLog } from '~/graphql/Log.ts';
+import { upsertLog } from '~/graphql/Log';
 
 const $axios = axios().provide.axios;
 
@@ -20,6 +20,7 @@ export const useAuth = defineStore('auth', {
             await $axios.get('/sanctum/csrf-cookie');
         },
         async login(email: string, password: string) {
+            // TODO: refactor logs
             this.resetUser();
             try {
                 await $axios.post('/login', {

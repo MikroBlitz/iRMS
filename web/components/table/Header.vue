@@ -30,13 +30,12 @@
             >
                 <Button
                     v-if="router.currentRoute.value.name !== 'dashboard'"
-                    variant="destructive"
                     icon
                     size="sm"
-                    class="rounded-full px-2"
+                    class="rounded-full px-2 bg-destructive/80"
                     @click="router.back()"
                 >
-                    <Icon name="mdi:arrow-left" size="20" />
+                    <Icon name="mdi:arrow-left-thick" size="20" />
                 </Button>
                 <slot name="actions" />
             </div>
