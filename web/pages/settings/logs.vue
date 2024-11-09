@@ -41,7 +41,7 @@ const icon = 'mdi:blog';
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'event', label: 'Event' },
-    { key: (val) => convertToBasicDateTime(val.created_at), label: 'Date' },
+    { key: (val) => toBasicDateTime(val.created_at), label: 'Date' },
     { key: 'user.name', label: 'User' },
     { key: 'ip_address', label: 'IP' },
     { key: 'browser', label: 'Browser' },

@@ -44,14 +44,14 @@ export type Product = {
 
 export type Order = {
     id: string;
-    customer_id: number | null;
-    order_date: string | null;
-    total_amount: number | null;
-    status: string | null;
-    ordersCount: number | null;
-    created_at: string | null;
-    updated_at: string | null;
-    deleted_at: string | null;
+    customer_id: number | any;
+    order_date: string | any;
+    total_amount: number | any;
+    status: string | any;
+    ordersCount: number | any;
+    created_at: string | any;
+    updated_at: string | any;
+    deleted_at: string | any;
 };
 
 export type Customer = {
