@@ -208,6 +208,7 @@
 
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
+import { useMagicKeys } from '@vueuse/core';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import {
@@ -216,6 +217,9 @@ import {
     paymentMethods,
 } from '~/composables/useConstant';
 import type { ModalField } from '~/types';
+
+const keys = useMagicKeys();
+const proceedPayment = keys['Ctrl+Enter'];
 
 const emit = defineEmits(['close']);
 defineProps({
@@ -247,7 +251,6 @@ defineProps({
 });
 
 const isMobile = inject('isMobile');
-const router = useRouter();
 const form = ref<Record<string, any>>({});
 const loading = ref(false);
 const receiptVisible = ref(false);
@@ -328,9 +331,6 @@ const completeOrder = async () => {
             cartStore.paymentSuccess();
 
             loading.value = false;
-            setTimeout(() => {
-                router.push('/orders');
-            }, 1500);
         } else {
             toasts('Please enter a customer name!', { type: 'error' });
         }
@@ -348,4 +348,10 @@ const completeOrder = async () => {
         console.error('Error completing order:', error);
     }
 };
+
+watch(proceedPayment, (e) => {
+    if (e) {
+        completeOrder();
+    }
+});
 </script>

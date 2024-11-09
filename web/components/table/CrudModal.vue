@@ -223,6 +223,7 @@
 
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
+import { useMagicKeys } from '@vueuse/core';
 import {
     ComboboxAnchor,
     ComboboxContent,
@@ -263,6 +264,9 @@ const props = defineProps({
     model: String,
 });
 
+const keys = useMagicKeys();
+const continueSubmit = keys['Enter'];
+const cancelSubmit = keys['Escape'];
 const showPassword = ref<Record<string, boolean>>({});
 const emit = defineEmits(['submit', 'close']);
 const form = ref<Record<string, any>>({});
@@ -320,4 +324,7 @@ onMounted(async () => {
         }
     }
 });
+
+watch(continueSubmit, (e) => (e ? handleSubmit() : null));
+watch(cancelSubmit, (e) => (e ? closeModal() : null));
 </script>

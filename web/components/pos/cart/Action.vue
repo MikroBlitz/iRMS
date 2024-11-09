@@ -63,9 +63,13 @@
 </template>
 
 <script setup lang="ts">
+import { useMagicKeys } from '@vueuse/core';
 import { Button } from '@/components/ui/button';
 import { useCart } from '~/stores/useCart';
 
+const keys = useMagicKeys();
+const continuePayment = keys['Ctrl+Enter'];
+const closeModal = keys['Escape'];
 const router = useRouter();
 const cartStore = useCart();
 
@@ -106,4 +110,7 @@ const handleSubmit = () => {
     }
     closePosModal();
 };
+
+watch(continuePayment, (e) => (e ? openPosModal() : null));
+watch(closeModal, (e) => (e ? closePosModal() : null));
 </script>
