@@ -19,6 +19,8 @@ definePageMeta({
     layout: 'pos',
 });
 
+const isMobile = inject('isMobile');
+
 // TODO: dynamic input for restock qty and inventory location
 const restockQty = ref(10);
 const inventoryLocation = ref(0);
@@ -30,11 +32,6 @@ const customerName: Ref<string> = ref('Guest');
 const cashTendered: Ref<string> = ref('');
 const paymentMethod: Ref<number> = ref(0);
 const status: Ref<number> = ref(0);
-
-const isMobile = ref(false);
-const checkIsMobile = () => {
-    isMobile.value = window.innerWidth <= 768;
-};
 
 const modelName = 'product';
 const modelFields = ['name', 'image', 'price', 'qty'].map((name) => ({
@@ -83,15 +80,9 @@ onMounted(() => {
     }
 });
 
-onMounted(() => {
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-});
-
 provide('restockQty', restockQty);
 provide('inventoryLocation', inventoryLocation);
 provide('customerName', customerName);
-provide('isMobile', isMobile);
 provide('search', search);
 provide('selectedCategory', selectedCategory);
 provide('filteredItems', filteredItems);

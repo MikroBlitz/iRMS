@@ -8,8 +8,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useMediaQuery } from '@vueuse/core';
+
 const theme = useTheme();
 const themeName = computed(() => theme.name);
+const isMobile = useMediaQuery('(max-width: 768px)');
 
 useHead({
     title: 'APP',
@@ -26,4 +29,6 @@ useHead({
     ],
     bodyAttrs: { class: [themeName], id: 'app' },
 });
+
+provide('isMobile', isMobile);
 </script>

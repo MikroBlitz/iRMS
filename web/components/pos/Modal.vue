@@ -206,7 +206,6 @@
 
             <div
                 v-if="receiptVisible"
-                :class="{ hidden: change < 0 || loading }"
                 class="h-[670px] bg-card rounded-lg overflow-y-scroll p-2"
             >
                 <PosReceipt />
@@ -279,7 +278,10 @@ const appendZero = () =>
         : null;
 const appendNumber = (num: string) =>
     (cashTendered.value = (cashTendered.value + num).toString());
-const clearInput = () => (cashTendered.value = '');
+const clearInput = () => {
+    cashTendered.value = '';
+    receiptVisible.value = false;
+};
 const appendDot = () =>
     !cashTendered.value.includes('.')
         ? (cashTendered.value = cashTendered.value + '.')
