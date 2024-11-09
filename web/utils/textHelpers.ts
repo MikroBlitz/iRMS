@@ -32,7 +32,7 @@ export const toCamelCase = (str: string): string => {
         .replace(/\s+|[_-]/g, '');
 };
 
-export const toBasicDateTime = (isoString: string): string => {
+export const toBasicDateTime = (isoString: string | Date): string => {
     const date = new Date(isoString);
 
     const year = date.getFullYear();

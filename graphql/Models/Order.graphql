@@ -1,7 +1,7 @@
 type Order {
     id: ID
     customer_id: ID
-    cash_tendered: String
+    cash_tendered: Float
     change: Float
     date: String
     payment: Int # TODO: PaymentStatus

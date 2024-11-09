@@ -1,7 +1,7 @@
 <template>
-    <div id="receipt" class="min-h-screen flex items-center justify-center">
+    <div id="receipt" class="flex items-center justify-center">
         <div
-            class="bg-white p-6 rounded shadow-md w-full text-xs max-w-md font-mono border border-gray-300"
+            class="bg-white p-6 rounded shadow-md w-[350px] text-xs max-w-md font-mono border border-gray-300"
         >
             <!-- Store Information (Header) -->
             <div class="text-center mb-2 text-black">
@@ -26,7 +26,7 @@
             </div>
 
             <!-- Itemized List -->
-            <table class="w-full mb-4 text-black">
+            <table class="w-full mb-2 text-black">
                 <thead>
                     <tr class="border-b border-gray-300">
                         <th class="text-left py-1">Item</th>
@@ -42,15 +42,17 @@
                         class="border-b border-gray-300"
                     >
                         <td class="py-1">
-                            {{ i.item }}
+                            <span class="break-words overflow-auto">{{
+                                i.item
+                            }}</span>
                         </td>
-                        <td class="text-right py-1">
+                        <td class="text-right px-1">
                             {{ i.qty }}
                         </td>
-                        <td class="text-right py-1">
+                        <td class="text-right px-1">
                             {{ formatPrice(i.price) }}
                         </td>
-                        <td class="text-right py-1">
+                        <td class="text-right px-1">
                             {{ formatPrice(i.amount) }}
                         </td>
                     </tr>
@@ -58,7 +60,7 @@
             </table>
 
             <!-- Subtotals and Discounts -->
-            <div class="mb-4 space-y-1 text-black">
+            <div class="mb-4 text-black">
                 <div class="flex justify-between">
                     <p>Subtotal:</p>
                     <p>{{ currencyFormat(cartStore.totalAmount) }}</p>
@@ -145,7 +147,7 @@
             <div class="mt-6 text-center">
                 <button
                     class="bg-blue-500 text-white px-4 py-2 rounded shadow"
-                    @click="printReceipt"
+                    @click="printReceipt(customerName)"
                 >
                     Print Receipt
                 </button>
@@ -155,21 +157,20 @@
 </template>
 
 <script setup lang="ts">
+import { storeName } from '../../composables/useConstant';
 import { useCart } from '~/stores/useCart';
+import { printReceipt } from '~/utils/pos';
 
 const auth = useAuth();
-const cartStore = useCart();
-const customerName = inject('customerName');
+const cartStore: any = useCart();
+const customerName: any = inject('customerName');
 const customerAddress = ref('');
 const customerType = ref('Guest');
 
-const date = new Date();
-const toISOString = (date: Date) =>
-    date.toISOString().slice(0, 19).replace('T', ' ');
-const transactionDate = toISOString(date);
+const date: Date = new Date();
+const transactionDate = toBasicDateTime(date);
 
 const cashTendered: any = inject('cashTendered');
-
 const change: ComputedRef<number> = computed(() =>
     parseFloat(
         (cashTendered.value - cartStore.totalAmountWithTaxAndDiscount).toFixed(
@@ -177,53 +178,6 @@ const change: ComputedRef<number> = computed(() =>
         ),
     ),
 );
-
-const storeName = ref('Shop Name');
-const storeAddress = ref('Store Address');
-const vatNumber = ref('000-000-000-000');
-const minNumber = ref('123456789');
-const serialNumber = ref('AB98765XYZ');
-const posId = ref('001');
-const transactionNumber = ref('00000000001');
-const website = ref('www.website.com');
-
-const items = reactive([
-    {
-        id: 1,
-        name: 'Del Monte Fruit Cocktail 825g',
-        quantity: 1,
-        price: 99.75,
-        total: 99.75,
-    },
-    {
-        id: 2,
-        name: 'Argentina C/Beef 150g',
-        quantity: 1,
-        price: 30.25,
-        total: 30.25,
-    },
-    {
-        id: 3,
-        name: 'Ambroxol Tab 75mg',
-        quantity: 2,
-        price: 22.0,
-        total: 44.0,
-    },
-]);
-
-// const vatSales = ref(0.0);
-// const nonVatSales = ref(0.0);
-// const zeroRatedSales = ref(0.0);
-// const totalVat = ref(0.0);
-
-const printReceipt = () => {
-    // const receiptElement = document.getElementById('receipt').innerHTML;
-    // const originalContent = document.body.innerHTML;
-    // document.body.innerHTML = receiptElement;
-    // window.print();
-    // document.body.innerHTML = originalContent;
-    alert('Printing not supported yet');
-};
 </script>
 
 <style scoped>
