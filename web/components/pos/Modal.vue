@@ -211,7 +211,7 @@
 import { vOnClickOutside } from '@vueuse/components';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { getPaymentMethod, paymentMethods } from '~/composables/usePos';
+import { getPaymentMethod, paymentMethods } from '~/composables/useConstant';
 import type { ModalField } from '~/types';
 
 const emit = defineEmits(['close']);
