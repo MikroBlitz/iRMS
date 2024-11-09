@@ -12,7 +12,7 @@
                 class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative"
             >
                 <div class="flex justify-between items-center mb-2 px-4">
-                    <h3 class="text-2xl font-bold">
+                    <h3 class="text-xl font-bold">
                         <template v-if="customerName">
                             {{ `Order for: ${customerName}` }}
                         </template>
@@ -152,7 +152,7 @@
                             </Button>
                             <Button
                                 variant="outline"
-                                class="bg-accent text-xl font-bold py-6 rounded-md hover:bg-accent transition duration-300"
+                                class="bg-secondary text-xl font-bold py-6 rounded-md hover:bg-accent transition duration-300"
                                 @click.prevent="appendDot()"
                             >
                                 .
@@ -192,20 +192,12 @@
                                 }}</span>
                             </template>
                         </Button>
-                        <Button
-                            :class="{ hidden: change < 0 || loading }"
-                            variant="outline"
-                            class="py-8 transition duration-300 dark:hover:bg-accent w-[100px]"
-                            @click.prevent="toggleReceipt()"
-                        >
-                            <Icon name="mdi:printer-receipt-edit" size="36" />
-                        </Button>
                     </div>
                 </div>
             </div>
 
             <div
-                v-if="receiptVisible"
+                v-if="change >= 0 && !isMobile"
                 class="h-[670px] bg-card rounded-lg overflow-y-scroll p-2"
             >
                 <PosReceipt />
@@ -254,14 +246,13 @@ defineProps({
     },
 });
 
+const isMobile = inject('isMobile');
 const router = useRouter();
 const form = ref<Record<string, any>>({});
-const receiptVisible = ref(false);
 const loading = ref(false);
+const receiptVisible = ref(false);
 
-const toggleReceipt = () => (receiptVisible.value = !receiptVisible.value);
-
-const cartStore = useCart();
+const cartStore: any = useCart();
 const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
 
 const customerName: any = inject('customerName');

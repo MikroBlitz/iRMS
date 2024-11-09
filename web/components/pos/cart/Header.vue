@@ -37,6 +37,7 @@
                         type="text"
                         placeholder="Customer name"
                         class="pl-9 py-2 rounded-xl outline-none bg-card"
+                        :class="isMobile ? 'w-[230px]' : 'w-auto'"
                     />
                 </span>
                 <Button
@@ -63,6 +64,7 @@ import { toasts } from '~/composables/useToast';
 
 const cartStore = useCart();
 const customerName: any = inject('customerName');
+const isMobile = inject('isMobile');
 
 const clearCart = () => {
     cartStore.clearCart();

@@ -9,17 +9,19 @@
             </div>
             <div class="flex items-center gap-1">
                 <div class="flex items-center relative">
-                    <span
-                        ><Icon
+                    <span>
+                        <Icon
                             name="mdi-search"
                             class="absolute left-2 top-2 text-foreground"
                             size="25"
-                    /></span>
+                        />
+                    </span>
                     <input
                         v-model="search"
                         type="text"
                         placeholder="Search"
                         class="pl-9 py-2 rounded-xl outline-none bg-card"
+                        :class="isMobile ? 'w-[230px]' : 'w-auto'"
                     />
                 </div>
                 <span
@@ -48,4 +50,5 @@ defineProps({
 });
 
 const search = inject('search');
+const isMobile = inject('isMobile');
 </script>
