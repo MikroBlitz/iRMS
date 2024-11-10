@@ -48,7 +48,7 @@ definePageMeta({
 
 const modelName = 'inventory';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:package-variant-closed';
+const icon = 'solar:box-minimalistic-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

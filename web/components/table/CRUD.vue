@@ -18,7 +18,7 @@
                     {
                         'rotate-animation':
                             clickedIndex === index &&
-                            btn.iconName === 'mdi:refresh',
+                            btn.iconName === 'solar:refresh-line-duotone',
                     },
                 ]"
             />
@@ -48,7 +48,10 @@ const props = defineProps({
 const clickedIndex = ref<number | null>(null);
 
 const handleClick = (index: number, action: Function | undefined) => {
-    if (crudButtons[index] && crudButtons[index].iconName === 'mdi:refresh') {
+    if (
+        crudButtons[index] &&
+        crudButtons[index].iconName === 'solar:refresh-line-duotone'
+    ) {
         clickedIndex.value = index;
     }
 
@@ -64,14 +67,14 @@ const crudButtons: CrudButton[] = [
         id: 'create',
         iconName: 'mdi:add',
         iconSize: 20,
-        iconClass: 'text-green-500',
+        iconClass: 'text-emerald-500',
         action: props.onCreate,
     },
     {
         id: 'refresh',
-        iconName: 'mdi:refresh',
+        iconName: 'solar:refresh-line-duotone',
         iconSize: 20,
-        iconClass: 'text-blue-500',
+        iconClass: 'text-foreground',
         action: props.onRefresh,
     },
 ];

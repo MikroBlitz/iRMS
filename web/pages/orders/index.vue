@@ -36,7 +36,7 @@ definePageMeta({
 
 const modelName = 'order';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:cart-outline';
+const icon = 'solar:cart-outline';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

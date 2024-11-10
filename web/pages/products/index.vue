@@ -46,7 +46,7 @@ definePageMeta({
 
 const modelName = 'product';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:storefront';
+const icon = 'solar:shop-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

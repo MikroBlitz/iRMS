@@ -5,7 +5,10 @@
         <ClientOnly>
             <div class="flex items-center gap-1 text-foreground">
                 <div class="relative flex">
-                    <Icon name="mdi-cart" size="30" />
+                    <Icon
+                        name="solar:cart-large-minimalistic-outline"
+                        size="30"
+                    />
                     <span
                         class="absolute rounded-full bg-background px-2 -top-2 -right-2 text-foreground font-bold"
                         :class="{ hidden: !cartStore.cartItems.length }"
@@ -46,11 +49,7 @@
                     class="flex p-2 rounded"
                     @click="clearCart()"
                 >
-                    <Icon
-                        name="mdi-cart-remove"
-                        size="23"
-                        class="text-gray-100 px-6"
-                    />
+                    <Icon name="solar:cart-cross-outline" size="30" />
                 </Button>
             </div>
         </ClientOnly>

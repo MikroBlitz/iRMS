@@ -4,7 +4,7 @@
     >
         <ClientOnly>
             <div class="flex items-center gap-1 text-foreground">
-                <Icon name="mdi:storefront" size="30" />
+                <Icon name="solar:shop-linear" size="30" />
                 <p class="text-2xl font-bold py-1">Items</p>
             </div>
             <div class="flex items-center gap-1">
@@ -25,10 +25,10 @@
                     />
                 </div>
                 <span
-                    class="flex items-center bg-primary text-background dark:text-foreground p-1 justify-center rounded-full cursor-pointer"
+                    class="flex items-center text-foreground p-1 justify-center cursor-pointer"
                     @click="toggleView()"
                 >
-                    <Icon :name="name" class="toggle-icon" size="30" />
+                    <Icon :name="name" size="30" />
                 </span>
             </div>
         </ClientOnly>

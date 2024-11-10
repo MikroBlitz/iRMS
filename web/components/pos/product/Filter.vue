@@ -6,7 +6,7 @@
                     class="flex gap-2 items-center justify-center hover:bg-accent rounded md:p-2"
                 >
                     <Icon
-                        name="mdi:category"
+                        name="solar:filter-outline"
                         size="25"
                         class="text-gray-900 dark:text-gray-300"
                     />
@@ -22,7 +22,7 @@
                         class="text-sm px-2.5 gap-2 hover:bg-destructive transition duration-300 focus:outline-none rounded-full md:rounded"
                         @click="resetFilter"
                     >
-                        <Icon name="mdi:filter-remove" size="20" />
+                        <Icon name="solar:filter-broken" size="20" />
                         <span class="text-sm hidden md:block">Reset</span>
                     </Button>
                 </div>
@@ -34,13 +34,14 @@
                         <Button
                             v-for="category in categories"
                             :key="category.id"
+                            variant="outline"
                             :class="{
                                 'bg-secondary':
                                     selectedCategory === category.name,
                                 'bg-transparent':
                                     selectedCategory !== category.name,
                             }"
-                            class="text-sm p-6 shadow-sm hover:bg-accent transition duration-300 hover:text-foreground text-foreground focus:outline-none whitespace-nowrap"
+                            class="text-sm p-4 shadow-sm hover:bg-accent transition duration-300 hover:text-foreground text-foreground focus:outline-none whitespace-nowrap"
                             @click="selectedCategory = category.name"
                         >
                             {{ category.name }}

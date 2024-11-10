@@ -47,7 +47,7 @@ definePageMeta({
 
 const modelName = 'customer';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:package-variant-closed';
+const icon = 'solar:user-hand-up-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

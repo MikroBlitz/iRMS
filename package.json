@@ -13,6 +13,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@headlessui/vue": "^1.7.22",
+    "@iconify-icons/solar": "^1.2.3",
     "@nuxt/eslint": "^0.4.0",
     "@nuxt/fonts": "^0.10.0",
     "@nuxt/icon": "^1.4.4",

@@ -11,13 +11,13 @@
         @click="cartStore.addProductToCart(product)"
     >
         <div
-            class="absolute top-3 right-14 flex items-center justify-center gap-1 text-white text-sm bg-red-500 dark:bg-red-800 p-2 rounded-full"
+            class="absolute top-3 right-14 flex items-center justify-center gap-1 text-white text-sm bg-red-500 dark:bg-red-800 p-2 rounded-lg"
             :class="
                 !product.inventories[inventoryLocation]?.qty ? '' : 'hidden'
             "
         >
             <Icon name="mdi:warning" size="20" />
-            Out of stock
+            Not in stock
         </div>
         <div
             :class="
@@ -53,19 +53,15 @@
                 </div>
             </div>
             <div
-                class="text-sm flex items-end justify-center"
+                class="text-sm flex items-center space-x-1 justify-center bg-gray-500/20 p-1 rounded-full"
                 :class="
                     product.inventories[inventoryLocation]?.qty > restockQty
                         ? ''
                         : 'text-red-500 animate-pulse'
                 "
             >
-                <Icon
-                    name="mdi:package-variant-closed"
-                    size="25"
-                    class="-mb-1"
-                />
-                <span class="text-sm font-medium text-gray-500">{{
+                <Icon name="solar:box-minimalistic-linear" size="20" />
+                <span class="text-xs font-medium text-foreground/70">{{
                     product.inventories[inventoryLocation]?.qty
                 }}</span>
             </div>
@@ -73,9 +69,15 @@
 
         <!-- Cart icon (hidden by default) -->
         <div
-            class="absolute cursor-pointer inset-0 flex justify-center items-center transition duration-300 opacity-0 hover:opacity-100 transition-opacity hover:bg-black/50 rounded"
+            class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-foreground/50 rounded"
         >
-            <Icon name="mdi:cart-arrow-down" size="30" class="text-green-600" />
+            <div class="flex items-center justify-center">
+                <Icon
+                    name="solar:add-square-linear"
+                    size="50"
+                    class="text-background"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -89,5 +91,5 @@ const cartStore = useCart();
 const restockQty: any = inject('restockQty');
 const inventoryLocation: any = inject('inventoryLocation');
 
-const filteredItems = inject('filteredItems');
+const filteredItems: any = inject('filteredItems');
 </script>

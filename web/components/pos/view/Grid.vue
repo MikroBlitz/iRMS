@@ -11,7 +11,7 @@
         @click="cartStore.addProductToCart(product)"
     >
         <div
-            class="flex items-center justify-center gap-1 text-white text-sm bg-destructive/70 p-2 rounded-full"
+            class="flex items-center justify-center gap-1 text-white text-sm bg-destructive/70 p-2 rounded-xl"
             :class="
                 !product.inventories[inventoryLocation]?.qty ? '' : 'hidden'
             "
@@ -61,14 +61,14 @@
                     </div>
                 </div>
                 <div
-                    class="text-sm flex items-center justify-center bg-gray-500/20 p-1 rounded-full"
+                    class="text-sm flex items-center space-x-1 justify-center bg-gray-500/20 p-1 rounded-full"
                     :class="
                         product.inventories[inventoryLocation]?.qty > restockQty
                             ? ''
                             : 'text-red-500 animate-pulse'
                     "
                 >
-                    <Icon name="mdi:package-variant-closed" size="20" />
+                    <Icon name="solar:box-minimalistic-linear" size="20" />
                     <span class="text-xs font-medium text-foreground/70">{{
                         product.inventories[inventoryLocation]?.qty
                     }}</span>
@@ -77,13 +77,15 @@
 
             <!-- Cart icon (hidden by default) -->
             <div
-                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-primary/60 rounded"
+                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-foreground/50 rounded"
             >
-                <Icon
-                    name="mdi:cart-arrow-down"
-                    size="50"
-                    class="text-green-600"
-                />
+                <div class="flex items-center justify-center">
+                    <Icon
+                        name="solar:add-square-linear"
+                        size="50"
+                        class="text-background"
+                    />
+                </div>
             </div>
         </div>
     </div>

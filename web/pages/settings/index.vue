@@ -40,7 +40,7 @@ definePageMeta({
     layout: 'app-layout',
 });
 
-const icon = 'mdi:cog';
+const icon = 'solar:settings-linear';
 const pageTitle = 'Settings';
 const itemLinks = [
     {

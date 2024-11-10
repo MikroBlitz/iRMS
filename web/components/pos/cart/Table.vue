@@ -1,21 +1,21 @@
 <template>
-    <div class="relative">
+    <div class="relative transition duration-300">
         <div
             v-if="!cartStore.cartItems.length"
-            class="text-center flex-col items-center absolute left-0 right-0 top-64"
+            class="text-center flex-col items-center absolute left-0 right-0 top-56"
         >
             <div>
                 <Icon
-                    name="mdi-cart-off"
+                    name="solar:cart-cross-outline"
                     size="50"
                     class="text-foreground px-6 mt-4"
                 />
             </div>
-            <span class="font-bold text-xl">Add items to cart</span>
+            <span class="font-bold text-xl">Add items</span>
         </div>
 
         <PosTable>
-            <TableHeader>
+            <TableHeader v-show="cartStore.cartItems.length">
                 <TableRow>
                     <TableHead class="md:w-[480px]">
                         <strong>ITEM</strong>
@@ -30,10 +30,10 @@
             </TableHeader>
             <TableBody v-auto-animate>
                 <TableRow v-for="product in products" :key="product.item">
-                    <TableCell
-                        class="font-bold overflow-hidden transition duration-300"
-                    >
-                        <div class="flex items-center gap-2">
+                    <TableCell class="font-bold overflow-hidden">
+                        <div
+                            class="flex items-start gap-2 hover:text-destructive/80 cursor-default"
+                        >
                             <span
                                 class="flex items-center cursor-pointer"
                                 @click="
@@ -41,9 +41,8 @@
                                 "
                             >
                                 <Icon
-                                    name="mdi:remove"
-                                    size="1.5rem"
-                                    class="text-red-700 ml"
+                                    name="solar:trash-bin-minimalistic-outline"
+                                    size="1.3rem"
                                 />
                             </span>
                             <div class="flex flex-col">

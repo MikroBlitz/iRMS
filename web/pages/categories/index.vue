@@ -47,7 +47,7 @@ definePageMeta({
 
 const modelName = 'category';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:category';
+const icon = 'solar:filter-outline';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

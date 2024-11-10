@@ -29,22 +29,22 @@ const posLinks = [
     {
         title: 'Products',
         path: '/products',
-        icon: 'mdi:storefront',
+        icon: 'solar:shop-linear',
     },
     {
         title: 'Inventories',
         path: '/inventories',
-        icon: 'mdi:package-variant',
+        icon: 'solar:box-minimalistic-linear',
     },
     {
         title: 'Customers',
         path: '/customers',
-        icon: 'mdi:account-multiple',
+        icon: 'solar:user-hand-up-linear',
     },
     {
         title: 'Orders',
         path: '/orders',
-        icon: 'mdi:order-bool-ascending-variant',
+        icon: 'solar:cart-outline',
     },
 ];
 

@@ -208,10 +208,10 @@
                     </button>
                 </div>
 
-                <div class="flex justify-end space-x-2 px-4">
-                    <Button variant="ghost" @click="closeModal">
-                        Cancel
-                    </Button>
+                <div
+                    v-if="submitButtonText"
+                    class="flex justify-end space-x-2 px-4"
+                >
                     <Button type="submit" class="bg-emerald-700">
                         {{ submitButtonText }}
                     </Button>
@@ -239,7 +239,7 @@ import {
     ComboboxViewport,
 } from 'radix-vue';
 import { Button } from '~/components/ui/button';
-import type { CrudModalField, Field } from '~/types';
+import type { CrudActions, CrudModalField, Field } from '~/types';
 import { roles } from '~/utils/authHelpers';
 
 const props = defineProps({
