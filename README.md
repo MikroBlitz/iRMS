@@ -1,17 +1,10 @@
 # Fullstack APP
 
-![Nuxt.js](https://img.shields.io/badge/Nuxt.js-00C58E?style=for-the-badge&logo=nuxt.js&logoColor=white)
-![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
-![Apollo GraphQL](https://img.shields.io/badge/Apollo%20GraphQL-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)
-![Pinia](https://img.shields.io/badge/Pinia-2C3E50?style=for-the-badge&logo=pinia&logoColor=yellow)
-![Lighthouse](https://img.shields.io/badge/Laravel%20Lighthouse-10B981?style=for-the-badge&logo=graphql&logoColor=white)
-![Sanctum](https://img.shields.io/badge/Sanctum-3498DB?style=for-the-badge&logo=laravel&logoColor=white)
-
-## 🚀 Project Overview
+## Project Overview
 
 This project is a full-stack application built using **Nuxt.js** on the frontend and **Laravel** on the backend, with **Apollo GraphQL** for data fetching and **Laravel Lighthouse** handling GraphQL on the server. The state management is handled by **Pinia**, and **Sanctum** provides secure authentication.
 
-### 🌟 Features
+### Features
 - **Nuxt.js**: A Vue.js framework that supports SSR (Server Side Rendering) and static site generation.
 - **Laravel**: A powerful PHP framework for backend logic and API handling.
 - **Apollo GraphQL**: Frontend data management using GraphQL queries and mutations.
@@ -19,7 +12,13 @@ This project is a full-stack application built using **Nuxt.js** on the frontend
 - **Pinia**: Provides an intuitive and powerful state management solution.
 - **Sanctum**: Implements secure authentication for API access.
 
-## 🛠️ Tech Stack
+## Tech Stack
+![Nuxt.js](https://img.shields.io/badge/Nuxt.js-00C58E?style=for-the-badge&logo=nuxt.js&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Apollo GraphQL](https://img.shields.io/badge/Apollo%20GraphQL-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)
+![Pinia](https://img.shields.io/badge/Pinia-2C3E50?style=for-the-badge&logo=pinia&logoColor=yellow)
+![Lighthouse](https://img.shields.io/badge/Laravel%20Lighthouse-10B981?style=for-the-badge&logo=graphql&logoColor=white)
+![Sanctum](https://img.shields.io/badge/Sanctum-3498DB?style=for-the-badge&logo=laravel&logoColor=white)
 
 ### Frontend:
 - [Nuxt.js](https://nuxtjs.org/)
@@ -31,7 +30,7 @@ This project is a full-stack application built using **Nuxt.js** on the frontend
 - [Laravel Lighthouse](https://lighthouse-php.com/)
 - [Sanctum](https://laravel.com/docs/sanctum)
 
-## 🏗️ Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
@@ -92,11 +91,11 @@ Make sure you have the following software installed on your system:
     npm start
     ```
 
-## 🔐 Authentication
+## Authentication
 
 This application uses **Laravel Sanctum** for API authentication. To authenticate a user, make a POST request to `/api/login` with the necessary credentials, and use the generated token for authenticated API requests.
 
-## 📝 GraphQL API
+## GraphQL API
 
 GraphQL queries and mutations are handled by **Laravel Lighthouse**. You can explore and test the GraphQL API through the GraphQL Playground available at:
 ```bash
