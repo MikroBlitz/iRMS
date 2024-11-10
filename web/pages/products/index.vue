@@ -33,6 +33,15 @@
                 @submit="handleSubmit"
                 @close="closeCrudModal"
             />
+
+            <TableConfirmationModal
+                v-if="isConfirmModalOpen"
+                :is-open="isConfirmModalOpen"
+                title="Confirm Deletion"
+                :message="`Delete ${selectedModel?.name || modelName.name}?`"
+                @confirm="confirmDeletion"
+                @cancel="cancelDeletion"
+            />
         </main>
     </div>
 </template>
@@ -80,7 +89,7 @@ const modelFields: CrudModalField[] = [
         optionTitle: 'name',
     },
     { name: 'image', label: 'Image URL', type: 'text' },
-    { name: 'image', label: 'Image Upload', type: 'file' },
+    // { name: 'image', label: 'Image Upload', type: 'file' },
     { name: 'description', label: 'Description', type: 'textarea' },
     { name: 'sku', label: 'SKU', type: 'text' },
     { name: 'price', label: 'Price', type: 'text' },
@@ -94,6 +103,9 @@ const {
     modalButtonText,
     modalFields,
     openCreateModal,
+    isConfirmModalOpen,
+    confirmDeletion,
+    cancelDeletion,
     handleCrudSubmit,
     closeCrudModal,
     fetchDataPaginate,

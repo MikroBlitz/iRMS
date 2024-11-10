@@ -33,6 +33,15 @@
                 @submit="handleCrudSubmit"
                 @close="closeCrudModal"
             />
+
+            <TableConfirmationModal
+                v-if="isConfirmModalOpen"
+                :is-open="isConfirmModalOpen"
+                title="Confirm Deletion"
+                :message="`Delete ${selectedModel?.name || modelName.name}?`"
+                @confirm="confirmDeletion"
+                @cancel="cancelDeletion"
+            />
         </main>
     </div>
 </template>
@@ -88,6 +97,9 @@ const {
     modalButtonText,
     modalFields,
     openCreateModal,
+    isConfirmModalOpen,
+    confirmDeletion,
+    cancelDeletion,
     handleCrudSubmit,
     closeCrudModal,
     fetchDataPaginate,
