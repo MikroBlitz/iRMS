@@ -125,8 +125,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const crudActions = (
         openViewModal: (model: any) => void,
         openEditModal: (model: any) => void,
-        deleteModel: (id: string) => Promise<void>,
-        toasts: (msg: string, opts: any) => void,
     ) => {
         return [
             {
@@ -147,12 +145,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         ];
     };
 
-    const actions = crudActions(
-        openViewModal,
-        openEditModal,
-        deleteModel,
-        toasts,
-    );
+    const actions = crudActions(openViewModal, openEditModal);
 
     const queryPaginatedData = computed(() => {
         if (result.value) {

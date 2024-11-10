@@ -91,10 +91,15 @@
 </template>
 
 <script setup lang="ts">
+import { useMagicKeys } from '@vueuse/core';
+
 const auth = useAuth();
 const loading = ref(false);
 const errors = ref(null);
 const router = useRouter();
+
+const keys = useMagicKeys();
+const continueLogin = keys['Enter'];
 
 const credentials = reactive({
     email: 'admin@mail.com',
@@ -110,7 +115,11 @@ const login = async () => {
         await auth.getTokens();
         await auth.login(credentials.email, credentials.password);
         await auth.getUser();
-        router.push('/dashboard');
+        if (auth.user.role == 2 || auth.user.role == 3) {
+            router.push('/pos');
+        } else {
+            router.push('/dashboard');
+        }
     } catch (error: any) {
         console.error(error);
         const message =
@@ -131,4 +140,6 @@ const login = async () => {
 definePageMeta({
     middleware: ['guest'],
 });
+
+watch(continueLogin, (e) => (e ? login() : null));
 </script>

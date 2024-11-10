@@ -49,7 +49,7 @@ export const sidebarLinks: LinkItem[] = [
         icon: 'solar:box-minimalistic-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
-        // roles: [1, 3],
+        // roles: [1, 2, 3],
         roles: null,
     },
     {
@@ -112,7 +112,7 @@ export const sidebarLinks: LinkItem[] = [
         icon: 'solar:settings-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
-        // roles: [1],
+        // roles: [1, 2, 3],
         roles: null,
     },
 ];

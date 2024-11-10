@@ -21,7 +21,7 @@ export default defineNuxtRouteMiddleware((to) => {
     //     const requiredRoles = roleAccess[to.path];
     //
     //     if (requiredRoles && !requiredRoles.includes(auth.user.role)) {
-    //         return navigateTo('/unauthorized');
+    //         return navigateTo('/dashboard');
     //     }
     // }
 });
