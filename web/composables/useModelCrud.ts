@@ -10,7 +10,7 @@ import {
     getSingularName,
     toTitleCase,
 } from '~/utils/textHelpers';
-import { toasts } from '~/composables/useToast';
+import { useCrudModal } from '~/composables/useCrudModal';
 
 export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const pluralName = getPluralName(model);
@@ -121,6 +121,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const cancelDeletion = () => {
         isConfirmModalOpen.value = false;
     };
+    const actionsTest = () => console.log('actions'); // TODO: add print action
 
     const crudActions = (
         openViewModal: (model: any) => void,
@@ -128,19 +129,32 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     ) => {
         return [
             {
+                name: 'view',
                 icon: 'solar:eye-outline',
                 handler: openViewModal,
                 class: 'text-yellow-500',
+                showButton: true,
             },
             {
+                name: 'edit',
                 icon: 'solar:pen-line-duotone',
                 handler: openEditModal,
                 class: 'text-blue-500',
+                showButton: true,
             },
             {
+                name: 'delete',
                 icon: 'solar:trash-bin-minimalistic-outline',
                 handler: showDeleteConfirmation,
                 class: 'text-red-800',
+                showButton: true,
+            },
+            {
+                name: 'print',
+                icon: 'solar:printer-line-duotone',
+                handler: actionsTest, // TODO: add print action
+                class: 'text-blue-500',
+                showButton: false,
             },
         ];
     };

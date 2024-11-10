@@ -36,7 +36,9 @@
                         >
                             <Button
                                 v-for="(action, index) in actions"
+                                v-show="action.showButton"
                                 :key="index"
+                                :disabled="!action.showButton"
                                 variant="ghost"
                                 class="mx-0.5 rounded-full"
                                 :class="action.class"
@@ -154,7 +156,13 @@ import type { PaginatorInfo } from '~/types';
 defineProps<{
     headers: { key: string; label: string; class?: string }[];
     data: Record<string, any>[];
-    actions?: { icon: string; handler: (item: any) => void; class?: string }[];
+    actions?: {
+        name: string;
+        icon: string;
+        handler: (item: any) => void;
+        class?: string;
+        showButton?: boolean;
+    }[];
     primaryKey: string;
     paginatorInfo?: PaginatorInfo;
 }>();

@@ -19,7 +19,7 @@
                 :headers="modelHeaders"
                 :is-loading="isLoading"
                 :data="modelData"
-                :actions="actions"
+                :actions="customActions"
                 :paginator-info="paginatorInfo"
             />
         </main>
@@ -88,6 +88,14 @@ const {
     actions,
     paginatorInfo,
 } = await useModelCrud(modelName, modelFields);
+
+const customActions = actions.map((action) => {
+    action.name === 'delete' || action.name === 'edit'
+        ? (action.showButton = false)
+        : null;
+    action.name === 'print' ? (action.showButton = true) : null;
+    return action;
+});
 
 onMounted(async () => {
     await fetchDataPaginate(perPage, currentPage);
