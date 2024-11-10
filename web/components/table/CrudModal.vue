@@ -45,22 +45,32 @@
                         "
                         :id="field.name"
                         v-model="form[field.name]"
+                        :disabled="submitButtonText === ''"
                         :type="getInputType(field)"
                         :required="field.required"
                         :min="field.min"
                         :max="field.max"
                         :step="field.step"
                         class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        @keyup.enter="handleSubmit"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                     />
 
                     <textarea
                         v-if="field.type === 'textarea'"
                         :id="field.name"
                         v-model="form[field.name]"
+                        :disabled="submitButtonText === ''"
                         :required="field.required"
                         class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        @keyup.enter="handleSubmit"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                     />
 
                     <!-- File Field -->
@@ -68,10 +78,15 @@
                         v-if="field.type === 'file'"
                         :id="field.name"
                         type="file"
+                        :disabled="submitButtonText === ''"
                         :required="field.required"
                         class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                         v-on="form[field.name]"
-                        @keyup.enter="handleSubmit"
                     />
 
                     <!-- Checkbox Field -->
@@ -79,9 +94,15 @@
                         v-if="field.type === 'checkbox'"
                         :id="field.name"
                         v-model="form[field.name]"
+                        :disabled="submitButtonText === ''"
                         type="checkbox"
                         :required="field.required"
                         class="mt-1 mr-2 rounded border-none outline-none shadow-sm sm:text-sm"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                     />
 
                     <!-- Combobox Field -->
@@ -93,12 +114,25 @@
                         >
                             <ComboboxAnchor
                                 class="mt-1 w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground flex justify-between items-center"
+                                :class="
+                                    submitButtonText === ''
+                                        ? 'bg-transparent shadow-none'
+                                        : ''
+                                "
                             >
                                 <ComboboxInput
+                                    :disabled="submitButtonText === ''"
                                     class="!bg-transparent outline-none w-full text-grass11 h-full selection:bg-grass5 placeholder-mauve8"
+                                    :class="
+                                        submitButtonText === ''
+                                            ? 'bg-transparent shadow-none'
+                                            : ''
+                                    "
                                     :placeholder="`Select ${field.model}`"
                                 />
-                                <ComboboxTrigger>
+                                <ComboboxTrigger
+                                    :disabled="submitButtonText === ''"
+                                >
                                     <Icon
                                         name="mdi:chevron-down"
                                         class="size-4"
@@ -152,6 +186,11 @@
                         v-model="form[field.name]"
                         :required="field.required"
                         class="mt-1 block w-full rounded border-none outline-none p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                     >
                         <option selected value="">
                             Select {{ field.model }}
@@ -170,8 +209,14 @@
                         v-if="field.type === 'roleSelect'"
                         :id="field.name"
                         v-model="form[field.name]"
+                        :disabled="submitButtonText === ''"
                         :required="field.required"
                         class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-gray-200 bg-secondary text-foreground"
+                        :class="
+                            submitButtonText === ''
+                                ? 'bg-transparent shadow-none'
+                                : ''
+                        "
                     >
                         <option disabled value="">
                             Select {{ field.model }}
@@ -190,6 +235,7 @@
                         v-if="field.type === 'password' && form[field.name]"
                         type="button"
                         class="absolute top-5 right-3 mt-3 mr-4 text-foreground"
+                        :disabled="submitButtonText === ''"
                         @click="togglePasswordVisibility(field.name)"
                     >
                         <Icon
@@ -239,7 +285,7 @@ import {
     ComboboxViewport,
 } from 'radix-vue';
 import { Button } from '~/components/ui/button';
-import type { CrudActions, CrudModalField, Field } from '~/types';
+import type { CrudModalField, Field } from '~/types';
 import { roles } from '~/utils/authHelpers';
 
 const props = defineProps({
@@ -279,17 +325,11 @@ watch(
     { immediate: true },
 );
 
-const handleSubmit = () => {
-    emit('submit', form.value);
-};
+const handleSubmit = () => emit('submit', form.value);
+const closeModal = () => emit('close');
 
-const closeModal = () => {
-    emit('close');
-};
-
-const togglePasswordVisibility = (fieldName: string) => {
-    showPassword.value[fieldName] = !showPassword.value[fieldName];
-};
+const togglePasswordVisibility = (fieldName: string) =>
+    (showPassword.value[fieldName] = !showPassword.value[fieldName]);
 
 const getInputType = (field: Field) => {
     if (field.type === 'password') {
@@ -315,7 +355,7 @@ onMounted(async () => {
                 const queryModule = await import(`~/graphql/${field.model}.ts`);
                 const query = queryModule[field.queryName];
                 if (query) {
-                    const result = await useAsyncQuery(query);
+                    const result: any = await useAsyncQuery(query);
                     const resultKey = Object.keys(result.data.value)[0];
                     data.value[field.model.toLowerCase()] =
                         result.data.value[resultKey] || [];

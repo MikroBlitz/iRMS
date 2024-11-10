@@ -1,4 +1,6 @@
 import { checkAuth } from '~/utils/authHelpers';
+import { getCapSingularName } from '~/utils/textHelpers';
+import { toasts } from '~/composables/useToast';
 
 export function useCrudModal(model: string, auth: boolean) {
     const capitalizedName = getCapSingularName(model);
@@ -7,6 +9,15 @@ export function useCrudModal(model: string, auth: boolean) {
     const modalTitle = ref(`Add ${model}`);
     const modalButtonText = ref('Create');
     const selectedModel = ref(null);
+
+    const openViewModal = (model: any) => {
+        checkAuth()
+            ? ((selectedModel.value = model),
+              (modalTitle.value = `View ${capitalizedName}`),
+              (modalButtonText.value = ''),
+              (showModal.value = true))
+            : toasts('You are not authorized to view.', { type: 'warning' });
+    };
 
     const openCreateModal = () => {
         checkAuth()
@@ -34,6 +45,7 @@ export function useCrudModal(model: string, auth: boolean) {
         modalTitle,
         modalButtonText,
         selectedModel,
+        openViewModal,
         openCreateModal,
         openEditModal,
         closeCrudModal,

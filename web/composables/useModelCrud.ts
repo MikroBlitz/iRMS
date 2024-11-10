@@ -5,6 +5,12 @@ import {
     transformGraphQLInputData,
 } from '~/utils/dataHelper';
 import { checkAuth } from '~/utils/authHelpers';
+import {
+    getPluralName,
+    getSingularName,
+    toTitleCase,
+} from '~/utils/textHelpers';
+import { toasts } from '~/composables/useToast';
 
 export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const pluralName = getPluralName(model);
@@ -24,6 +30,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         modalButtonText,
         selectedModel,
         openCreateModal,
+        openViewModal,
         openEditModal,
         closeCrudModal,
     } = useCrudModal(model, checkAuth());
@@ -78,6 +85,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         }
     };
 
+    const isConfirmModalOpen = ref(false);
     const deleteModel = async (id: string) => {
         try {
             checkAuth()
@@ -99,32 +107,52 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             isLoading.value = false;
         }
     };
+    const showDeleteConfirmation = (model: any) => {
+        selectedModel.value = model;
+        isConfirmModalOpen.value = true;
+    };
+    const confirmDeletion = async () => {
+        isConfirmModalOpen.value = false;
+        if (selectedModel.value) {
+            await deleteModel(selectedModel.value.id);
+            selectedModel.value = null;
+        }
+    };
+    const cancelDeletion = () => {
+        isConfirmModalOpen.value = false;
+    };
 
     const crudActions = (
+        openViewModal: (model: any) => void,
         openEditModal: (model: any) => void,
         deleteModel: (id: string) => Promise<void>,
         toasts: (msg: string, opts: any) => void,
     ) => {
         return [
             {
-                icon: 'mdi:edit',
+                icon: 'solar:eye-outline',
+                handler: openViewModal,
+                class: 'text-yellow-500',
+            },
+            {
+                icon: 'solar:pen-line-duotone',
                 handler: openEditModal,
                 class: 'text-blue-500',
             },
             {
-                icon: 'mdi:delete',
-                handler: async (model: any) => {
-                    const confirmed = window.confirm(`Delete ${model.name}?`);
-                    confirmed
-                        ? await deleteModel(model.id)
-                        : toasts('Deletion canceled.', { type: 'warning' });
-                },
+                icon: 'solar:trash-bin-minimalistic-outline',
+                handler: showDeleteConfirmation,
                 class: 'text-red-800',
             },
         ];
     };
 
-    const actions = crudActions(openEditModal, deleteModel, toasts);
+    const actions = crudActions(
+        openViewModal,
+        openEditModal,
+        deleteModel,
+        toasts,
+    );
 
     const queryPaginatedData = computed(() => {
         if (result.value) {
@@ -147,6 +175,9 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         modalButtonText,
         modalFields,
         openCreateModal,
+        isConfirmModalOpen,
+        confirmDeletion,
+        cancelDeletion,
         handleCrudSubmit,
         closeCrudModal,
         fetchDataPaginate,
