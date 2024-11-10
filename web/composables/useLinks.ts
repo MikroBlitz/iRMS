@@ -19,7 +19,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Users',
         path: '/users',
-        icon: 'mdi:users',
+        icon: 'solar:user-circle-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1],
@@ -28,7 +28,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Products',
         path: '/products',
-        icon: 'mdi:storefront',
+        icon: 'solar:shop-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1, 2, 3],
@@ -37,7 +37,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Categories',
         path: '/categories',
-        icon: 'mdi:category',
+        icon: 'solar:filter-outline',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1, 2, 3],
@@ -46,7 +46,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Inventories',
         path: '/inventories',
-        icon: 'mdi:package-variant-closed',
+        icon: 'solar:box-minimalistic-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1, 3],
@@ -55,7 +55,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Orders',
         path: '/orders',
-        icon: 'mdi:order-bool-ascending-variant',
+        icon: 'solar:cart-outline',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1, 2, 3],
@@ -64,7 +64,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Customers',
         path: '/customers',
-        icon: 'mdi:account-multiple',
+        icon: 'solar:user-hand-up-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1, 2, 3],
@@ -91,7 +91,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Messages',
         path: '/messages',
-        icon: 'mdi:message-text',
+        icon: 'solar:chat-round-line-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [0, 1, 2, 3],
@@ -109,7 +109,7 @@ export const sidebarLinks: LinkItem[] = [
     {
         title: 'Settings',
         path: '/settings',
-        icon: 'mdi:cog',
+        icon: 'solar:settings-linear',
         textColor: 'text-foreground',
         iconColor: 'text-foreground',
         // roles: [1],
