@@ -1,6 +1,14 @@
-// @ts-check
-import withNuxt from './.nuxt/eslint.config.mjs'
+import perfectionist from 'eslint-plugin-perfectionist';
 
-export default withNuxt(
-  // Your custom configs here
-)
+// @ts-check
+import withNuxt from './.nuxt/eslint.config.mjs';
+
+export default withNuxt({
+    plugins: {
+        perfectionist,
+    },
+    rules: {
+        indent: ['error', 4],
+        'perfectionist/sort-imports': 'error',
+    },
+});

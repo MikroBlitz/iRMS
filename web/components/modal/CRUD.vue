@@ -283,8 +283,10 @@ import {
     ComboboxTrigger,
     ComboboxViewport,
 } from 'radix-vue';
-import { Button } from '~/components/ui/button';
+
 import type { CrudModalField, Field } from '~/types';
+
+import { Button } from '~/components/ui/button';
 import { roles } from '~/utils/authHelpers';
 
 const props = defineProps({

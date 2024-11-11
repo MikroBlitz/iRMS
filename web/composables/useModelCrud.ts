@@ -1,16 +1,17 @@
-import type { CrudModalField, PaginatorInfo } from '~/types';
+import type { PaginatorInfo, CrudModalField } from '~/types';
+
+import { useCrudModal } from '~/composables/useCrudModal';
 import { useGraphQLQuery } from '~/composables/useGraphQLQuery';
+import { checkAuth } from '~/utils/authHelpers';
 import {
     handleGraphQLError,
     transformGraphQLInputData,
 } from '~/utils/dataHelper';
-import { checkAuth } from '~/utils/authHelpers';
 import {
     getPluralName,
     getSingularName,
     toTitleCase,
 } from '~/utils/textHelpers';
-import { useCrudModal } from '~/composables/useCrudModal';
 
 export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const pluralName = getPluralName(model);
@@ -33,6 +34,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         openViewModal,
         openEditModal,
         closeCrudModal,
+        printModal,
     } = useCrudModal(model, checkAuth());
 
     // GraphQL Dynamic Queries & Mutations
@@ -85,7 +87,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         }
     };
 
-    const isConfirmModalOpen = ref(false);
     const deleteModel = async (id: string) => {
         try {
             checkAuth()
@@ -107,6 +108,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             isLoading.value = false;
         }
     };
+    const isConfirmModalOpen = ref(false);
     const showDeleteConfirmation = (model: any) => {
         selectedModel.value = model;
         isConfirmModalOpen.value = true;
@@ -121,11 +123,11 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const cancelDeletion = () => {
         isConfirmModalOpen.value = false;
     };
-    const actionsTest = () => console.log('actions'); // TODO: add print action
 
     const crudActions = (
         openViewModal: (model: any) => void,
         openEditModal: (model: any) => void,
+        printModal: (model: any) => void,
     ) => {
         return [
             {
@@ -152,14 +154,14 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             {
                 name: 'print',
                 icon: 'solar:printer-line-duotone',
-                handler: actionsTest, // TODO: add print action
+                handler: printModal,
                 class: 'text-blue-500',
                 showButton: false,
             },
         ];
     };
 
-    const actions = crudActions(openViewModal, openEditModal);
+    const actions = crudActions(openViewModal, openEditModal, printModal);
 
     const queryPaginatedData = computed(() => {
         if (result.value) {
@@ -175,23 +177,23 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     );
 
     return {
-        modelData: queryPaginatedData,
-        selectedModel,
-        showModal,
-        modalTitle,
+        actions,
+        cancelDeletion,
+        closeCrudModal,
+        confirmDeletion,
+        currentPage,
+        fetchDataPaginate,
+        handleCrudSubmit,
+        isConfirmModalOpen,
+        isLoading: loadingValue,
         modalButtonText,
         modalFields,
+        modalTitle,
+        modelData: queryPaginatedData,
         openCreateModal,
-        isConfirmModalOpen,
-        confirmDeletion,
-        cancelDeletion,
-        handleCrudSubmit,
-        closeCrudModal,
-        fetchDataPaginate,
-        isLoading: loadingValue,
-        actions,
-        currentPage,
         perPage,
         paginatorInfo,
+        selectedModel,
+        showModal,
     };
 }

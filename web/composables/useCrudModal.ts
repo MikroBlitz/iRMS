@@ -1,6 +1,6 @@
+import { toasts } from '~/composables/useToast';
 import { checkAuth } from '~/utils/authHelpers';
 import { getCapSingularName } from '~/utils/textHelpers';
-import { toasts } from '~/composables/useToast';
 
 export function useCrudModal(model: string, auth: boolean) {
     const capitalizedName = getCapSingularName(model);
@@ -8,7 +8,11 @@ export function useCrudModal(model: string, auth: boolean) {
     const showModal = ref(false);
     const modalTitle = ref(`Add ${model}`);
     const modalButtonText = ref('Create');
-    const selectedModel = ref(null);
+    const selectedModel = ref(null as any);
+
+    const closeCrudModal = () => {
+        showModal.value = false;
+    };
 
     const openViewModal = (model: any) => {
         checkAuth()
@@ -36,18 +40,24 @@ export function useCrudModal(model: string, auth: boolean) {
             : toasts('You are not authorized to edit.', { type: 'warning' });
     };
 
-    const closeCrudModal = () => {
-        showModal.value = false;
+    const printModal = (model: any) => {
+        checkAuth()
+            ? ((selectedModel.value = model),
+              (modalTitle.value = `Print ${capitalizedName}`),
+              (modalButtonText.value = 'Print'),
+              (showModal.value = true))
+            : toasts('You are not authorized to print.', { type: 'warning' });
     };
 
     return {
-        showModal,
-        modalTitle,
+        closeCrudModal,
         modalButtonText,
-        selectedModel,
-        openViewModal,
+        modalTitle,
         openCreateModal,
         openEditModal,
-        closeCrudModal,
+        openViewModal,
+        printModal,
+        selectedModel,
+        showModal,
     };
 }
