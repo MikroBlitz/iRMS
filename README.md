@@ -60,8 +60,7 @@ Make sure you have the following software installed on your system:
 3. Copy the example environment file and set up environment variables:
 
     ```bash
-    cp .env.example .env
-    php artisan key:generate
+    cp .env.example .env && php artisan key:generate
     ```
 
 4. Set up the database configuration in the `.env` file and run migration and seeders:
