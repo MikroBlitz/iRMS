@@ -11,40 +11,45 @@
                     <div
                         class="flex items-center h-full bg-secondary pl-6 pr-4 rounded-l-2xl gap-3"
                     >
-                        <Dropdown align="right">
-                            <template #trigger>
-                                <span
-                                    class="flex items-center text-sm font-medium text-foreground focus:outline-none transition duration-250 ease-in-out"
-                                >
-                                    <div>
-                                        {{
-                                            auth.user.name
-                                                ? auth.user.name
-                                                : 'Guest'
-                                        }}
-                                    </div>
-
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <Button class="text-foreground" variant="link">
+                                    <span>{{
+                                        auth.user.name
+                                            ? auth.user.name
+                                            : 'Guest'
+                                    }}</span>
                                     <Icon
-                                        name="mdi:arrow-down-drop"
-                                        size="18"
+                                        name="solar:alt-arrow-down-bold"
+                                        size="20"
                                         class="ml-0.5"
                                     />
-                                </span>
-                            </template>
-                            <!-- Authentication  -->
-                            <DropdownButton class="hover:bg-transparent">
-                                <span
-                                    class="flex items-center gap-1 justify-center"
-                                    @click.prevent="logout"
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-56">
+                                <DropdownMenuLabel>
+                                    My Account
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup
+                                    v-for="i in dropdownItems"
+                                    :key="i.name"
                                 >
-                                    <Icon
-                                        name="ri:logout-circle-line"
-                                        size="25"
-                                    />
-                                    Logout
-                                </span>
-                            </DropdownButton>
-                        </Dropdown>
+                                    <DropdownMenuItem @click.prevent="i.action">
+                                        <Icon
+                                            :name="i.icon"
+                                            size="20"
+                                            class="mr-2"
+                                        />
+                                        <span>{{ i.name }}</span>
+                                        <DropdownMenuShortcut>
+                                            {{ i.shortcut }}
+                                        </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <ClientOnly>
                             <DisplayMode />
                         </ClientOnly>
@@ -56,7 +61,38 @@
 </template>
 
 <script setup lang="ts">
+import { Button } from '~/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuTrigger,
+    DropdownMenuGroup,
+} from '~/components/ui/dropdown-menu';
+
 const auth = useAuth();
+
+const dropdownItems = [
+    {
+        name: 'Settings',
+        icon: 'solar:settings-linear',
+        action: () => {
+            navigateTo('/settings');
+        },
+        shortcut: '⌘S',
+    },
+    {
+        name: 'Logout',
+        icon: 'solar:logout-2-bold',
+        action: () => {
+            logout();
+        },
+        shortcut: '⇧⌘Q',
+    },
+];
 
 const logout = () => {
     try {
