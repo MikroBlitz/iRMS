@@ -73,7 +73,7 @@
         >
             <div class="flex items-center justify-center">
                 <Icon
-                    name="solar:add-square-linear"
+                    name="solar:add-circle-bold"
                     size="50"
                     class="text-background"
                 />

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
+
 import type { CartProduct, Product } from '~/types';
+
 import { toasts } from '~/composables/useToast';
 
 export const useCart = defineStore('cart', {
@@ -46,6 +48,7 @@ export const useCart = defineStore('cart', {
                 this.cartItems.unshift({
                     qty: 1,
                     id: product.id,
+                    image: product.image,
                     item: product.name,
                     price: product.price,
                     amount: product.price,
