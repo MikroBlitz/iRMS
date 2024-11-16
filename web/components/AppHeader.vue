@@ -96,16 +96,13 @@ const dropdownItems = [
 
 const logout = () => {
     try {
-        auth.logout();
         toasts('Logging out.', {
             type: 'info',
             position: 'bottom-right',
             autoClose: 1000,
             transition: 'zoom',
         });
-        setTimeout(() => {
-            navigateTo('/login');
-        }, 2000);
+        auth.logout();
     } catch (error) {
         console.log(error);
     }

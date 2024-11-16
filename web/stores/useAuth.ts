@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import axios from '~/plugins/axios';
+
 import { upsertLog } from '~/graphql/Log';
+import axios from '~/plugins/axios';
 
 const $axios = axios().provide.axios;
 
@@ -62,6 +63,7 @@ export const useAuth = defineStore('auth', {
                 console.error('Logout failed:', error);
             } finally {
                 this.resetUser();
+                navigateTo('/login');
             }
         },
         resetUser() {
