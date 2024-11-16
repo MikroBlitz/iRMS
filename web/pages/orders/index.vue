@@ -23,7 +23,7 @@
                 :paginator-info="paginatorInfo"
             />
 
-            <ModalView
+            <ModalOrderView
                 v-if="showModal"
                 :visible="showModal"
                 :title="modalTitle"
@@ -108,5 +108,9 @@ const customActions = actions.map((action) => {
         : null;
     action.name === 'print' ? (action.showButton = true) : null;
     return action;
+});
+
+onMounted(() => {
+    fetchDataPaginate(perPage, currentPage);
 });
 </script>

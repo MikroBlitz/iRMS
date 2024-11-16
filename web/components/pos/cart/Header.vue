@@ -6,7 +6,11 @@
             <div class="flex items-center gap-1 text-foreground">
                 <div class="relative flex">
                     <Icon
-                        name="solar:cart-large-minimalistic-outline"
+                        :name="
+                            !cartStore.cartItems.length
+                                ? 'solar:cart-large-minimalistic-outline'
+                                : 'solar:cart-large-minimalistic-bold'
+                        "
                         size="30"
                     />
                     <span
@@ -32,7 +36,7 @@
                 >
                     <Icon
                         class="absolute left-2 top-2 text-foreground"
-                        name="mdi-account-multiple"
+                        name="solar:user-hand-up-linear"
                         size="25"
                     />
                     <input
@@ -49,7 +53,7 @@
                     class="flex p-2 rounded"
                     @click="clearCart()"
                 >
-                    <Icon name="solar:cart-cross-outline" size="30" />
+                    <Icon name="solar:cart-cross-bold" size="30" />
                 </Button>
             </div>
         </ClientOnly>
@@ -58,8 +62,8 @@
 
 <script setup lang="ts">
 import { Button } from '~/components/ui/button';
-import { useCart } from '~/stores/useCart';
 import { toasts } from '~/composables/useToast';
+import { useCart } from '~/stores/useCart';
 
 const cartStore = useCart();
 const customerName: any = inject('customerName');

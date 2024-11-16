@@ -14,7 +14,7 @@
             <span class="font-bold text-xl">Add items</span>
         </div>
 
-        <PosTable>
+        <PosTable v-auto-animate>
             <TableHeader v-show="cartStore.cartItems.length">
                 <TableRow>
                     <TableHead class="md:w-[480px]">
@@ -28,7 +28,7 @@
                     </TableHead>
                 </TableRow>
             </TableHeader>
-            <TableBody v-auto-animate>
+            <TableBody>
                 <TableRow v-for="product in products" :key="product.item">
                     <TableCell class="font-bold overflow-hidden">
                         <div
@@ -99,9 +99,11 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { currencyFormat } from '~/utils/pos';
-import { useCart } from '~/stores/useCart';
+
 import type { CartProduct } from '~/types';
+
+import { useCart } from '~/stores/useCart';
+import { currencyFormat } from '~/utils/pos';
 
 const cartStore = useCart();
 

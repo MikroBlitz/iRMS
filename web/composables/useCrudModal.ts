@@ -14,6 +14,14 @@ export function useCrudModal(model: string, auth: boolean) {
         showModal.value = false;
     };
 
+    const openCreateModal = () => {
+        checkAuth()
+            ? ((selectedModel.value = null),
+              (modalTitle.value = `Add new ${capitalizedName}`),
+              (showModal.value = true))
+            : toasts('You are not authorized to create.', { type: 'warning' });
+    };
+
     const openViewModal = (model: any) => {
         checkAuth()
             ? ((selectedModel.value = model),
@@ -21,14 +29,6 @@ export function useCrudModal(model: string, auth: boolean) {
               (modalButtonText.value = ''),
               (showModal.value = true))
             : toasts('You are not authorized to view.', { type: 'warning' });
-    };
-
-    const openCreateModal = () => {
-        checkAuth()
-            ? ((selectedModel.value = null),
-              (modalTitle.value = `Add new ${capitalizedName}`),
-              (showModal.value = true))
-            : toasts('You are not authorized to create.', { type: 'warning' });
     };
 
     const openEditModal = (model: any) => {
@@ -40,7 +40,7 @@ export function useCrudModal(model: string, auth: boolean) {
             : toasts('You are not authorized to edit.', { type: 'warning' });
     };
 
-    const printModal = (model: any) => {
+    const openPrintModal = (model: any) => {
         checkAuth()
             ? ((selectedModel.value = model),
               (modalTitle.value = `Print ${capitalizedName}`),
@@ -56,7 +56,7 @@ export function useCrudModal(model: string, auth: boolean) {
         openCreateModal,
         openEditModal,
         openViewModal,
-        printModal,
+        openPrintModal,
         selectedModel,
         showModal,
     };

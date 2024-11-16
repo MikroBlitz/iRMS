@@ -34,7 +34,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         openViewModal,
         openEditModal,
         closeCrudModal,
-        printModal,
+        openPrintModal,
     } = useCrudModal(model, checkAuth());
 
     // GraphQL Dynamic Queries & Mutations
@@ -127,7 +127,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const crudActions = (
         openViewModal: (model: any) => void,
         openEditModal: (model: any) => void,
-        printModal: (model: any) => void,
+        openPrintModal: (model: any) => void,
     ) => {
         return [
             {
@@ -154,14 +154,14 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             {
                 name: 'print',
                 icon: 'solar:printer-line-duotone',
-                handler: printModal,
+                handler: openPrintModal,
                 class: 'text-blue-500',
                 showButton: false,
             },
         ];
     };
 
-    const actions = crudActions(openViewModal, openEditModal, printModal);
+    const actions = crudActions(openViewModal, openEditModal, openPrintModal);
 
     const queryPaginatedData = computed(() => {
         if (result.value) {
