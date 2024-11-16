@@ -209,6 +209,9 @@
 <script setup lang="ts">
 import { vOnClickOutside } from '@vueuse/components';
 import { useMagicKeys } from '@vueuse/core';
+
+import type { ModalField } from '~/types';
+
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import {
@@ -216,7 +219,6 @@ import {
     numbers,
     paymentMethods,
 } from '~/composables/useConstant';
-import type { ModalField } from '~/types';
 
 const keys = useMagicKeys();
 const proceedPayment = keys['Ctrl+Enter'];
@@ -331,6 +333,7 @@ const completeOrder = async () => {
             cartStore.paymentSuccess();
 
             loading.value = false;
+            cashTendered.value = '';
         } else {
             toasts('Please enter a customer name!', { type: 'error' });
         }

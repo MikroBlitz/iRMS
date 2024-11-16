@@ -26,7 +26,7 @@
             </div>
 
             <!-- Itemized List -->
-            <table class="w-full mb-2 text-black">
+            <table class="w-full mb-2 text-xs text-black">
                 <thead>
                     <tr class="border-b border-gray-300">
                         <th class="text-left py-1">Item</th>

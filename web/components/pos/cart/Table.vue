@@ -31,9 +31,7 @@
             <TableBody v-auto-animate>
                 <TableRow v-for="product in products" :key="product.item">
                     <TableCell class="font-bold overflow-hidden">
-                        <div
-                            class="flex items-start gap-2 hover:text-destructive/80 cursor-default"
-                        >
+                        <div class="flex items-start gap-2 cursor-default">
                             <div
                                 class="flex items-center justify-center space-x-2"
                             >
@@ -81,12 +79,13 @@
                                     >
                                         <Icon
                                             name="solar:trash-bin-2-bold"
-                                            size="1.7rem"
+                                            size="1.8rem"
                                             class="text-destructive cursor-pointer"
                                         />
                                     </span>
                                 </template>
                                 <NumberFieldInput
+                                    class="font-bold"
                                     :value="product.qty"
                                     @input="
                                         cartStore.onQuantityInput(
