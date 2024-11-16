@@ -81,7 +81,7 @@
                                     >
                                         <Icon
                                             name="solar:trash-bin-2-bold"
-                                            size="1.5rem"
+                                            size="1.7rem"
                                             class="text-destructive cursor-pointer"
                                         />
                                     </span>
