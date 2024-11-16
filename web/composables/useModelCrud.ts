@@ -176,6 +176,22 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         () => queryLoading.value || upsertLoading.value || deleteLoading.value,
     );
 
+    const firstPage = () => {
+        fetchDataPaginate(perPage, 1);
+    };
+    const prevPage = () => {
+        fetchDataPaginate(perPage, paginatorInfo.value?.currentPage - 1);
+    };
+    const nextPage = () => {
+        fetchDataPaginate(perPage, paginatorInfo.value?.currentPage + 1);
+    };
+    const lastPage = () => {
+        fetchDataPaginate(perPage, paginatorInfo.value?.lastPage);
+    };
+    const numberPage = (page: number) => {
+        fetchDataPaginate(perPage, page);
+    };
+
     return {
         actions,
         cancelDeletion,
@@ -195,5 +211,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         paginatorInfo,
         selectedModel,
         showModal,
+        firstPage,
+        prevPage,
+        nextPage,
+        lastPage,
+        numberPage,
     };
 }

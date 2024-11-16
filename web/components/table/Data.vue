@@ -176,12 +176,4 @@ defineProps<{
 
 const perPage = ref(10);
 const perPageOptions = [10, 25, 100];
-
-const emit = defineEmits<{
-    (e: 'page-change', page: number): void;
-}>();
-
-const onPageChange = (page: number) => {
-    emit('page-change', page);
-};
 </script>

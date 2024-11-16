@@ -5,7 +5,7 @@
                 class="absolute flex-col top-64 flex justify-center items-center text-xl text-gray-500 dark:text-gray-300 mt-4"
             >
                 <template v-if="isLoading">
-                    <SpinnerTadpole class="size-16 text-green-500" />
+                    <BlocksWave class="size-20 text-accent" />
                     <p class="animate-pulse">Fetching data</p>
                 </template>
 
@@ -49,6 +49,8 @@
 </template>
 
 <script setup>
+import BlocksWave from '~/components/spinner/BlocksWave.vue';
+
 defineProps({
     isLoading: Boolean,
     data: Array,

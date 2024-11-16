@@ -21,6 +21,11 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
+                :first-page="firstPage"
+                :prev-page="prevPage"
+                :next-page="nextPage"
+                :last-page="lastPage"
+                :number-page="numberPage"
             />
 
             <ModalCRUD
@@ -114,6 +119,11 @@ const {
     isLoading,
     actions,
     paginatorInfo,
+    firstPage,
+    prevPage,
+    nextPage,
+    lastPage,
+    numberPage,
 } = await useModelCrud(modelName, modelFields);
 
 const handleSubmit = async (formData: any) => {

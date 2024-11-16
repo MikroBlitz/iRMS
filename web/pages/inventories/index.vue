@@ -21,6 +21,11 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
+                :first-page="firstPage"
+                :prev-page="prevPage"
+                :next-page="nextPage"
+                :last-page="lastPage"
+                :number-page="numberPage"
             />
 
             <ModalCRUD
@@ -48,6 +53,7 @@
 
 <script setup lang="ts">
 import type { Headers, CrudModalField } from '~/types';
+
 import { useModelCrud } from '~/composables/useModelCrud';
 import { thousandSeparator } from '~/utils/numberHelpers';
 
@@ -99,5 +105,10 @@ const {
     isLoading,
     actions,
     paginatorInfo,
+    firstPage,
+    prevPage,
+    nextPage,
+    lastPage,
+    numberPage,
 } = await useModelCrud(modelName, modelFields);
 </script>

@@ -105,6 +105,11 @@ const {
     isLoading,
     actions,
     paginatorInfo,
+    firstPage,
+    prevPage,
+    nextPage,
+    lastPage,
+    numberPage,
 } = await useModelCrud(modelName, modelFields);
 
 const customActions = actions.map((action) => {
@@ -114,22 +119,6 @@ const customActions = actions.map((action) => {
     action.name === 'print' ? (action.showButton = true) : null;
     return action;
 });
-
-const firstPage = () => {
-    fetchDataPaginate(perPage, 1);
-};
-const prevPage = () => {
-    fetchDataPaginate(perPage, paginatorInfo.value?.currentPage - 1);
-};
-const nextPage = () => {
-    fetchDataPaginate(perPage, paginatorInfo.value?.currentPage + 1);
-};
-const lastPage = () => {
-    fetchDataPaginate(perPage, paginatorInfo.value?.lastPage);
-};
-const numberPage = (page: number) => {
-    fetchDataPaginate(perPage, page);
-};
 
 onMounted(() => {
     fetchDataPaginate(perPage, currentPage);
