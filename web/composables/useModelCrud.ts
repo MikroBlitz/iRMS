@@ -22,7 +22,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const isLoading = ref(false);
 
     const currentPage: number = 1;
-    const perPage: number = 50;
+    const perPage: number = 10;
     const paginatorInfo = ref<PaginatorInfo>();
 
     const {

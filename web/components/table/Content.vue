@@ -24,6 +24,11 @@
                 primary-key="id"
                 class="w-full"
                 :paginator-info="paginatorInfo"
+                :first-page="firstPage"
+                :prev-page="prevPage"
+                :next-page="nextPage"
+                :last-page="lastPage"
+                :number-page="numberPage"
             />
         </template>
 
@@ -50,6 +55,11 @@ defineProps({
     headers: Array,
     actions: Array,
     paginatorInfo: Object | null,
+    firstPage: Function,
+    prevPage: Function,
+    nextPage: Function,
+    lastPage: Function,
+    numberPage: Function,
 });
 
 const auth = useAuth();

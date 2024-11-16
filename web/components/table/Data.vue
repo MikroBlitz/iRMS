@@ -93,8 +93,8 @@
                         v-slot="{ items }"
                         class="flex items-center gap-1"
                     >
-                        <PaginationFirst />
-                        <PaginationPrev />
+                        <PaginationFirst @click.prevent="firstPage()" />
+                        <PaginationPrev @click.prevent="prevPage()" />
 
                         <template v-for="(item, index) in items">
                             <PaginationListItem
@@ -111,6 +111,7 @@
                                             ? 'default'
                                             : 'outline'
                                     "
+                                    @click.prevent="numberPage(item.value)"
                                 >
                                     {{ item.value }}
                                 </Button>
@@ -122,8 +123,8 @@
                             />
                         </template>
 
-                        <PaginationNext />
-                        <PaginationLast />
+                        <PaginationNext @click.prevent="nextPage()" />
+                        <PaginationLast @click.prevent="lastPage()" />
                     </PaginationList>
                 </Pagination>
             </div>
@@ -132,6 +133,9 @@
 </template>
 
 <script setup lang="ts">
+import type { PaginatorInfo } from '~/types';
+
+import { Button } from '~/components/ui/button';
 import {
     Pagination,
     PaginationEllipsis,
@@ -150,8 +154,6 @@ import {
     TableHeader,
     TableRow,
 } from '~/components/ui/table';
-import { Button } from '~/components/ui/button';
-import type { PaginatorInfo } from '~/types';
 
 defineProps<{
     headers: { key: string; label: string; class?: string }[];
@@ -165,16 +167,15 @@ defineProps<{
     }[];
     primaryKey: string;
     paginatorInfo?: PaginatorInfo;
+    firstPage: Function;
+    prevPage: Function;
+    nextPage: Function;
+    lastPage: Function;
+    numberPage: Function;
 }>();
 
 const perPage = ref(10);
-const perPageOptions = [10, 25, 50, 100, 500];
-
-const perPageSet = (value: number) => {
-    perPage.value = value;
-};
-
-provide('perPageSet', perPageSet);
+const perPageOptions = [10, 25, 100];
 
 const emit = defineEmits<{
     (e: 'page-change', page: number): void;
