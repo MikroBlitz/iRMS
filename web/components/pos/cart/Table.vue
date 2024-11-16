@@ -36,7 +36,7 @@
                                 class="flex items-center justify-center space-x-2"
                             >
                                 <NuxtImg
-                                    :src="product.image"
+                                    :src="product.image || noImage"
                                     class="w-[50px] h-auto object-cover rounded"
                                 />
                                 <div class="flex flex-col">

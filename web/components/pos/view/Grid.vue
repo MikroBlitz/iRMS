@@ -92,9 +92,9 @@
 </template>
 
 <script setup lang="ts">
+import { noImage } from '~/composables/useConstant';
 import { useCart } from '~/stores/useCart';
 
-const noImage = 'https://static.thenounproject.com/png/340719-200.png';
 const cartStore = useCart();
 
 // TODO: fix types

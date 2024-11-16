@@ -27,9 +27,7 @@
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent class="w-56">
-                                <DropdownMenuLabel>
-                                    My Account
-                                </DropdownMenuLabel>
+                                <DropdownMenuLabel> Account </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup
                                     v-for="i in dropdownItems"
@@ -38,7 +36,7 @@
                                     <DropdownMenuItem @click.prevent="i.action">
                                         <Icon
                                             :name="i.icon"
-                                            size="20"
+                                            size="28"
                                             class="mr-2"
                                         />
                                         <span>{{ i.name }}</span>
@@ -86,7 +84,7 @@ const dropdownItems = [
     },
     {
         name: 'Logout',
-        icon: 'solar:logout-2-bold',
+        icon: 'solar:logout-2-outline',
         action: () => {
             logout();
         },

@@ -38,7 +38,10 @@ const modelFields = ['name', 'image', 'price', 'qty'].map((name) => ({
     name,
 }));
 
-const { modelData, isLoading } = await useModelCrud(modelName, modelFields);
+const { fetchDataPaginate, modelData, isLoading } = await useModelCrud(
+    modelName,
+    modelFields,
+);
 
 const fallbackData = testData.products;
 const products = ref(fallbackData);
@@ -78,6 +81,10 @@ onMounted(() => {
         }
         products.value = fallbackData;
     }
+});
+
+onMounted(async () => {
+    await fetchDataPaginate(100, 1);
 });
 
 provide('restockQty', restockQty);

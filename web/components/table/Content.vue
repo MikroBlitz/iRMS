@@ -5,12 +5,16 @@
                 class="absolute flex-col top-64 flex justify-center items-center text-xl text-gray-500 dark:text-gray-300 mt-4"
             >
                 <template v-if="isLoading">
-                    <BlocksWave class="size-20 text-accent" />
+                    <BlocksWave class="size-16 text-primary dark:text-accent" />
                     <p class="animate-pulse">Fetching data</p>
                 </template>
 
                 <div v-else class="flex flex-col items-center">
-                    <Icon name="mdi:warning" class="text-red-500" size="65" />
+                    <Icon
+                        name="mdi:warning"
+                        class="text-destructive"
+                        size="65"
+                    />
                     <span>No data</span>
                 </div>
             </div>

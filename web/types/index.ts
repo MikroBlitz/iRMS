@@ -173,8 +173,8 @@ export type LinkItem = {
 };
 
 export type PaginatorInfo = {
-    currentPage: number;
-    lastPage: number;
-    perPage: number;
-    total: number;
+    currentPage?: number;
+    lastPage?: number;
+    perPage?: number;
+    total?: number;
 };

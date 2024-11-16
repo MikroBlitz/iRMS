@@ -32,13 +32,14 @@
                     <Icon
                         :name="
                             cartStore.cartItems.length
-                                ? 'mdi:cash-register'
+                                ? 'solar:hand-money-bold'
                                 : 'mdi:cart-arrow-down'
                         "
                         size="30"
                         class="text-white"
+                        :class="cartStore.cartItems.length ? 'mr-2' : ''"
                     />
-                    <p class="text-secondary dark:text-foreground text-xl">
+                    <p class="text-white text-xl">
                         {{ cartStore.cartItems.length ? 'Pay' : '' }}
                     </p>
                 </Button>
@@ -65,6 +66,7 @@
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core';
 import { Button } from '@/components/ui/button';
+
 import { useCart } from '~/stores/useCart';
 
 const keys = useMagicKeys();

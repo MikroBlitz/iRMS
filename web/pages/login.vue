@@ -82,7 +82,7 @@
                     <span
                         class="font-bold"
                         :class="{ 'animate-pulse ml-2': loading }"
-                        >{{ loading ? 'Logging in' : 'Login' }}</span
+                        >{{ loading ? 'Logging in...' : 'Login' }}</span
                     >
                 </Button>
             </div>

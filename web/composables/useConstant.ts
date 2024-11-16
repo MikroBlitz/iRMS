@@ -33,6 +33,7 @@ const paymentMap: any = {
     1: 'Gcash',
     2: 'Bank Transfer',
 };
+const noImage = 'https://static.thenounproject.com/png/340719-200.png';
 const getPaymentMethod = (value: any) => paymentMap[value] || 'N/A';
 const numbers: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
@@ -62,6 +63,7 @@ export {
     posId,
     transactionNumber,
     website,
+    noImage,
     // vatSales,
     // nonVatSales,
     // zeroRatedSales,

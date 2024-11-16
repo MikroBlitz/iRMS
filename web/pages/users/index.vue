@@ -60,7 +60,7 @@ definePageMeta({
 
 const modelName = 'user';
 const pageTitle = getPluralName(toTitleCase(modelName));
-const icon = 'mdi:users';
+const icon = 'solar:user-circle-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },

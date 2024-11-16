@@ -31,8 +31,9 @@
                 <Button
                     v-if="router.currentRoute.value.name !== 'dashboard'"
                     icon
+                    variant="destructive"
                     size="sm"
-                    class="rounded-full px-2 bg-destructive/80"
+                    class="rounded-full px-2"
                     @click="router.back()"
                 >
                     <Icon name="mdi:arrow-left-thick" size="20" />
