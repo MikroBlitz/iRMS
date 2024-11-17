@@ -1,5 +1,5 @@
 <template>
-    <div v-auto-animate class="bg-secondary px-3 py-1 rounded-b">
+    <div v-auto-animate class="bg-secondary px-3 py-1 pb-2 rounded-b">
         <div class="flex justify-between items-center gap-1">
             <PosCartScanner />
 

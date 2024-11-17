@@ -4,9 +4,9 @@
     >
         <ClientOnly>
             <div
-                class="flex items-center gap-1 text-background dark:text-foreground"
+                class="flex items-center gap-2 text-background dark:text-foreground"
             >
-                <div class="relative flex">
+                <div v-if="!isMobile" class="relative flex">
                     <Icon
                         :name="
                             !cartStore.cartItems.length
@@ -16,13 +16,18 @@
                         size="30"
                     />
                     <span
-                        class="absolute rounded-full bg-background px-2 -top-2 -right-2 text-foreground font-bold"
+                        class="absolute rounded-full bg-destructive px-2 -top-2 -right-3 text-background dark:text-foreground font-bold"
                         :class="{ hidden: !cartStore.cartItems.length }"
                     >
                         {{ cartStore.cartItems.length }}
                     </span>
                 </div>
-                <p class="text-2xl font-bold py-1">Cart</p>
+                <p
+                    :class="{ 'pl-2': isMobile }"
+                    class="text-2xl font-bold py-1"
+                >
+                    Cart
+                </p>
             </div>
             <div
                 class="flex gap-2"
@@ -53,7 +58,7 @@
                     type="button"
                     variant="destructive"
                     class="flex p-2 rounded"
-                    @click="clearCart()"
+                    @click.prevent="clearCart()"
                 >
                     <Icon name="solar:cart-cross-bold" size="30" />
                 </Button>
@@ -80,6 +85,10 @@ const clearCart = () => {
     cartStore.clearCart();
     customerName.value = 'Guest';
     toasts('Cart cleared!', { type: 'success' });
-    closeDrawer();
+    try {
+        closeDrawer();
+    } catch (e: any) {
+        console.warn('Drawer not found', e.message);
+    }
 };
 </script>

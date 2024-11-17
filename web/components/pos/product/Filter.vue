@@ -20,7 +20,7 @@
                 <div class="flex mt-4">
                     <Button
                         class="text-sm px-2.5 gap-2 hover:bg-destructive transition duration-300 focus:outline-none rounded-full md:rounded"
-                        @click="resetFilter"
+                        @click.prevent="resetFilter"
                     >
                         <Icon name="solar:filter-broken" size="20" />
                         <span class="text-sm hidden md:block">Reset</span>
@@ -42,7 +42,7 @@
                                     selectedCategory !== category.name,
                             }"
                             class="text-sm p-4 shadow-sm hover:bg-accent transition duration-300 hover:text-foreground text-foreground focus:outline-none whitespace-nowrap"
-                            @click="selectedCategory = category.name"
+                            @click.prevent="selectedCategory = category.name"
                         >
                             {{ category.name }}
                         </Button>

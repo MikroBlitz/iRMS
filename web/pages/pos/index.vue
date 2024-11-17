@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen flex flex-col p-0.5">
+    <div class="w-full h-dvh flex flex-col p-0.5">
         <div>
             <PosHeader />
             <PosLinks />
