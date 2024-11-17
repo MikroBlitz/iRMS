@@ -17,9 +17,8 @@
                     />
                     <span
                         class="absolute rounded-full bg-destructive px-2 -top-2 -right-3 text-background dark:text-foreground font-bold"
-                        :class="{ hidden: !cartStore.cartItems.length }"
                     >
-                        {{ cartStore.cartItems.length }}
+                        {{ cartStore.cartItems.length || '' }}
                     </span>
                 </div>
                 <p

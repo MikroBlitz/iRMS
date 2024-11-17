@@ -17,6 +17,9 @@
                 </div>
             </SheetTrigger>
             <SheetContent side="top" class="rounded border-2 border-secondary">
+                <SheetTitle visually-hidden />
+                <SheetDescription visually-hidden />
+
                 <div class="flex mt-4">
                     <Button
                         class="text-sm px-2.5 gap-2 hover:bg-destructive transition duration-300 focus:outline-none rounded-full md:rounded"

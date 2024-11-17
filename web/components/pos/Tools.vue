@@ -22,6 +22,9 @@
             <DrawerContent
                 class="h-screen rounded border-2 border-gray-300 dark:border-gray-800"
             >
+                <DrawerTitle visually-hidden />
+                <DrawerDescription visually-hidden />
+
                 <PosCart />
             </DrawerContent>
         </Drawer>
@@ -29,7 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerTrigger,
+    DrawerDescription,
+    DrawerTitle,
+} from '@/components/ui/drawer';
 
 import { useCart } from '~/stores/useCart';
 

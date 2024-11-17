@@ -25,9 +25,9 @@ defineProps({
         required: true,
     },
     value: {
-        type: String,
+        type: [Number, String],
         required: true,
-        default: '0',
+        default: 0,
     },
     icon: {
         type: String,

@@ -100,7 +100,9 @@ const logout = () => {
             autoClose: 1000,
             transition: 'zoom',
         });
-        auth.logout();
+        setTimeout(() => {
+            auth.logout();
+        }, 1500);
     } catch (error) {
         console.log(error);
     }
