@@ -8,7 +8,11 @@
                 <template #actions>
                     <TableCRUD
                         :on-refresh="
-                            () => fetchDataPaginate(perPage, currentPage)
+                            () =>
+                                fetchDataPaginate(
+                                    paginatorInfo.perPage,
+                                    paginatorInfo.currentPage,
+                                )
                         "
                         :disabled-buttons="['create']"
                     />
@@ -96,8 +100,6 @@ const modelFields: CrudModalField[] = [];
 const {
     modelData,
     fetchDataPaginate,
-    perPage,
-    currentPage,
     showModal,
     modalTitle,
     selectedModel,

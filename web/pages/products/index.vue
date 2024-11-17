@@ -9,7 +9,11 @@
                     <TableCRUD
                         :on-create="openCreateModal"
                         :on-refresh="
-                            () => fetchDataPaginate(perPage, currentPage)
+                            () =>
+                                fetchDataPaginate(
+                                    paginatorInfo.perPage,
+                                    paginatorInfo.currentPage,
+                                )
                         "
                     />
                 </template>
@@ -114,8 +118,6 @@ const {
     handleCrudSubmit,
     closeCrudModal,
     fetchDataPaginate,
-    perPage,
-    currentPage,
     isLoading,
     actions,
     paginatorInfo,

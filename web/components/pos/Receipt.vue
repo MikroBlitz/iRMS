@@ -119,7 +119,7 @@
 
             <!-- Transaction Details -->
             <div class="mb-2 text-black">
-                <p>Transaction #: {{ transactionNumber }}</p>
+                <p>Transaction #: {{ generateTransactionId }}</p>
                 <p>Date/Time: {{ transactionDate }}</p>
             </div>
 
@@ -169,6 +169,15 @@ const customerType = ref('Guest');
 
 const date: Date = new Date();
 const transactionDate = toBasicDateTime(date);
+
+const generateTransactionId = computed(() => {
+    const date = new Date();
+    const dateTime = toBasicDateTime(date).replace(/[^a-zA-Z0-9]/g, '');
+
+    const transactionId = `${dateTime}`;
+
+    return transactionId;
+});
 
 const cashTendered: any = inject('cashTendered');
 const change: ComputedRef<number> = computed(() =>

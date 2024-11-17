@@ -21,9 +21,9 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const modalFields = ref(fields);
     const isLoading = ref(false);
 
-    const paginatorInfo = ref<PaginatorInfo>();
+    const paginatorInfo: any = ref<PaginatorInfo>();
     const currentPage: number = paginatorInfo.value?.currentPage || 1;
-    const perPage: number = 10;
+    const perPage: number = paginatorInfo.value?.perPage || 10;
 
     const {
         showModal,
@@ -180,13 +180,13 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         fetchDataPaginate(perPage, 1);
     };
     const prevPage = () => {
-        fetchDataPaginate(perPage, paginatorInfo.value?.currentPage - 1);
+        fetchDataPaginate(perPage, paginatorInfo.value.currentPage - 1);
     };
     const nextPage = () => {
-        fetchDataPaginate(perPage, paginatorInfo.value?.currentPage + 1);
+        fetchDataPaginate(perPage, paginatorInfo.value.currentPage + 1);
     };
     const lastPage = () => {
-        fetchDataPaginate(perPage, paginatorInfo.value?.lastPage);
+        fetchDataPaginate(perPage, paginatorInfo.value.lastPage);
     };
     const numberPage = (page: number) => {
         fetchDataPaginate(perPage, page);
@@ -197,7 +197,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         cancelDeletion,
         closeCrudModal,
         confirmDeletion,
-        currentPage,
         fetchDataPaginate,
         handleCrudSubmit,
         isConfirmModalOpen,
@@ -207,7 +206,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         modalTitle,
         modelData: queryPaginatedData,
         openCreateModal,
-        perPage,
         paginatorInfo,
         selectedModel,
         showModal,

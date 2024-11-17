@@ -87,7 +87,7 @@
                     :sibling-count="1"
                     show-edges
                     :default-page="1"
-                    @page-change="onPageChange"
+                    @page-change=""
                 >
                     <PaginationList
                         v-slot="{ items }"
