@@ -192,27 +192,31 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         fetchDataPaginate(perPage, page);
     };
 
-    return {
-        actions,
-        cancelDeletion,
-        closeCrudModal,
-        confirmDeletion,
-        fetchDataPaginate,
-        handleCrudSubmit,
-        isConfirmModalOpen,
-        isLoading: loadingValue,
-        modalButtonText,
-        modalFields,
-        modalTitle,
-        modelData: queryPaginatedData,
-        openCreateModal,
-        paginatorInfo,
-        selectedModel,
-        showModal,
+    const paginationControls = {
         firstPage,
         prevPage,
         nextPage,
         lastPage,
         numberPage,
+    };
+
+    return {
+        showModal,
+        modalTitle,
+        modalFields,
+        modalButtonText,
+        openCreateModal,
+        closeCrudModal,
+        isConfirmModalOpen,
+        cancelDeletion,
+        confirmDeletion,
+        selectedModel,
+        fetchDataPaginate,
+        handleCrudSubmit,
+        isLoading: loadingValue,
+        modelData: queryPaginatedData,
+        actions,
+        paginatorInfo,
+        paginationControls,
     };
 }

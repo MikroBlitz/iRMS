@@ -25,11 +25,11 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
-                :first-page="firstPage"
-                :prev-page="prevPage"
-                :next-page="nextPage"
-                :last-page="lastPage"
-                :number-page="numberPage"
+                :first-page="paginationControls.firstPage"
+                :prev-page="paginationControls.prevPage"
+                :next-page="paginationControls.nextPage"
+                :last-page="paginationControls.lastPage"
+                :number-page="paginationControls.numberPage"
             />
 
             <ModalCRUD
@@ -99,26 +99,22 @@ const modelFields: CrudModalField[] = [
 ];
 
 const {
-    modelData,
-    selectedModel,
     showModal,
     modalTitle,
-    modalButtonText,
     modalFields,
+    modalButtonText,
     openCreateModal,
-    isConfirmModalOpen,
-    confirmDeletion,
-    cancelDeletion,
-    handleCrudSubmit,
     closeCrudModal,
+    isConfirmModalOpen,
+    cancelDeletion,
+    confirmDeletion,
+    selectedModel,
     fetchDataPaginate,
+    handleCrudSubmit,
     isLoading,
+    modelData,
     actions,
     paginatorInfo,
-    firstPage,
-    prevPage,
-    nextPage,
-    lastPage,
-    numberPage,
+    paginationControls,
 } = await useModelCrud(modelName, modelFields);
 </script>
