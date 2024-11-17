@@ -25,11 +25,7 @@
                 :data="modelData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
-                :first-page="paginationControls.firstPage"
-                :prev-page="paginationControls.prevPage"
-                :next-page="paginationControls.nextPage"
-                :last-page="paginationControls.lastPage"
-                :number-page="paginationControls.numberPage"
+                :pagination-controls="paginationControls"
             />
 
             <ModalCRUD
