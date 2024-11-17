@@ -21,7 +21,7 @@
                 </div>
             </DrawerTrigger>
             <DrawerContent
-                class="h-screen rounded border-2 border-gray-300 dark:border-gray-800"
+                class="h-dvh rounded border-2 border-gray-300 dark:border-gray-800"
             >
                 <PosCart />
             </DrawerContent>

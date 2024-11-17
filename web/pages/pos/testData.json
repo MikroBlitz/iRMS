@@ -39,7 +39,11 @@
     {
       "id": "10",
       "name": "Racing Parts"
-    }
+    },
+      {
+          "id": "11",
+          "name": "Coffee"
+      }
   ],
   "products": [
     {
@@ -408,6 +412,90 @@
         "id": "10",
         "name": "Racing Parts"
       }
-    }
+    },
+      {
+          "id": "29",
+          "name": "Frapuccino",
+          "image": "https://livinghealthywithchocolate.com/wp-content/uploads/2015/04/Healthy-Paleo-Starbucks-Mocha-Frappuccino-Recipe-dairyfree-glutenfree-sugarfree1.jpg",
+          "price": 250,
+          "inventories": [
+            {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+            "id": "11",
+            "name": "Coffee"
+          }
+      },
+      {
+          "id": "30",
+          "name": "Caffe Latte",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Caffe_Latte_at_Pulse_Cafe.jpg/1200px-Caffe_Latte_at_Pulse_Cafe.jpg",
+          "price": 190,
+          "inventories": [
+              {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+              "id": "11",
+              "name": "Coffee"
+          }
+      },
+      {
+          "id": "31",
+          "name": "Caffe Americano",
+          "image": "https://www.mysticmonkcoffee.com/cdn/shop/articles/americano_coffee_1024x.png?v=1706611607",
+          "price": 160,
+          "inventories": [
+              {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+              "id": "11",
+              "name": "Coffee"
+          }
+      },
+      {
+          "id": "32",
+          "name": "Cappuccino",
+          "image": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Cappuccino-Punch_EXPS_HPBZ16_19462_D05_24_2b.jpg",
+          "price": 210,
+          "inventories": [
+              {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+              "id": "11",
+              "name": "Coffee"
+          }
+      },
+      {
+          "id": "33",
+          "name": "Caffe Mocha",
+          "image": "https://i.pinimg.com/736x/22/8b/72/228b72a03cb98c19063193cf0188a6a3.jpg",
+          "price": 250,
+          "inventories": [
+              {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+              "id": "11",
+              "name": "Coffee"
+          }
+      },
+      {
+          "id": "34",
+          "name": "Caffe Macchiato",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpOCbtdIW8yQov1rr2RWkzQbiHzhW6ykXpSA&s",
+          "price": 250,
+          "inventories": [
+              {"qty": 100}
+          ],
+          "category_id": "11",
+          "category": {
+              "id": "11",
+              "name": "Coffee"
+          }
+      }
   ]
 }

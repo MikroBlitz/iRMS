@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative max-w-7xl md:min-w-[650px] border-2 rounded-md border-secondary dark:border-primary p-0.5 flex flex-col h-full"
+        class="relative max-w-7xl md:min-w-[650px] border-2 rounded-md border-primary/60 dark:border-primary p-0.5 flex flex-col h-full"
     >
         <div>
             <PosCartHeader />
