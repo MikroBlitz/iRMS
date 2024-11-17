@@ -13,7 +13,8 @@
                 <Button
                     v-for="item in themeOptions"
                     :key="item.id"
-                    class="p-6 w-full md:w-1/2 hover:bg-accent"
+                    class="p-6 w-3/4 md:w-1/2 xl:w-1/4 hover:bg-accent"
+                    :class="{ 'bg-accent': theme.name === item.value }"
                     @click="changeTheme(item.value)"
                 >
                     {{ item.label }}
@@ -24,6 +25,8 @@
 </template>
 
 <script setup lang="ts">
+import { themeOptions } from '~/composables/useConstant';
+
 definePageMeta({
     layout: 'app-layout',
 });
@@ -34,18 +37,10 @@ const changeTheme = (item: string) => {
 
     toasts('Theme changed to ' + toTitleCase(item), {
         type: 'success',
-        autoClose: 3000,
+        position: 'bottom-right',
+        autoClose: 1000,
     });
 };
-const themeOptions = [
-    { id: 1, label: 'Default', value: 'default' },
-    { id: 2, label: 'Azure', value: 'azure' },
-    { id: 3, label: 'Bubblegum', value: 'bubblegum' },
-    { id: 4, label: 'Crimson', value: 'crimson' },
-    { id: 5, label: 'Emerald', value: 'emerald' },
-    { id: 6, label: 'Iris', value: 'iris' },
-    { id: 7, label: 'Mustard', value: 'mustard' },
-];
 
 const pageTitle = 'Themes';
 const icon = 'mdi:theme-light-dark';

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex m-auto items-center justify-between bg-primary px-3 py-4 md:rounded-t"
+        class="flex m-auto items-center justify-between bg-primary px-3 py-3 md:rounded-t"
     >
         <ClientOnly>
             <div class="flex items-center gap-2 justify-center">

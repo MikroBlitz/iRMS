@@ -1,9 +1,7 @@
 <template>
-    <div class="w-auto px-4 py-5 bg-primary/50 rounded">
-        <p>Scanner</p>
+    <div class="w-auto px-4 rounded space-x-4 flex items-center justify-center">
+        <Icon name="mdi:qrcode-scan" size="50" />
     </div>
 </template>
 
-<script setup lang="ts">
-import { Card } from '~/components/ui/card';
-</script>
+<script setup lang="ts"></script>

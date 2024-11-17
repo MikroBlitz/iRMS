@@ -3,7 +3,11 @@
         <ClientOnly>
             <Sheet v-model:open="openAppSidebar">
                 <SheetTrigger class="flex items-center justify-center">
-                    <Icon name="mdi:menu" size="30" class="text-gray-100" />
+                    <Icon
+                        name="solar:hamburger-menu-broken"
+                        size="35"
+                        class="text-gray-100"
+                    />
                 </SheetTrigger>
 
                 <SheetContent

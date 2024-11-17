@@ -1,10 +1,11 @@
 <template>
-    <div class="h-dvh w-full flex flex-col p-0.5">
+    <div class="w-full h-screen flex flex-col p-0.5">
         <div>
             <PosHeader />
             <PosLinks />
         </div>
-        <div class="flex-1 flex justify-center gap-0.5">
+
+        <div class="flex-1 flex justify-center gap-0.5 overflow-hidden">
             <PosProduct />
             <PosCart :class="{ hidden: isMobile }" />
         </div>

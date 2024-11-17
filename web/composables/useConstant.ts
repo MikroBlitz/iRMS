@@ -51,6 +51,18 @@ const website = ref('www.website.com');
 // const zeroRatedSales = ref(0.0);
 // const totalVat = ref(0.0);
 
+// themes
+const themeOptions = [
+    { id: 1, label: 'Default', value: 'default' },
+    { id: 2, label: 'Azure', value: 'azure' },
+    { id: 3, label: 'Bubblegum', value: 'bubblegum' },
+    { id: 4, label: 'Crimson', value: 'crimson' },
+    { id: 5, label: 'Coffee', value: 'coffee' },
+    { id: 6, label: 'Emerald', value: 'emerald' },
+    { id: 7, label: 'Iris', value: 'iris' },
+    { id: 8, label: 'Mustard', value: 'mustard' },
+];
+
 export {
     getPaymentMethod,
     numbers,
@@ -64,6 +76,7 @@ export {
     transactionNumber,
     website,
     noImage,
+    themeOptions,
     // vatSales,
     // nonVatSales,
     // zeroRatedSales,

@@ -17,19 +17,29 @@
         <PosTable>
             <TableHeader v-show="cartStore.cartItems.length">
                 <TableRow>
-                    <TableHead class="md:w-[480px]">
-                        <strong>ITEM</strong>
+                    <TableHead
+                        class="md:w-[480px] h-[50px] text-foreground font-bold"
+                    >
+                        <span>ITEM</span>
                     </TableHead>
-                    <TableHead class="md:w-[200px] text-center">
-                        <strong>QTY</strong>
+                    <TableHead
+                        class="md:w-[200px] text-center h-[50px] text-foreground font-bold"
+                    >
+                        <span>QTY</span>
                     </TableHead>
-                    <TableHead class="text-right md:w-[180px]">
-                        <strong>TOTAL</strong>
+                    <TableHead
+                        class="text-right md:w-[180px] h-[50px] text-foreground font-bold"
+                    >
+                        <span>TOTAL</span>
                     </TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody v-auto-animate>
-                <TableRow v-for="product in products" :key="product.item">
+                <TableRow
+                    v-for="product in products"
+                    :key="product.item"
+                    class="border-b-0 space-y-1"
+                >
                     <TableCell class="font-bold overflow-hidden">
                         <div class="flex items-start gap-2 cursor-default">
                             <div
@@ -51,7 +61,11 @@
                         </div>
                     </TableCell>
                     <TableCell>
-                        <NumberField :default-value="product.qty" :min="0">
+                        <NumberField
+                            :default-value="product.qty"
+                            :min="0"
+                            class="w-[130px]"
+                        >
                             <NumberFieldContent>
                                 <template v-if="product.qty > 1">
                                     <NumberFieldDecrement

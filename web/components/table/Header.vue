@@ -1,5 +1,5 @@
 <template>
-    <main class="px-4 py-4 pb-1 bg-secondary dark:bg-primary rounded-t">
+    <main class="px-4 py-4 pb-1 bg-primary/80 dark:bg-primary rounded-t">
         <div class="flex-col m-auto items-center rounded-md">
             <div
                 class="flex items-center justify-between bg-card px-2 py-3 rounded-md w-full"

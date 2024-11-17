@@ -5,21 +5,21 @@
             :class="{ 'opacity-5': !cartStore.totalAmount }"
         >
             <div class="flex justify-between items-center font-bold">
-                <div>Sub Total:</div>
+                <div>Base Total</div>
                 <div>{{ currencyFormat(cartStore.totalAmount) }}</div>
             </div>
             <div class="flex justify-between items-center text-foreground">
-                <div>Discount(10%):</div>
+                <div>Promotions</div>
                 <div>- {{ currencyFormat(cartStore.promotionAmount) }}</div>
             </div>
             <div class="flex justify-between items-center">
-                <div>Tax(12%):</div>
+                <div>Taxes</div>
                 <div>{{ currencyFormat(cartStore.totalTax) }}</div>
             </div>
             <div
                 class="flex justify-between items-center text-2xl font-bold border-y-2 border-primary"
             >
-                <div>Total:</div>
+                <div>Checkout</div>
                 <div>
                     {{
                         currencyFormat(cartStore.totalAmountWithTaxAndDiscount)

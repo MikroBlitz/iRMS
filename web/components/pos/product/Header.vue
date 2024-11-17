@@ -1,9 +1,11 @@
 <template>
     <div
-        class="flex m-auto items-center justify-between bg-secondary p-1 rounded"
+        class="flex m-auto items-center justify-between bg-primary/80 p-1 rounded"
     >
         <ClientOnly>
-            <div class="flex items-center gap-1 text-foreground">
+            <div
+                class="flex items-center gap-1 text-background dark:text-foreground"
+            >
                 <Icon name="solar:shop-linear" size="30" />
                 <p class="text-2xl font-bold py-1">Items</p>
             </div>
@@ -28,7 +30,11 @@
                     class="flex items-center text-foreground p-1 justify-center cursor-pointer"
                     @click="toggleView()"
                 >
-                    <Icon :name="name" size="30" />
+                    <Icon
+                        :name="name"
+                        size="30"
+                        class="text-background dark:text-foreground"
+                    />
                 </span>
             </div>
         </ClientOnly>

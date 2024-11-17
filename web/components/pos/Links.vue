@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex p-2 px-4 m-auto items-center justify-between bg-secondary rounded-b mb-0.5"
+        class="flex p-1 px-4 m-auto items-center justify-between bg-card rounded-b mb-0.5"
     >
         <ClientOnly>
             <div class="flex items-center gap-2 justify-center">

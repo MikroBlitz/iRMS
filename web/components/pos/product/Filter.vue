@@ -63,7 +63,10 @@ const modelFields = ['name'].map((name) => ({
     name,
 }));
 
-const { modelData } = await useModelCrud(modelName, modelFields);
+const { modelData, fetchDataPaginate } = await useModelCrud(
+    modelName,
+    modelFields,
+);
 const selectedCategory: any = inject('selectedCategory');
 const fallbackData: any = testData.categories;
 
@@ -75,5 +78,9 @@ const categories = computed(() => {
     return modelData.value && modelData.value.length > 0
         ? modelData.value
         : fallbackData;
+});
+
+onMounted(async () => {
+    await fetchDataPaginate(100, 1);
 });
 </script>

@@ -1,9 +1,11 @@
 <template>
     <div
-        class="flex m-auto items-center justify-between bg-secondary p-1 rounded"
+        class="flex m-auto items-center justify-between bg-primary/80 p-1 rounded"
     >
         <ClientOnly>
-            <div class="flex items-center gap-1 text-foreground">
+            <div
+                class="flex items-center gap-1 text-background dark:text-foreground"
+            >
                 <div class="relative flex">
                     <Icon
                         :name="
@@ -69,9 +71,15 @@ const cartStore = useCart();
 const customerName: any = inject('customerName');
 const isMobile = inject('isMobile');
 
+const openToolsDrawer: any = inject('openToolsDrawer');
+const closeDrawer = () => {
+    openToolsDrawer.value = false;
+};
+
 const clearCart = () => {
     cartStore.clearCart();
     customerName.value = 'Guest';
     toasts('Cart cleared!', { type: 'success' });
+    closeDrawer();
 };
 </script>
