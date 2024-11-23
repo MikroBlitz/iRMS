@@ -26,6 +26,9 @@ export const userFragment = gql`
         email
         password
         role
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -33,6 +36,9 @@ export const jobFragment = gql`
     fragment job on Job {
         id
         title
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -47,6 +53,9 @@ export const OrderItemFragment = gql`
         }
         qty
         total_amount
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -55,6 +64,9 @@ export const CategoryFragment = gql`
         id
         name
         slug
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -79,6 +91,9 @@ export const ProductFragment = gql`
         #                order_items {
         #                    ...orderItem
         #                }
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -92,6 +107,9 @@ export const InventoryFragment = gql`
         }
         qty
         location
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -117,6 +135,9 @@ export const CustomerFragment = gql`
             payment
             status
         }
+        created_at
+        updated_at
+        deleted_at
     }
 `;
 
@@ -151,6 +172,9 @@ export const OrderFragment = gql`
         #            qty
         #            total_amount
         #        }
+        created_at
+        updated_at
+        deleted_at
     }
     ${OrderItemFragment}
 `;
