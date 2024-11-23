@@ -13,7 +13,6 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@headlessui/vue": "^1.7.22",
-    "@iconify-icons/solar": "^1.2.3",
     "@nuxt/eslint": "^0.4.0",
     "@nuxt/fonts": "^0.10.0",
     "@nuxt/icon": "^1.4.4",
@@ -29,7 +28,7 @@
     "clsx": "^2.1.1",
     "concurrently": "^8.2.2",
     "eslint": "^9.14.0",
-    "nuxt": "^3.14.159",
+    "nuxt": "^3.14.1592",
     "pinia-plugin-persistedstate": "^4.0.2",
     "prettier": "^3.3.3",
     "radix-vue": "^1.9.2",
@@ -41,6 +40,7 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.68",
+    "@iconify-json/solar": "^1.2.1",
     "@tanstack/vue-table": "^8.16.0",
     "@unovis/ts": "^1.4.3-beta.0",
     "@unovis/vue": "^1.4.3-beta.0",

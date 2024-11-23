@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    future: {
+        compatibilityVersion: 4,
+    },
     compatibilityDate: '2024-04-03',
     devtools: { enabled: import.meta.env.DEVTOOLS !== 'false' },
     srcDir: 'web/',
@@ -20,7 +23,7 @@ export default defineNuxtConfig({
     ],
     shadcn: {
         prefix: '',
-        componentDir: '~/components/ui',
+        componentDir: 'web/components/ui',
     },
     tailwindcss: { cssPath: '~/assets/css/main.css' },
     eslint: {
