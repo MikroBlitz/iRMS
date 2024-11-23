@@ -5,7 +5,7 @@
                 class="absolute flex-col top-64 flex justify-center items-center text-xl text-gray-500 dark:text-gray-300 mt-4"
             >
                 <template v-if="isLoading">
-                    <BlocksWave class="size-16 text-primary dark:text-accent" />
+                    <BlocksWave class="size-20 text-primary" />
                     <p class="animate-pulse">Fetching data</p>
                 </template>
 

@@ -75,8 +75,9 @@
 
             <div class="flex justify-between items-center gap-4">
                 <div class="text-sm text-muted-foreground">
-                    Showing {{ paginatorInfo?.perPage }} of
-                    {{ paginatorInfo?.total }} items
+                    Showing {{ paginatorInfo?.currentPage }} of
+                    {{ paginatorInfo?.lastPage }}
+                    {{ paginatorInfo?.lastPage > 1 ? 'pages' : 'page' }}
                 </div>
 
                 <Pagination
@@ -93,8 +94,14 @@
                         v-slot="{ items }"
                         class="flex items-center gap-1"
                     >
-                        <PaginationFirst @click.prevent="firstPage()" />
-                        <PaginationPrev @click.prevent="prevPage()" />
+                        <PaginationFirst
+                            class="rounded-full"
+                            @click.prevent="firstPage()"
+                        />
+                        <PaginationPrev
+                            class="rounded-full"
+                            @click.prevent="prevPage()"
+                        />
 
                         <template v-for="(item, index) in items">
                             <PaginationListItem
@@ -104,7 +111,7 @@
                                 as-child
                             >
                                 <Button
-                                    class="w-10 h-10 p-0"
+                                    class="size-10 p-0 rounded-full"
                                     :variant="
                                         item.value ===
                                         paginatorInfo?.currentPage
@@ -123,8 +130,14 @@
                             />
                         </template>
 
-                        <PaginationNext @click.prevent="nextPage()" />
-                        <PaginationLast @click.prevent="lastPage()" />
+                        <PaginationNext
+                            class="rounded-full"
+                            @click.prevent="nextPage()"
+                        />
+                        <PaginationLast
+                            class="rounded-full"
+                            @click.prevent="lastPage()"
+                        />
                     </PaginationList>
                 </Pagination>
             </div>

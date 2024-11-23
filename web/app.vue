@@ -12,7 +12,7 @@ import { useMediaQuery } from '@vueuse/core';
 
 const theme = useTheme();
 const themeName = computed(() => theme.name);
-const isMobile = useMediaQuery('(max-width: 768px)');
+const isMobile = ref(false);
 
 useHead({
     title: 'APP',
@@ -31,4 +31,13 @@ useHead({
 });
 
 provide('isMobile', isMobile);
+
+onMounted(() => {
+    const mediaQuery = useMediaQuery('(max-width: 768px)');
+    isMobile.value = mediaQuery.value;
+
+    watch(mediaQuery, (newValue) => {
+        isMobile.value = newValue;
+    });
+});
 </script>
