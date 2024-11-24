@@ -3,7 +3,7 @@
         v-if="isOpen"
         class="fixed inset-0 bg-black/50 flex items-center justify-center"
     >
-        <div class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+        <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
             <h2 class="text-lg font-semibold mb-4">
                 {{ title }}
             </h2>

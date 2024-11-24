@@ -1,12 +1,9 @@
 <template>
     <div
         v-if="visible"
-        class="fixed inset-0 bg-primary/10 backdrop-blur-sm flex items-center justify-center"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center"
     >
-        <div
-            v-on-click-outside="closeModal"
-            class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative"
-        >
+        <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-foreground">
                     {{ title }}
@@ -268,7 +265,6 @@
 </template>
 
 <script setup lang="ts">
-import { vOnClickOutside } from '@vueuse/components'
 import { useMagicKeys } from '@vueuse/core'
 import {
     ComboboxAnchor,

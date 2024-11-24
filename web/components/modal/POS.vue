@@ -4,9 +4,7 @@
         class="fixed z-50 inset-0 bg-black/50 flex items-center justify-center text-foreground"
     >
         <div v-auto-animate class="flex space-x-2">
-            <div
-                class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative"
-            >
+            <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
                 <div class="flex justify-between items-center mb-2 px-4">
                     <h3 class="text-xl font-bold">
                         <template v-if="customerName">
@@ -216,7 +214,7 @@ import {
 } from '~/composables/useConstant'
 
 const keys = useMagicKeys()
-const proceedPayment = keys['Ctrl+Enter']
+const proceedPayment: any = keys['Ctrl+Enter']
 
 const emit = defineEmits(['close'])
 defineProps({
