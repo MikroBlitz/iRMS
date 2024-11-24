@@ -1,13 +1,9 @@
 <template>
     <div
         v-if="visible"
-        class="fixed z-50 inset-0 bg-primary/10 backdrop-blur-sm flex items-center justify-center text-foreground"
+        class="fixed z-50 inset-0 bg-black/50 flex items-center justify-center text-foreground"
     >
-        <div
-            v-on-click-outside="closeModal"
-            v-auto-animate
-            class="flex space-x-2"
-        >
+        <div v-auto-animate class="flex space-x-2">
             <div
                 class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative"
             >
@@ -207,154 +203,153 @@
 </template>
 
 <script setup lang="ts">
-import { vOnClickOutside } from '@vueuse/components';
-import { useMagicKeys } from '@vueuse/core';
+import { useMagicKeys } from '@vueuse/core'
 
-import type { ModalField } from '~/types';
+import type { ModalField } from '~/types'
 
-import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button'
+import { Input } from '~/components/ui/input'
 import {
     getPaymentMethod,
     numbers,
     paymentMethods,
-} from '~/composables/useConstant';
+} from '~/composables/useConstant'
 
-const keys = useMagicKeys();
-const proceedPayment = keys['Ctrl+Enter'];
+const keys = useMagicKeys()
+const proceedPayment = keys['Ctrl+Enter']
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 defineProps({
-    visible: Boolean,
-    title: {
-        type: String,
-        default: 'POS Checkout',
-    },
     fields: {
-        type: Array as PropType<ModalField[]>,
         default: () => [],
+        type: Array as PropType<ModalField[]>,
     },
     initialValues: {
-        type: Object as PropType<Record<string, any> | null>,
         default: () => ({}),
-    },
-    submitButtonText: {
-        type: String,
-        default: 'Submit',
-    },
-    transactionTotal: {
-        type: String,
-        default: 0,
+        type: Object as PropType<Record<string, any> | null>,
     },
     selectedPaymentMethod: {
-        type: String,
         default: '',
+        type: String,
     },
-});
+    submitButtonText: {
+        default: 'Submit',
+        type: String,
+    },
+    title: {
+        default: 'POS Checkout',
+        type: String,
+    },
+    transactionTotal: {
+        default: 0,
+        type: String,
+    },
+    visible: Boolean,
+})
 
-const isMobile = inject('isMobile');
-const form = ref<Record<string, any>>({});
-const loading = ref(false);
-const receiptVisible = ref(false);
+const isMobile = inject('isMobile')
+const form = ref<Record<string, any>>({})
+const loading = ref(false)
+const receiptVisible = ref(false)
 
-const cartStore: any = useCart();
-const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
+const cartStore: any = useCart()
+const totalAmount = cartStore.totalAmountWithTaxAndDiscount
 
-const customerName: any = inject('customerName');
-const cashTendered: any = inject('cashTendered');
-const paymentMethod: any = inject('paymentMethod');
-const status: any = inject('status');
+const customerName: any = inject('customerName')
+const cashTendered: any = inject('cashTendered')
+const paymentMethod: any = inject('paymentMethod')
+const status: any = inject('status')
 const change: ComputedRef<number> = computed(() =>
     parseFloat((cashTendered.value - totalAmount).toFixed(2)),
-);
+)
 
 const appendZero = () =>
     cashTendered.value.length > 0
         ? (cashTendered.value = cashTendered.value + '0')
-        : null;
+        : null
 const appendNumber = (num: string) =>
-    (cashTendered.value = (cashTendered.value + num).toString());
+    (cashTendered.value = (cashTendered.value + num).toString())
 const clearInput = () => {
-    cashTendered.value = '';
-    receiptVisible.value = false;
-};
+    cashTendered.value = ''
+    receiptVisible.value = false
+}
 const appendDot = () =>
     !cashTendered.value.includes('.')
         ? (cashTendered.value = cashTendered.value + '.')
-        : null;
+        : null
 
 const closeModal = () => {
-    emit('close');
-};
+    emit('close')
+}
 
 // TODO: Refactor this function
 const completeOrder = async () => {
-    const { upsertOrder } = await import('~/graphql/Order');
-    const { reduceInventory } = await import('~/graphql/Inventory');
+    const { upsertOrder } = await import('~/graphql/Order')
+    const { reduceInventory } = await import('~/graphql/Inventory')
 
     const orderItems = cartStore.cartItems.map((product) => {
         return {
+            price: product.price,
             product_id: product.id,
             qty: product.qty,
-            price: product.price,
             total_amount: product.amount,
-        };
-    });
+        }
+    })
     const orderDetails = {
-        date: new Date().toISOString(),
-        customer_guest: customerName.value,
-        payment: paymentMethod.value,
-        total_amount: totalAmount,
         cash_tendered: cashTendered.value.toString(),
-        order_items: { upsert: orderItems },
         change: change.value,
+        customer_guest: customerName.value,
+        date: new Date().toISOString(),
+        order_items: { upsert: orderItems },
+        payment: paymentMethod.value,
         status: status.value,
-    };
+        total_amount: totalAmount,
+    }
 
     try {
         if (customerName.value) {
-            loading.value = true;
+            loading.value = true
 
-            const { mutate } = useMutation(upsertOrder);
-            await mutate({ input: orderDetails });
+            const { mutate } = useMutation(upsertOrder)
+            await mutate({ input: orderDetails })
 
             const itemsToReduce = cartStore.cartItems.map((product) => ({
                 product_id: product.id,
                 qty: product.qty,
-            }));
+            }))
 
             const { mutate: subtractInventoryMutate } =
-                useMutation(reduceInventory);
+                useMutation(reduceInventory)
             await subtractInventoryMutate({
                 products: itemsToReduce,
-            });
+            })
 
-            emit('close');
-            cartStore.paymentSuccess();
+            emit('close')
+            cartStore.paymentSuccess()
 
-            loading.value = false;
-            cashTendered.value = '';
+            loading.value = false
+            cashTendered.value = ''
         } else {
-            toasts('Please enter a customer name!', { type: 'error' });
+            toasts('Please enter a customer name!', { type: 'error' })
         }
     } catch (error: any) {
-        const graphQLError = error?.graphQLErrors?.[0];
+        const graphQLError = error?.graphQLErrors?.[0]
         const errorMessage =
             graphQLError?.extensions?.debugMessage ||
             graphQLError?.message ||
-            'An error occurred';
+            'An error occurred'
 
         toasts(`Error completing order: ${errorMessage}!`, {
             type: 'error',
-        });
+        })
 
-        console.error('Error completing order:', error);
+        console.error('Error completing order:', error)
     }
-};
+}
 
 watch(proceedPayment, (e) => {
     if (e) {
-        completeOrder();
+        completeOrder()
     }
-});
+})
 </script>
