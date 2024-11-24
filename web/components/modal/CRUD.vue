@@ -107,6 +107,12 @@
                         <ComboboxRoot
                             :id="field.name"
                             v-model="form[field.name]"
+                            :display-value="
+                                (value) =>
+                                    getData(field.model as string).find(
+                                        (item: any) => item.id === value,
+                                    )?.[field.optionTitle as string] || ''
+                            "
                             class="relative"
                         >
                             <ComboboxAnchor
@@ -126,6 +132,7 @@
                                             : ''
                                     "
                                     :placeholder="`Select ${field.model}`"
+                                    :required="field.required"
                                 />
                                 <ComboboxTrigger
                                     :disabled="submitButtonText === ''"
@@ -143,7 +150,9 @@
                                 <ComboboxViewport class="p-[5px]">
                                     <ComboboxEmpty
                                         class="text-mauve8 text-xs font-medium text-center py-2"
-                                    />
+                                    >
+                                        No options available
+                                    </ComboboxEmpty>
 
                                     <ComboboxGroup>
                                         <ComboboxItem
@@ -308,8 +317,8 @@ const props = defineProps({
 })
 
 const keys = useMagicKeys()
-const continueSubmit = keys['Enter']
-const cancelSubmit = keys['Escape']
+const continueSubmit: any = keys['Enter']
+const cancelSubmit: any = keys['Escape']
 const showPassword = ref<Record<string, boolean>>({})
 const emit = defineEmits(['submit', 'close'])
 const form = ref<Record<string, any>>({})
@@ -353,7 +362,7 @@ onMounted(async () => {
                 const query = queryModule[field.queryName]
                 if (query) {
                     const result: any = await useAsyncQuery(query)
-                    const resultKey = Object.keys(result.data.value)[0]
+                    const resultKey: any = Object.keys(result.data.value)[0]
                     data.value[field.model.toLowerCase()] =
                         result.data.value[resultKey] || []
                 }

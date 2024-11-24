@@ -80,6 +80,7 @@ const modelFields: CrudModalField[] = [
         name: 'user_id',
         optionTitle: 'name',
         queryName: 'filterCustomer',
+        required: true,
         type: 'combobox',
     },
     { label: 'Phone', name: 'phone', type: 'text' },
