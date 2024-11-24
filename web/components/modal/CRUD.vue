@@ -124,6 +124,9 @@
                                 "
                             >
                                 <ComboboxInput
+                                    :value="
+                                        getOptionText(form[field.name], field)
+                                    "
                                     :disabled="submitButtonText === ''"
                                     class="!bg-transparent outline-none w-full text-grass11 h-full selection:bg-grass5 placeholder-mauve8"
                                     :class="
@@ -349,6 +352,11 @@ const getInputType = (field: Field) => {
 
 const data: Ref<Record<string, any>> = ref({})
 const getData = (model: string) => data.value[model.toLowerCase()] || []
+
+const getOptionText = (value, field) => {
+    const option = getData(field.model).find((item) => item.id === value)
+    return option ? option[field.optionTitle] : ''
+}
 
 onMounted(async () => {
     if (Array.isArray(props.fields)) {
