@@ -124,13 +124,9 @@ const login = async () => {
         const message =
             error.response?.data?.message ||
             'An error occurred. Please try again.'
-        toasts(message, {
-            autoClose: 3000,
-            hideProgressBar: true,
-            position: 'top-center',
-            transition: 'zoom',
-            type: 'error',
-        })
+        toasts(message, { type: 'error' })
+
+        navigateTo('/dashboard') // TODO: remove this if API is hosted
     } finally {
         loading.value = false
     }
