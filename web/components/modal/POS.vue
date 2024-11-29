@@ -311,6 +311,13 @@ const completeOrder = async () => {
             const { mutate } = useMutation(upsertOrder)
             await mutate({ input: orderDetails })
 
+            if (!checkAuth()) {
+                loading.value = false
+                return toasts('Only authorized users can complete orders.', {
+                    type: 'error',
+                })
+            }
+
             const itemsToReduce = cartStore.cartItems.map((product) => ({
                 product_id: product.id,
                 qty: product.qty,

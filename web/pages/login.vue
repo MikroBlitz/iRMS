@@ -91,54 +91,54 @@
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core';
+import { useMagicKeys } from '@vueuse/core'
 
-const auth = useAuth();
-const loading = ref(false);
-const errors = ref(null);
+const auth = useAuth()
+const loading = ref(false)
+const errors = ref(null)
 
-const keys = useMagicKeys();
-const continueLogin = keys['Enter'];
+const keys = useMagicKeys()
+const continueLogin: any = keys['Enter']
 
 const credentials = reactive({
     email: 'admin@mail.com',
     password: 'admin1234',
     remember: false,
-});
+})
 
 const login = async () => {
-    errors.value = null;
-    loading.value = true;
+    errors.value = null
+    loading.value = true
 
     try {
-        await auth.getTokens();
-        await auth.login(credentials.email, credentials.password);
-        await auth.getUser();
+        await auth.getTokens()
+        await auth.login(credentials.email, credentials.password)
+        await auth.getUser()
         if (auth.user.role == 2 || auth.user.role == 3) {
-            navigateTo('/pos');
+            navigateTo('/pos')
         } else {
-            navigateTo('/dashboard');
+            navigateTo('/dashboard')
         }
     } catch (error: any) {
-        console.error(error);
+        console.error(error)
         const message =
             error.response?.data?.message ||
-            'An error occurred. Please try again.';
+            'An error occurred. Please try again.'
         toasts(message, {
-            type: 'error',
-            position: 'top-center',
             autoClose: 3000,
-            transition: 'zoom',
             hideProgressBar: true,
-        });
+            position: 'top-center',
+            transition: 'zoom',
+            type: 'error',
+        })
     } finally {
-        loading.value = false;
+        loading.value = false
     }
-};
+}
 
 definePageMeta({
     middleware: ['guest'],
-});
+})
 
-watch(continueLogin, (e) => (e ? login() : null));
+watch(continueLogin, (e) => (e ? login() : null))
 </script>
