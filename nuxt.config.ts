@@ -1,13 +1,28 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    future: {
-        compatibilityVersion: 4,
+    apollo: {
+        autoImports: true,
+        clients: {
+            default: { httpEndpoint: import.meta.env.API_URL + '/graphql' },
+        },
     },
+    app: {
+        layoutTransition: { mode: 'out-in', name: 'layout' },
+        pageTransition: { mode: 'out-in', name: 'page' },
+    },
+    colorMode: { classSuffix: '' },
     compatibilityDate: '2024-04-03',
     devtools: { enabled: import.meta.env.DEVTOOLS !== 'false' },
-    srcDir: 'web/',
-    imports: { dirs: ['~/stores', '~/composables/*/*.{ts,js}'] },
-    css: ['~/assets/css/main.css'],
+    eslint: {
+        config: {
+            stylistic: {
+                indent: 'tab',
+                semi: true,
+            },
+        },
+    },
+    future: { compatibilityVersion: 4 },
+    imports: { dirs: ['~/stores', '~/utils', '~/composables/*/*.{ts,js}'] },
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/apollo',
@@ -21,36 +36,10 @@ export default defineNuxtConfig({
         '@nuxt/image',
         '@nuxt/fonts',
     ],
-    shadcn: {
-        prefix: '',
-        componentDir: 'web/components/ui',
-    },
-    tailwindcss: { cssPath: '~/assets/css/main.css' },
-    eslint: {
-        config: {
-            stylistic: {
-                indent: 'tab',
-                semi: true,
-            },
-        },
-    },
-    colorMode: {
-        classSuffix: '',
-    },
-    app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
-        layoutTransition: { name: 'layout', mode: 'out-in' },
-    },
     postcss: {
         plugins: {
-            tailwindcss: {},
             autoprefixer: {},
-        },
-    },
-    apollo: {
-        autoImports: true,
-        clients: {
-            default: { httpEndpoint: import.meta.env.API_URL + '/graphql' },
+            tailwindcss: {},
         },
     },
     runtimeConfig: {
@@ -58,4 +47,10 @@ export default defineNuxtConfig({
             API_URL: import.meta.env.API_URL,
         },
     },
-});
+    shadcn: {
+        componentDir: './web/components/ui',
+        prefix: '',
+    },
+    srcDir: 'web/',
+    tailwindcss: { cssPath: '~/assets/css/main.css' },
+})
