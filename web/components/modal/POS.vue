@@ -306,7 +306,7 @@ const completeOrder = async () => {
     }
 
     try {
-        if (checkAuth() || !auth.user.role) {
+        if (auth.user.role === 0 || !auth.user.role) {
             loading.value = false
             return toasts('Only authorized users can complete orders.', {
                 type: 'error',

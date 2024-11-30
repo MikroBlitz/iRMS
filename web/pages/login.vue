@@ -1,10 +1,10 @@
 <template>
-    <div class="min-h-screen flex flex-col justify-center bg-gray-900/20">
+    <div class="h-screen flex flex-col justify-center bg-gray-900/20">
         <div
-            class="container bg-transparent md:bg-gray-800/70 rounded-xl mx-auto flex flex-col md:flex-row items-center justify-center p-6 md:p-36 md:space-y-0"
+            class="container bg-transparent md:bg-gray-800/70 rounded-xl mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
         >
             <div
-                class="md:flex-1 flex flex-col items-center text-center md:text-left p-2 mb-4"
+                class="md:flex-1 flex flex-col items-center text-center md:text-left p-4"
             >
                 <img
                     src="../assets/application_logo.svg"
@@ -12,21 +12,22 @@
                     class="mb-2 w-24 md:w-48"
                 />
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
-                    POS SYSTEM
+                    APP
                 </h1>
-                <p class="text-gray-200 max-w-md">
-                    Welcome to POS System! Please log in to streamline your
+                <p class="text-gray-200 max-w-md text-center">
+                    Welcome to APP! With fully customizable themes and
+                    components. It comes with
                     <span class="text-emerald-400"
-                        >sales, manage inventory,</span
+                        >POS, Inventory, Sales, Messaging,</span
                     >
-                    and enhance your
-                    <span class="text-emerald-400">customer experience.</span>
-                    Let's get started!
+                    and
+                    <span class="text-emerald-400">Customer Management.</span>
+                    <br />Let's get started!
                 </p>
             </div>
 
             <div
-                class="md:flex-1 max-w-full w-[400px] md:max-w-lg bg-gray-800 md:bg-gray-900/50 p-12 rounded-lg shadow-lg mx-4 md:mx-0"
+                class="md:flex-1 max-w-full w-[400px] md:max-w-lg bg-gray-800 md:bg-gray-900/50 p-8 rounded-lg shadow-lg mx-4 md:mx-0"
             >
                 <h2 class="text-2xl font-semibold text-center text-white mb-6">
                     Sign In
