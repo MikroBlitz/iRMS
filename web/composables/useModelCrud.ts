@@ -133,7 +133,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                 handler: openViewModal,
                 icon: 'solar:eye-outline',
                 name: 'view',
-                showButton: true,
+                showButton: false,
             },
             {
                 class: 'text-blue-500',
