@@ -77,6 +77,12 @@ export const orderDetails = (
     total_amount: totalAmount,
 })
 
+export const itemsToReduce = (cartStore: CartStore) =>
+    cartStore.cartItems?.map((product: CartProduct) => ({
+        product_id: product.id,
+        qty: product.qty,
+    }))
+
 export const errorOrder = (error: any) => {
     const graphQLError = error?.graphQLErrors?.[0]
     const errorMessage =

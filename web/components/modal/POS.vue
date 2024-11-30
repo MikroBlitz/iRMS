@@ -203,7 +203,7 @@
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core'
 
-import type { CartProduct, ModalField } from '~/types'
+import type { ModalField } from '~/types'
 
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
@@ -212,7 +212,7 @@ import {
     numbers,
     paymentMethods,
 } from '~/composables/useConstant'
-import { errorOrder } from '~/utils/pos'
+import { errorOrder, itemsToReduce } from '~/utils/pos'
 
 const auth = useAuth()
 const keys = useMagicKeys()
@@ -295,13 +295,14 @@ const completeOrder = async () => {
                 type: 'error',
             })
         }
+
         if (!customerName.value) {
             loading.value = false
             return toasts('Please enter a customer name!', { type: 'error' })
         }
 
-        const { mutate } = useMutation(upsertOrder)
-        await mutate({
+        const { mutate: mutateOrderDetails } = useMutation(upsertOrder)
+        await mutateOrderDetails({
             input: orderDetails(
                 orderItems(cartStore),
                 cashTendered,
@@ -313,23 +314,17 @@ const completeOrder = async () => {
             ),
         })
 
-        const itemsToReduce = cartStore.cartItems.map(
-            (product: CartProduct) => ({
-                product_id: product.id,
-                qty: product.qty,
-            }),
-        )
-        const { mutate: subtractInventoryMutate } = useMutation(reduceInventory)
-        await subtractInventoryMutate({
-            products: itemsToReduce,
+        const { mutate: reduceInventoryItems } = useMutation(reduceInventory)
+        await reduceInventoryItems({
+            products: itemsToReduce(cartStore),
         })
-    } catch (error: any) {
-        errorOrder(error)
-    } finally {
-        emit('close')
+
         loading.value = false
+        emit('close')
         cashTendered.value = ''
         cartStore.paymentSuccess()
+    } catch (error: any) {
+        errorOrder(error)
     }
 }
 
