@@ -178,7 +178,7 @@
                             <template
                                 v-if="change < 0 || change == null || loading"
                             >
-                                <SpinnerTadpole class="size-10 text-white" />
+                                <SpinnerBlocksWave class="size-10 text-white" />
                             </template>
                             <template v-else>
                                 <span class="ml-2 text-xl font-bold">{{
@@ -203,7 +203,7 @@
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core'
 
-import type { ModalField } from '~/types'
+import type { CartProduct, ModalField } from '~/types'
 
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
@@ -212,6 +212,7 @@ import {
     numbers,
     paymentMethods,
 } from '~/composables/useConstant'
+import { errorOrder } from '~/utils/pos'
 
 const auth = useAuth()
 const keys = useMagicKeys()
@@ -245,6 +246,9 @@ defineProps({
     },
     visible: Boolean,
 })
+
+const { upsertOrder } = await import('~/graphql/Order')
+const { reduceInventory } = await import('~/graphql/Inventory')
 
 const isMobile = inject('isMobile')
 const form = ref<Record<string, any>>({})
@@ -281,74 +285,51 @@ const closeModal = () => {
     emit('close')
 }
 
-// TODO: Refactor this function
 const completeOrder = async () => {
-    const { upsertOrder } = await import('~/graphql/Order')
-    const { reduceInventory } = await import('~/graphql/Inventory')
-
-    const orderItems = cartStore.cartItems.map((product) => {
-        return {
-            price: product.price,
-            product_id: product.id,
-            qty: product.qty,
-            total_amount: product.amount,
-        }
-    })
-    const orderDetails = {
-        cash_tendered: cashTendered.value.toString(),
-        change: change.value,
-        customer_guest: customerName.value,
-        date: new Date().toISOString(),
-        order_items: { upsert: orderItems },
-        payment: paymentMethod.value,
-        status: status.value,
-        total_amount: totalAmount,
-    }
-
     try {
+        loading.value = true
+
         if (auth.user.role === 0 || !auth.user.role) {
             loading.value = false
             return toasts('Only authorized users can complete orders.', {
                 type: 'error',
             })
         }
-
-        if (customerName.value) {
-            loading.value = true
-
-            const { mutate } = useMutation(upsertOrder)
-            await mutate({ input: orderDetails })
-
-            const itemsToReduce = cartStore.cartItems.map((product) => ({
-                product_id: product.id,
-                qty: product.qty,
-            }))
-            const { mutate: subtractInventoryMutate } =
-                useMutation(reduceInventory)
-            await subtractInventoryMutate({
-                products: itemsToReduce,
-            })
-
-            emit('close')
-            cartStore.paymentSuccess()
-
+        if (!customerName.value) {
             loading.value = false
-            cashTendered.value = ''
-        } else {
-            toasts('Please enter a customer name!', { type: 'error' })
+            return toasts('Please enter a customer name!', { type: 'error' })
         }
-    } catch (error: any) {
-        const graphQLError = error?.graphQLErrors?.[0]
-        const errorMessage =
-            graphQLError?.extensions?.debugMessage ||
-            graphQLError?.message ||
-            'An error occurred'
 
-        toasts(`Error completing order: ${errorMessage}!`, {
-            type: 'error',
+        const { mutate } = useMutation(upsertOrder)
+        await mutate({
+            input: orderDetails(
+                orderItems(cartStore),
+                cashTendered,
+                change,
+                customerName,
+                paymentMethod,
+                status,
+                totalAmount,
+            ),
         })
 
-        console.error('Error completing order:', error)
+        const itemsToReduce = cartStore.cartItems.map(
+            (product: CartProduct) => ({
+                product_id: product.id,
+                qty: product.qty,
+            }),
+        )
+        const { mutate: subtractInventoryMutate } = useMutation(reduceInventory)
+        await subtractInventoryMutate({
+            products: itemsToReduce,
+        })
+    } catch (error: any) {
+        errorOrder(error)
+    } finally {
+        emit('close')
+        loading.value = false
+        cashTendered.value = ''
+        cartStore.paymentSuccess()
     }
 }
 
