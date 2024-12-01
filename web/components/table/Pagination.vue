@@ -149,6 +149,7 @@ defineProps({
     },
 })
 
+// TODO: Pass perPageOptions query from server
 const perPage = ref(10)
 const perPageOptions = [10, 25, 100]
 </script>

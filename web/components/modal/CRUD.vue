@@ -250,13 +250,13 @@
                         <Icon
                             :class="
                                 showPassword[field.name]
-                                    ? 'text-red-500'
-                                    : 'text-gray-500'
+                                    ? 'text-destructive'
+                                    : 'text-emerald-700'
                             "
                             :name="
                                 showPassword[field.name]
-                                    ? 'mdi:eye-off'
-                                    : 'mdi:eye'
+                                    ? 'mdi:eye'
+                                    : 'mdi:eye-off'
                             "
                             size="20"
                         />

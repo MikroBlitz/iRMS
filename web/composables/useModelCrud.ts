@@ -143,7 +143,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                 showButton: true,
             },
             {
-                class: 'text-red-800',
+                class: 'text-destructive',
                 handler: showDeleteConfirmation,
                 icon: 'solar:trash-bin-minimalistic-outline',
                 name: 'delete',

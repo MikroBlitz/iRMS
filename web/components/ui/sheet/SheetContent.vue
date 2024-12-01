@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue';
+import { type HTMLAttributes, computed } from 'vue'
 import {
     DialogClose,
     DialogContent,
@@ -8,31 +8,31 @@ import {
     DialogOverlay,
     DialogPortal,
     useForwardPropsEmits,
-} from 'radix-vue';
-import { X } from 'lucide-vue-next';
-import { type SheetVariants, sheetVariants } from '.';
-import { cn } from '@/lib/utils';
+} from 'radix-vue'
+import { X } from 'lucide-vue-next'
+import { type SheetVariants, sheetVariants } from '.'
+import { cn } from '@/lib/utils'
 
 interface SheetContentProps extends DialogContentProps {
-    class?: HTMLAttributes['class'];
-    side?: SheetVariants['side'];
+    side?: SheetVariants['side']
+    class?: HTMLAttributes['class']
 }
 
 defineOptions({
     inheritAttrs: false,
-});
+})
 
-const props = defineProps<SheetContentProps>();
+const props = defineProps<SheetContentProps>()
 
-const emits = defineEmits<DialogContentEmits>();
+const emits = defineEmits<DialogContentEmits>()
 
 const delegatedProps = computed(() => {
-    const { class: _, side, ...delegated } = props;
+    const { class: _, side, ...delegated } = props
 
-    return delegated;
-});
+    return delegated
+})
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
@@ -49,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
             <DialogClose
                 class="absolute right-6 top-6 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary"
             >
-                <X class="size-5 text-red-500" />
+                <X class="size-5 text-destructive" />
             </DialogClose>
         </DialogContent>
     </DialogPortal>

@@ -47,7 +47,7 @@
                             >
                                 <NuxtImg
                                     :src="product.image || noImage"
-                                    class="w-[50px] h-auto object-cover rounded"
+                                    class="size-[50px] object-cover rounded"
                                 />
                                 <div class="flex flex-col">
                                     <div class="text-overflow-hidden">

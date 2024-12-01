@@ -65,7 +65,7 @@
                     :class="
                         product.inventories[inventoryLocation]?.qty > restockQty
                             ? ''
-                            : 'text-red-500 animate-pulse'
+                            : 'text-destructive animate-pulse'
                     "
                 >
                     <Icon name="solar:box-minimalistic-linear" size="20" />
