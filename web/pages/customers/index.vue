@@ -1,8 +1,5 @@
 <template>
     <div>
-        <Head>
-            <Title>{{ pageTitle }}</Title>
-        </Head>
         <main v-auto-animate class="max-w-screen-2xl mx-auto">
             <TableHeader :title="pageTitle" :icon="icon">
                 <template #actions>
@@ -56,12 +53,8 @@ import type { Headers, CrudModalField } from '~/types'
 
 import { useModelCrud } from '~/composables/useModelCrud'
 
-definePageMeta({
-    layout: 'app-layout',
-})
-
 const modelName = 'customer'
-const pageTitle = getPluralName(toTitleCase(modelName))
+const pageTitle = ref(getPluralName(toTitleCase(modelName)))
 const icon = 'solar:user-hand-up-linear'
 
 const modelHeaders: Headers[] = [
@@ -107,4 +100,18 @@ const {
     selectedModel,
     showModal,
 } = await useModelCrud(modelName, modelFields)
+
+definePageMeta({
+    layout: 'app-layout',
+})
+
+useHead({
+    meta: [
+        {
+            content: 'Add, edit, and delete customers',
+            name: 'Manage customers',
+        },
+    ],
+    title: pageTitle.value,
+})
 </script>
