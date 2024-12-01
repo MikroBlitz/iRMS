@@ -1,7 +1,7 @@
 <template>
     <div class="h-dvh flex flex-col justify-center bg-gray-900/20">
         <div
-            class="container bg-transparent md:bg-gray-800/70 rounded-xl mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
+            class="container bg-transparent md:bg-gray-800/70 rounded mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
         >
             <div
                 class="md:flex-1 flex flex-col items-center text-center md:text-left p-4"

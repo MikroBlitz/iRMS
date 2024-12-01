@@ -1,7 +1,10 @@
 <template>
-    <div class="grid items-start h-dvh">
-        <div class="p-0 md:p-1">
-            <slot />
-        </div>
+    <div class="w-full h-dvh">
+        <Head>
+            <Title>Messages</Title>
+        </Head>
+        <slot />
     </div>
 </template>
+
+<script setup lang="ts"></script>

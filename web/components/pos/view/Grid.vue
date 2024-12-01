@@ -11,7 +11,7 @@
         @click="cartStore.addProductToCart(product)"
     >
         <div
-            class="flex items-center justify-center gap-1 text-white text-sm bg-destructive/70 p-2 rounded-xl"
+            class="flex items-center justify-center gap-1 text-white text-sm bg-destructive/70 p-2 rounded"
             :class="
                 !product.inventories[inventoryLocation]?.qty ? '' : 'hidden'
             "
@@ -92,14 +92,14 @@
 </template>
 
 <script setup lang="ts">
-import { noImage } from '~/composables/useConstant';
-import { useCart } from '~/stores/useCart';
+import { noImage } from '~/composables/useConstant'
+import { useCart } from '~/stores/useCart'
 
-const cartStore = useCart();
+const cartStore = useCart()
 
 // TODO: fix types
-const restockQty: any = inject('restockQty');
-const inventoryLocation: any = inject('inventoryLocation');
+const restockQty: any = inject('restockQty')
+const inventoryLocation: any = inject('inventoryLocation')
 
-const filteredItems: any = inject('filteredItems');
+const filteredItems: any = inject('filteredItems')
 </script>
