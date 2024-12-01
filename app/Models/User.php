@@ -69,11 +69,6 @@ class User extends Authenticatable
         return $this->hasMany(Log::class);
     }
 
-    public function jobs(): HasMany
-    {
-        return $this->hasMany(Job::class);
-    }
-
     public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);

@@ -54,15 +54,6 @@ type PaginatorInfo {
   total: Int!
 }
 
-"A paginated list of Job items."
-type JobPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of Job items."
-  data: [Job!]!
-}
-
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."
