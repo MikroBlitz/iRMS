@@ -321,8 +321,11 @@ const completeOrder = async () => {
 
         loading.value = false
         emit('close')
-        cashTendered.value = ''
         cartStore.paymentSuccess()
+
+        cashTendered.value = ''
+        customerName.value = ''
+        paymentMethod.value = 0
     } catch (error: any) {
         errorOrder(error)
     }

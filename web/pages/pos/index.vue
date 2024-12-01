@@ -33,7 +33,7 @@ const inventoryLocation = ref(0)
 const search = ref('')
 const selectedCategory = ref('')
 
-const customerName: Ref<string> = ref('Guest')
+const customerName: Ref<string> = ref('')
 const cashTendered: Ref<string> = ref('')
 const paymentMethod: Ref<number> = ref(0)
 const status: Ref<number> = ref(0)
