@@ -1,9 +1,9 @@
-import type { LinkItem } from '~/types'
+import type { LinkItem } from '~/types';
 
 function filterLinks(links: LinkItem[], userRole: number): LinkItem[] {
     return links.filter((link) => {
-        return link.roles?.includes(userRole) || link.roles === null
-    })
+        return link.roles?.includes(userRole) || link.roles === null;
+    });
 }
 
 export const sidebarLinks: LinkItem[] = [
@@ -64,9 +64,9 @@ export const sidebarLinks: LinkItem[] = [
     {
         icon: 'mdi:form-select',
         iconColor: 'text-foreground',
-        path: '/online-forms',
+        path: '/reports',
         textColor: 'text-foreground',
-        title: 'Online Forms',
+        title: 'Reports',
         // roles: [0, 1, 3],
         roles: null,
     },
@@ -106,12 +106,12 @@ export const sidebarLinks: LinkItem[] = [
         // roles: [1, 2, 3],
         roles: null,
     },
-]
+];
 
 export default function useLinks(userRole: number) {
     const links = computed<LinkItem[]>(() => {
-        return filterLinks(sidebarLinks, userRole)
-    })
+        return filterLinks(sidebarLinks, userRole);
+    });
 
-    return { links }
+    return { links };
 }

@@ -7,22 +7,20 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '~/components/ui/button'
-
-const pageTitle = ref('Online Forms')
-const icon = 'mdi:form-select'
+const pageTitle = ref('Reports');
+const icon = 'mdi:form-select';
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
         {
-            content: 'Add, edit, and delete online forms',
-            name: 'Manage online forms',
+            content: 'Add, edit, and delete reports',
+            name: 'Manage reports',
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>
