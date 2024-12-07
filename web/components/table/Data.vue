@@ -1,29 +1,48 @@
 <template>
     <div>
         <div
-            class="w-full rounded-b-lg p-2 bg-card border border-secondary dark:border-primary"
+            class="w-full rounded-b p-2 bg-card border border-secondary dark:border-primary"
         >
             <Datatable
                 :options="options"
                 :columns="formattedColumns"
-                :data="props.data"
-                :actions="props.actions"
+                :data="data"
+                :actions="actions"
                 class="overflow-auto w-full"
             >
-                <template #actions="{ data }">
-                    <div class="flex justify-start space-x-1 items-center">
-                        <Button
-                            v-for="(action, index) in props.actions"
-                            v-show="action.showButton ?? true"
-                            :key="index"
-                            :disabled="action.showButton === false"
-                            class="h-7 text-xs rounded-full p-2"
-                            :class="action.class"
-                            @click="action.handler(data)"
-                        >
-                            {{ action.name }}
-                            <!--                            <Icon :name="action.icon" size="20" /> -->
-                        </Button>
+                <template #actions="{ cellData }: { cellData: any }">
+                    <div class="flex justify-start items-center space-x-1">
+                        <div v-for="(action, index) in actions">
+                            <!--                        <Popover> -->
+                            <!--                            <PopoverTrigger as-child> -->
+                            <!--                                <Button -->
+                            <!--                                    class="relative size-8 p-0 rounded-full" -->
+                            <!--                                    variant="outline" -->
+                            <!--                                > -->
+                            <!--                                    <span -->
+                            <!--                                        class="absolute font-bold text-2xl bottom-1.5" -->
+                            <!--                                        >...</span -->
+                            <!--                                    > -->
+                            <!--                                </Button> -->
+                            <!--                            </PopoverTrigger> -->
+                            <!--                            <PopoverContent -->
+                            <!--                                class="w-auto bg-card -mt-10 p-1 space-x-1" -->
+                            <!--                            > -->
+                            <!--                                -->
+                            <!--                            </PopoverContent> -->
+                            <!--                        </Popover> -->
+                            <Button
+                                v-if="action.showButton"
+                                :key="index"
+                                class="h-9 w-14"
+                                :class="action.class"
+                                variant="outline"
+                                @click="action.handler(cellData)"
+                            >
+                                {{ toTitleCase(action.name) }}
+                                <!--                                <Icon :name="action.icon" size="20" /> -->
+                            </Button>
+                        </div>
                     </div>
                 </template>
             </Datatable>
@@ -44,6 +63,12 @@
 import type { Config, ColumnDef } from 'datatables.net';
 import type { PaginatorInfo } from '~/types';
 import Datatable from '~/components/ui/Datatable.client.vue';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from '~/components/ui/popover';
+import { Button } from '~/components/ui/button';
 
 const props = defineProps<{
     headers: { key: string; label: string; class?: string }[];

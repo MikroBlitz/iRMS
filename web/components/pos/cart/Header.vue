@@ -67,27 +67,27 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '~/components/ui/button'
-import { toasts } from '~/composables/useToast'
-import { useCart } from '~/stores/useCart'
+import { Button } from '~/components/ui/button';
+import { toasts } from '~/composables/useToast';
+import { useCart } from '~/stores/useCart';
 
-const cartStore = useCart()
-const customerName: any = inject('customerName')
-const isMobile = inject('isMobile')
+const cartStore = useCart();
+const customerName: any = inject('customerName');
+const isMobile = inject('isMobile');
 
-const openToolsDrawer: any = inject('openToolsDrawer')
+const openToolsDrawer: any = inject('openToolsDrawer');
 const closeDrawer = () => {
-    openToolsDrawer.value = false
-}
+    openToolsDrawer.value = false;
+};
 
 const clearCart = () => {
-    cartStore.clearCart()
-    customerName.value = 'Guest'
-    toasts('Cart cleared!', { type: 'success' })
+    cartStore.clearCart();
+    customerName.value = '';
+    toasts('Cart cleared!', { type: 'success' });
     try {
-        closeDrawer()
+        closeDrawer();
     } catch (e: any) {
-        console.warn('Drawer not found', e.message)
+        console.warn('Drawer not found', e.message);
     }
-}
+};
 </script>

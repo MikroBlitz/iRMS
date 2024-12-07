@@ -7,7 +7,7 @@
                 ? 'cursor-not-allowed pointer-events-none'
                 : ''
         "
-        class="relative flex rounded bg-card border-2 border-secondary px-4 py-3 h-[60px] w-full font-medium overflow-hidden"
+        class="relative flex rounded bg-card border-2 border-secondary p-3 h-[60px] w-full font-medium overflow-hidden"
         @click="cartStore.addProductToCart(product)"
     >
         <div
@@ -25,6 +25,10 @@
             "
             class="flex items-center justify-between rounded-b-md w-full bg-card"
         >
+            <NuxtImg
+                :src="product.image || noImage"
+                class="size-[50px] mr-3 object-cover rounded"
+            />
             <div class="flex-1 overflow-hidden">
                 <div
                     :class="
@@ -83,13 +87,13 @@
 </template>
 
 <script setup lang="ts">
-import { useCart } from '~/stores/useCart'
+import { useCart } from '~/stores/useCart';
 
-const cartStore = useCart()
+const cartStore = useCart();
 
 // TODO: fix types
-const restockQty: any = inject('restockQty')
-const inventoryLocation: any = inject('inventoryLocation')
+const restockQty: any = inject('restockQty');
+const inventoryLocation: any = inject('inventoryLocation');
 
-const filteredItems: any = inject('filteredItems')
+const filteredItems: any = inject('filteredItems');
 </script>

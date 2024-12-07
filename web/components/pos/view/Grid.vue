@@ -41,7 +41,7 @@
                 <NuxtImg
                     alt="prod-image"
                     :src="product.image || noImage"
-                    class="rounded-md h-20 md:h-32 w-auto"
+                    class="rounded h-16 md:h-28 w-auto"
                 />
             </div>
 
@@ -92,14 +92,14 @@
 </template>
 
 <script setup lang="ts">
-import { noImage } from '~/composables/useConstant'
-import { useCart } from '~/stores/useCart'
+import { noImage } from '~/composables/useConstant';
+import { useCart } from '~/stores/useCart';
 
-const cartStore = useCart()
+const cartStore = useCart();
 
 // TODO: fix types
-const restockQty: any = inject('restockQty')
-const inventoryLocation: any = inject('inventoryLocation')
+const restockQty: any = inject('restockQty');
+const inventoryLocation: any = inject('inventoryLocation');
 
-const filteredItems: any = inject('filteredItems')
+const filteredItems: any = inject('filteredItems');
 </script>
