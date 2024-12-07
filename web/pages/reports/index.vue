@@ -2,7 +2,7 @@
     <main v-auto-animate class="max-w-screen-2xl mx-auto">
         <TableHeader :title="pageTitle" :icon="icon" />
         <Datatable :options="options" :columns="columns" :data="users">
-            <template #actions="{ cellData }: { cellData: Staff }">
+            <template #actions="{ cellData }: { cellData: any }">
                 <Button class="h-7 text-xs" size="sm"> Edit </Button>
             </template>
         </Datatable>
@@ -12,14 +12,6 @@
 <script lang="ts" setup>
 import type { Config, ConfigColumns } from 'datatables.net';
 import Datatable from '~/components/ui/Datatable.client.vue';
-
-interface Staff {
-    age: number;
-    name: string;
-    office: string;
-    salary: string;
-    position: string;
-}
 
 const pageTitle = ref('Reports');
 const icon = 'mdi:form-select';
@@ -38,11 +30,10 @@ useHead({
     title: pageTitle.value,
 });
 
-const { data: users } = await useAsyncData<Staff[]>(
+const { data: users } = await useAsyncData<any[]>(
     'fakerUsers',
     () => {
         return new Promise((resolve) => {
-            // create 1000 fake users
             const users = Array.from({ length: 10 }, () => {
                 return {
                     age: 23,

@@ -10,24 +10,6 @@
                         {{ title }}
                     </p>
                 </div>
-                <div
-                    v-if="searchBar && !isMobile"
-                    class="flex items-center relative"
-                >
-                    <span>
-                        <Icon
-                            name="mdi-search"
-                            class="absolute left-2 top-2 text-foreground"
-                            size="25"
-                        />
-                    </span>
-                    <Input
-                        v-model="tableSearch"
-                        type="text"
-                        placeholder="Search"
-                        class="pl-9 py-2 rounded outline-none bg-secondary dark:bg-primary"
-                    />
-                </div>
             </div>
             <div
                 class="pt-0.5 flex justify-between items-center rounded-md px-2 mt-1"
@@ -49,7 +31,7 @@
 </template>
 
 <script setup>
-import { Button } from '~/components/ui/button'
+import { Button } from '~/components/ui/button';
 
 defineProps({
     icon: {
@@ -71,9 +53,7 @@ defineProps({
         required: true,
         type: String,
     },
-})
+});
 
-const tableSearch = ref('')
-const router = useRouter()
-const isMobile = inject('isMobile')
+const router = useRouter();
 </script>

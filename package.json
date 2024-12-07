@@ -28,6 +28,7 @@
     "clsx": "^2.1.1",
     "concurrently": "^8.2.2",
     "datatables.net-buttons-dt": "^3.2.0",
+    "datatables.net-datetime": "^1.5.4",
     "datatables.net-responsive-dt": "^3.0.3",
     "datatables.net-searchbuilder-dt": "^1.8.1",
     "datatables.net-select-dt": "^2.1.0",

@@ -9,13 +9,14 @@
 
 <script lang="ts" setup>
 import { useMediaQuery } from '@vueuse/core';
+import 'datatables.net-datetime';
 
 const theme = useTheme();
 const themeName = computed(() => theme.name);
 const isMobile = ref(false);
 
 useHead({
-    title: 'APP',
+    bodyAttrs: { class: [themeName], id: 'app' },
     script: [
         {
             children: `
@@ -27,7 +28,7 @@ useHead({
             `,
         },
     ],
-    bodyAttrs: { class: [themeName], id: 'app' },
+    title: 'APP',
 });
 
 provide('isMobile', isMobile);
