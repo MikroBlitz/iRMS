@@ -1,9 +1,12 @@
 <template>
     <div
         v-if="visible"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center"
+        class="fixed inset-0 backdrop-blur-sm flex items-center justify-center"
     >
-        <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
+        <div
+            v-on-click-outside="closeModal"
+            class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative"
+        >
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-foreground">
                     {{ title }}
@@ -277,7 +280,8 @@
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys } from '@vueuse/core';
+import { vOnClickOutside } from '@vueuse/components';
 import {
     ComboboxAnchor,
     ComboboxContent,
@@ -290,12 +294,12 @@ import {
     ComboboxSeparator,
     ComboboxTrigger,
     ComboboxViewport,
-} from 'radix-vue'
+} from 'radix-vue';
 
-import type { CrudModalField, Field } from '~/types'
+import type { CrudModalField, Field } from '~/types';
 
-import { Button } from '~/components/ui/button'
-import { roles } from '~/utils/authHelpers'
+import { Button } from '~/components/ui/button';
+import { roles } from '~/utils/authHelpers';
 
 const props = defineProps({
     fields: {
@@ -317,46 +321,46 @@ const props = defineProps({
         type: String,
     },
     visible: Boolean,
-})
+});
 
-const keys = useMagicKeys()
-const continueSubmit: any = keys['Enter']
-const cancelSubmit: any = keys['Escape']
-const showPassword = ref<Record<string, boolean>>({})
-const emit = defineEmits(['submit', 'close'])
-const form = ref<Record<string, any>>({})
+const keys = useMagicKeys();
+const continueSubmit: any = keys['Enter'];
+const cancelSubmit: any = keys['Escape'];
+const showPassword = ref<Record<string, boolean>>({});
+const emit = defineEmits(['submit', 'close']);
+const form = ref<Record<string, any>>({});
 
 watch(
     () => props.initialValues,
     (newValues) => {
-        form.value = { ...newValues }
+        form.value = { ...newValues };
     },
     { immediate: true },
-)
+);
 
-const handleSubmit = () => emit('submit', form.value)
-const closeModal = () => emit('close')
+const handleSubmit = () => emit('submit', form.value);
+const closeModal = () => emit('close');
 
 const togglePasswordVisibility = (fieldName: string) =>
-    (showPassword.value[fieldName] = !showPassword.value[fieldName])
+    (showPassword.value[fieldName] = !showPassword.value[fieldName]);
 
 const getInputType = (field: Field) => {
     if (field.type === 'password') {
-        return showPassword.value[field.name] ? 'text' : 'password'
+        return showPassword.value[field.name] ? 'text' : 'password';
     }
     if (field.type === 'float') {
-        return 'number'
+        return 'number';
     }
-    return field.type
-}
+    return field.type;
+};
 
-const data: Ref<Record<string, any>> = ref({})
-const getData = (model: string) => data.value[model.toLowerCase()] || []
+const data: Ref<Record<string, any>> = ref({});
+const getData = (model: string) => data.value[model.toLowerCase()] || [];
 
 const getOptionText = (value, field) => {
-    const option = getData(field.model).find((item) => item.id === value)
-    return option ? option[field.optionTitle] : ''
-}
+    const option = getData(field.model).find((item) => item.id === value);
+    return option ? option[field.optionTitle] : '';
+};
 
 onMounted(async () => {
     if (Array.isArray(props.fields)) {
@@ -366,19 +370,18 @@ onMounted(async () => {
                 field.model &&
                 field.queryName
             ) {
-                const queryModule = await import(`~/graphql/${field.model}.ts`)
-                const query = queryModule[field.queryName]
+                const queryModule = await import(`~/graphql/${field.model}.ts`);
+                const query = queryModule[field.queryName];
                 if (query) {
-                    const result: any = await useAsyncQuery(query)
-                    const resultKey: any = Object.keys(result.data.value)[0]
+                    const result: any = await useAsyncQuery(query);
+                    const resultKey: any = Object.keys(result.data.value)[0];
                     data.value[field.model.toLowerCase()] =
-                        result.data.value[resultKey] || []
+                        result.data.value[resultKey] || [];
                 }
             }
         }
     }
-})
+});
 
-watch(continueSubmit, (e) => (e ? handleSubmit() : null))
-watch(cancelSubmit, (e) => (e ? closeModal() : null))
+useBodyClass('overflow-hidden');
 </script>

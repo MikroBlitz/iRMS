@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="visible"
-        class="fixed z-50 inset-0 bg-black/50 flex items-center justify-center text-foreground"
+        class="fixed z-50 inset-0 backdrop-blur-sm flex items-center justify-center text-foreground"
     >
         <div v-auto-animate class="flex space-x-2">
             <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
@@ -201,24 +201,24 @@
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys } from '@vueuse/core';
 
-import type { ModalField } from '~/types'
+import type { ModalField } from '~/types';
 
-import { Button } from '~/components/ui/button'
-import { Input } from '~/components/ui/input'
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
 import {
     getPaymentMethod,
     numbers,
     paymentMethods,
-} from '~/composables/useConstant'
-import { errorOrder, itemsToReduce } from '~/utils/pos'
+} from '~/composables/useConstant';
+import { errorOrder, itemsToReduce } from '~/utils/pos';
 
-const auth = useAuth()
-const keys = useMagicKeys()
-const proceedPayment: any = keys['Ctrl+Enter']
+const auth = useAuth();
+const keys = useMagicKeys();
+const proceedPayment: any = keys['Ctrl+Enter'];
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 defineProps({
     fields: {
         default: () => [],
@@ -245,63 +245,63 @@ defineProps({
         type: String,
     },
     visible: Boolean,
-})
+});
 
-const { upsertOrder } = await import('~/graphql/Order')
-const { reduceInventory } = await import('~/graphql/Inventory')
+const { upsertOrder } = await import('~/graphql/Order');
+const { reduceInventory } = await import('~/graphql/Inventory');
 
-const isMobile = inject('isMobile')
-const form = ref<Record<string, any>>({})
-const loading = ref(false)
-const receiptVisible = ref(false)
+const isMobile = inject('isMobile');
+const form = ref<Record<string, any>>({});
+const loading = ref(false);
+const receiptVisible = ref(false);
 
-const cartStore: any = useCart()
-const totalAmount = cartStore.totalAmountWithTaxAndDiscount
+const cartStore: any = useCart();
+const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
 
-const customerName: any = inject('customerName')
-const cashTendered: any = inject('cashTendered')
-const paymentMethod: any = inject('paymentMethod')
-const status: any = inject('status')
+const customerName: any = inject('customerName');
+const cashTendered: any = inject('cashTendered');
+const paymentMethod: any = inject('paymentMethod');
+const status: any = inject('status');
 const change: ComputedRef<number> = computed(() =>
     parseFloat((cashTendered.value - totalAmount).toFixed(2)),
-)
+);
 
 const appendZero = () =>
     cashTendered.value.length > 0
         ? (cashTendered.value = cashTendered.value + '0')
-        : null
+        : null;
 const appendNumber = (num: string) =>
-    (cashTendered.value = (cashTendered.value + num).toString())
+    (cashTendered.value = (cashTendered.value + num).toString());
 const clearInput = () => {
-    cashTendered.value = ''
-    receiptVisible.value = false
-}
+    cashTendered.value = '';
+    receiptVisible.value = false;
+};
 const appendDot = () =>
     !cashTendered.value.includes('.')
         ? (cashTendered.value = cashTendered.value + '.')
-        : null
+        : null;
 
 const closeModal = () => {
-    emit('close')
-}
+    emit('close');
+};
 
 const completeOrder = async () => {
     try {
-        loading.value = true
+        loading.value = true;
 
         if (auth.user.role === 0 || !auth.user.role) {
-            loading.value = false
+            loading.value = false;
             return toasts('Only authorized users can complete orders.', {
                 type: 'error',
-            })
+            });
         }
 
         if (!customerName.value) {
-            loading.value = false
-            return toasts('Please enter a customer name!', { type: 'error' })
+            loading.value = false;
+            return toasts('Please enter a customer name!', { type: 'error' });
         }
 
-        const { mutate: mutateOrderDetails } = useMutation(upsertOrder)
+        const { mutate: mutateOrderDetails } = useMutation(upsertOrder);
         await mutateOrderDetails({
             input: orderDetails(
                 orderItems(cartStore),
@@ -312,28 +312,30 @@ const completeOrder = async () => {
                 status,
                 totalAmount,
             ),
-        })
+        });
 
-        const { mutate: reduceInventoryItems } = useMutation(reduceInventory)
+        const { mutate: reduceInventoryItems } = useMutation(reduceInventory);
         await reduceInventoryItems({
             products: itemsToReduce(cartStore),
-        })
+        });
 
-        loading.value = false
-        emit('close')
-        cartStore.paymentSuccess()
+        loading.value = false;
+        emit('close');
+        cartStore.paymentSuccess();
 
-        cashTendered.value = ''
-        customerName.value = ''
-        paymentMethod.value = 0
+        cashTendered.value = '';
+        customerName.value = '';
+        paymentMethod.value = 0;
     } catch (error: any) {
-        errorOrder(error)
+        errorOrder(error);
     }
-}
+};
 
 watch(proceedPayment, (e) => {
     if (e) {
-        completeOrder()
+        completeOrder();
     }
-})
+});
+
+useBodyClass('overflow-hidden');
 </script>
