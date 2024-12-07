@@ -1,10 +1,11 @@
 <template>
-    <div class="flex justify-between items-center p-2 mt-2">
+    <div class="flex justify-between items-center p-2">
         <div class="flex items-center justify-center gap-2">
             <div>
                 <select
-                    v-model="perPage"
+                    v-model="localPerPage"
                     class="w-full px-3 py-1.5 rounded bg-secondary outline-none"
+                    @change="onPerPageChange"
                 >
                     <option
                         v-for="option in perPageOptions"
@@ -114,15 +115,15 @@ import {
     PaginationListItem,
     PaginationNext,
     PaginationPrev,
-} from '~/components/ui/pagination'
+} from '~/components/ui/pagination';
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from '~/components/ui/popover'
-import { Button } from '~/components/ui/button'
+} from '~/components/ui/popover';
+import { Button } from '~/components/ui/button';
 
-defineProps({
+const props = defineProps({
     firstPage: {
         default: () => () => {},
         type: Function,
@@ -147,9 +148,18 @@ defineProps({
         default: () => () => {},
         type: Function,
     },
-})
+});
 
-// TODO: Pass perPageOptions query from server
-const perPage = ref(10)
-const perPageOptions = [10, 25, 100]
+const perPageOptions = [10, 25, 100];
+const emit = defineEmits(['update:perPage']);
+
+const localPerPage = ref(props.paginatorInfo.perPage || 10);
+const onPerPageChange = () => emit('update:perPage', localPerPage.value);
+
+watch(
+    () => props.paginatorInfo.perPage,
+    (newValue) => {
+        localPerPage.value = newValue;
+    },
+);
 </script>

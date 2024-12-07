@@ -49,11 +49,11 @@
 </template>
 
 <script setup lang="ts">
-import type { CrudModalField, Headers } from '~/types'
+import type { CrudModalField, Headers } from '~/types';
 
-const modelName = 'user'
-const pageTitle = ref(getPluralName(toTitleCase(modelName)))
-const icon = 'solar:user-circle-linear'
+const modelName = 'user';
+const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const icon = 'solar:user-circle-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
@@ -61,15 +61,15 @@ const modelHeaders: Headers[] = [
         key: (val) => {
             switch (val.role) {
                 case 0:
-                    return 'User'
+                    return 'User';
                 case 1:
-                    return 'Admin'
+                    return 'Admin';
                 case 2:
-                    return 'Staff'
+                    return 'Staff';
                 case 3:
-                    return 'Store Manager'
+                    return 'Store Manager';
                 default:
-                    return 'Unknown'
+                    return 'Unknown';
             }
         },
         label: 'Role',
@@ -77,7 +77,7 @@ const modelHeaders: Headers[] = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
     { key: 'created_at', label: 'Created At' },
-]
+];
 
 const modelFields: CrudModalField[] = [
     { label: 'Role', name: 'role', type: 'roleSelect' },
@@ -86,7 +86,7 @@ const modelFields: CrudModalField[] = [
     { label: 'Last Name', name: 'last_name', required: true, type: 'text' },
     { label: 'Email', name: 'email', required: true, type: 'email' },
     { label: 'Password', name: 'password', type: 'password' },
-]
+];
 
 const {
     actions,
@@ -106,11 +106,11 @@ const {
     paginatorInfo,
     selectedModel,
     showModal,
-} = await useModelCrud(modelName, modelFields)
+} = await useModelCrud(modelName, modelFields);
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
@@ -120,5 +120,5 @@ useHead({
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>

@@ -9,18 +9,18 @@
                 :data="props.data"
                 class="overflow-auto w-full"
             >
-                <template #actions="{ cellData }">
+                <template #actions="{ data }: { data: any }">
                     <div class="flex justify-end items-center">
                         <Button
                             v-for="(action, index) in actions"
-                            v-show="action.showButton"
+                            v-show="action.showButton ?? true"
                             :key="index"
-                            :disabled="!action.showButton"
+                            :disabled="action.showButton === false"
                             variant="ghost"
                             class="mx-0.5 rounded-full"
                             :class="action.class"
                             size="icon"
-                            @click="action.handler(cellData)"
+                            @click="action.handler(data)"
                         >
                             <Icon :name="action.icon" size="22" />
                         </Button>
@@ -41,7 +41,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Config } from 'datatables.net';
+import type { Config, ColumnDef } from 'datatables.net';
+import { ref } from 'vue';
 import type { PaginatorInfo } from '~/types';
 import Datatable from '~/components/ui/Datatable.client.vue';
 
@@ -54,7 +55,7 @@ const props = defineProps<{
         handler: (item: any) => void;
         class?: string;
         showButton?: boolean;
-    }[]; // Optional actions
+    }[];
     primaryKey: string;
     paginatorInfo?: PaginatorInfo;
     firstPage: Function;
@@ -62,30 +63,38 @@ const props = defineProps<{
     nextPage: Function;
     lastPage: Function;
     numberPage: Function;
+    handlePerPageChange?: Function;
 }>();
 
-// Format headers into columns for Datatable
-const formattedColumns = props.headers.map((header) => ({
-    class: header.class || '',
-    data: header.key,
-    title: header.label,
-}));
+const actions = ref(props.actions || []);
 
-if (props.actions && props.actions.length) {
-    formattedColumns.push({
-        class: 'no-export',
-        data: null,
-        orderable: false,
-        render: function (_, __, rowData) {
-            return `<div class="actions" data-cell="${JSON.stringify(
-                rowData,
-            )}"></div>`;
-        },
-        title: 'Actions',
-    });
-}
+const formattedColumns = computed(() => {
+    const columns: ColumnDef[] = props.headers.map((header) => ({
+        class: header.class || '',
+        data: typeof header.key === 'function' ? null : header.key,
+        render:
+            typeof header.key === 'function'
+                ? (data, type, row) => header.key(row)
+                : undefined,
+        title: header.label,
+    }));
 
-// Datatable configuration options
+    // Add actions column if actions exist
+    if (actions.value.length) {
+        columns.push({
+            className: 'no-export actions-column',
+            data: null,
+            orderable: false,
+            render: (data, type, row) => {
+                return '<div class="actions-placeholder"></div>';
+            },
+            title: 'Actions',
+        });
+    }
+
+    return columns;
+});
+
 const options: Config = {
     autoWidth: true,
     buttons: [
@@ -97,12 +106,14 @@ const options: Config = {
         'copy',
         'excel',
         'pdf',
-        'print',
         'csv',
+        'print',
     ],
     dom: "Q<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-5'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between pt-3 p-5'li><''p>",
     paging: false,
     responsive: true,
     select: true,
 };
+
+console.log(actions.value);
 </script>

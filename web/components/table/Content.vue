@@ -35,6 +35,7 @@
                 :next-page="paginationControls.nextPage"
                 :last-page="paginationControls.lastPage"
                 :number-page="paginationControls.numberPage"
+                @update:per-page="paginationControls.handlePerPageChange"
             />
         </template>
 
@@ -68,7 +69,7 @@ defineProps({
         prevPage: Function,
     },
     paginatorInfo: Object | null,
-})
+});
 
-const auth = useAuth()
+const auth = useAuth();
 </script>
