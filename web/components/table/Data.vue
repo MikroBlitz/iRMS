@@ -7,22 +7,22 @@
                 :options="options"
                 :columns="formattedColumns"
                 :data="props.data"
+                :actions="props.actions"
                 class="overflow-auto w-full"
             >
-                <template #actions="{ data }: { data: any }">
-                    <div class="flex justify-end items-center">
+                <template #actions="{ data }">
+                    <div class="flex justify-start space-x-1 items-center">
                         <Button
-                            v-for="(action, index) in actions"
+                            v-for="(action, index) in props.actions"
                             v-show="action.showButton ?? true"
                             :key="index"
                             :disabled="action.showButton === false"
-                            variant="ghost"
-                            class="mx-0.5 rounded-full"
+                            class="h-7 text-xs rounded-full p-2"
                             :class="action.class"
-                            size="icon"
                             @click="action.handler(data)"
                         >
-                            <Icon :name="action.icon" size="22" />
+                            {{ action.name }}
+                            <!--                            <Icon :name="action.icon" size="20" /> -->
                         </Button>
                     </div>
                 </template>
@@ -42,7 +42,6 @@
 
 <script setup lang="ts">
 import type { Config, ColumnDef } from 'datatables.net';
-import { ref } from 'vue';
 import type { PaginatorInfo } from '~/types';
 import Datatable from '~/components/ui/Datatable.client.vue';
 
@@ -66,8 +65,6 @@ const props = defineProps<{
     handlePerPageChange?: Function;
 }>();
 
-const actions = ref(props.actions || []);
-
 const formattedColumns = computed(() => {
     const columns: ColumnDef[] = props.headers.map((header) => ({
         class: header.class || '',
@@ -79,15 +76,13 @@ const formattedColumns = computed(() => {
         title: header.label,
     }));
 
-    // Add actions column if actions exist
-    if (actions.value.length) {
+    if (props.actions && props.actions.length) {
         columns.push({
             className: 'no-export actions-column',
             data: null,
             orderable: false,
-            render: (data, type, row) => {
-                return '<div class="actions-placeholder"></div>';
-            },
+            render: '#actions',
+            responsivePriority: 1,
             title: 'Actions',
         });
     }
@@ -114,6 +109,4 @@ const options: Config = {
     responsive: true,
     select: true,
 };
-
-console.log(actions.value);
 </script>

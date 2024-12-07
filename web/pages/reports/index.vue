@@ -3,7 +3,13 @@
         <TableHeader :title="pageTitle" :icon="icon" />
         <Datatable :options="options" :columns="columns" :data="users">
             <template #actions="{ cellData }: { cellData: any }">
-                <Button class="h-7 text-xs" size="sm"> Edit </Button>
+                <Button
+                    class="h-7 text-xs"
+                    size="sm"
+                    @click="console.log('edit')"
+                >
+                    Edit
+                </Button>
             </template>
         </Datatable>
     </main>

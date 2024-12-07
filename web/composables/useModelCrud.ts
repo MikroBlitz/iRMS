@@ -132,28 +132,28 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     ) => {
         return [
             {
-                class: 'text-yellow-500',
+                class: 'bg-yellow-700',
                 handler: openViewModal,
                 icon: 'solar:eye-outline',
                 name: 'view',
                 showButton: false,
             },
             {
-                class: 'text-blue-500',
+                class: 'bg-blue-700/70',
                 handler: openEditModal,
                 icon: 'solar:pen-line-duotone',
                 name: 'edit',
                 showButton: true,
             },
             {
-                class: 'text-destructive',
+                class: 'bg-destructive',
                 handler: showDeleteConfirmation,
                 icon: 'solar:trash-bin-minimalistic-outline',
                 name: 'delete',
                 showButton: true,
             },
             {
-                class: 'text-blue-500',
+                class: 'bg-blue-700',
                 handler: openPrintModal,
                 icon: 'solar:printer-line-duotone',
                 name: 'print',
