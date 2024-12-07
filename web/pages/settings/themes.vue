@@ -3,13 +3,13 @@
         <main v-auto-animate class="max-w-screen-2xl mx-auto h-[780px]">
             <TableHeader :title="pageTitle" :icon="icon" :search-bar="false" />
             <div
-                class="flex w-full justify-start flex-col items-center gap-1 p-4 border-2 border-secondary dark:border-primary min-h-[750px]"
+                class="flex w-full justify-start flex-col gap-1 p-4 min-h-[750px]"
             >
                 <Label class="text-md font-bold mb-4">Select a theme</Label>
                 <Button
                     v-for="item in themeOptions"
                     :key="item.id"
-                    class="p-6 w-3/4 md:w-1/2 xl:w-1/4 hover:bg-accent"
+                    class="p-6 w-full md:w-1/5 hover:bg-accent"
                     :class="{ 'bg-accent': theme.name === item.value }"
                     @click="changeTheme(item.value)"
                 >

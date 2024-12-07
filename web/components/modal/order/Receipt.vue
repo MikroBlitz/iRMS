@@ -18,7 +18,7 @@
             <div class="flex justify-between text-black">
                 <div>
                     <p>POS {{ posId }}</p>
-                    <p>{{ customerType }}</p>
+                    <p>Guest</p>
                 </div>
                 <div>
                     <p>{{ auth.user.name }}</p>
@@ -37,23 +37,23 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="i in cartStore.cartItems"
+                        v-for="i in orderItems"
                         :key="i.id"
                         class="border-b border-gray-300"
                     >
                         <td class="py-1">
                             <span class="break-words overflow-auto">{{
-                                i.item
+                                i.product.name
                             }}</span>
                         </td>
                         <td class="text-right px-1">
                             {{ i.qty }}
                         </td>
                         <td class="text-right px-1">
-                            {{ formatPrice(i.price) }}
+                            {{ currencyFormat(i.total_amount / i.qty) }}
                         </td>
                         <td class="text-right px-1">
-                            {{ formatPrice(i.amount) }}
+                            {{ currencyFormat(i.total_amount) }}
                         </td>
                     </tr>
                 </tbody>
@@ -63,15 +63,15 @@
             <div class="mb-4 text-black">
                 <div class="flex justify-between">
                     <p>Subtotal:</p>
-                    <p>{{ currencyFormat(cartStore.totalAmount) }}</p>
+                    <p>{{ currencyFormat(subTotal) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Less 10% discount:</p>
-                    <p>{{ currencyFormat(cartStore.promotionAmount) }}</p>
+                    <p>{{ currencyFormat(promotionAmount) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Tax 12%:</p>
-                    <p>{{ currencyFormat(cartStore.totalTax) }}</p>
+                    <p>{{ currencyFormat(Number(totalTax)) }}</p>
                 </div>
             </div>
 
@@ -80,11 +80,7 @@
                 <div class="flex justify-between">
                     <p>Total:</p>
                     <p>
-                        {{
-                            currencyFormat(
-                                cartStore.totalAmountWithTaxAndDiscount,
-                            )
-                        }}
+                        {{ currencyFormat(totalAmount) }}
                     </p>
                 </div>
                 <div class="flex justify-between">
@@ -119,8 +115,8 @@
 
             <!-- Transaction Details -->
             <div class="mb-2 text-black">
-                <p>Transaction #: {{ generateTransactionId }}</p>
-                <p>Date/Time: {{ transactionDate }}</p>
+                <p>Transaction #:</p>
+                <p>Date/Time: {{ date }}</p>
             </div>
 
             <!-- Footer Message -->
@@ -133,10 +129,10 @@
             <!-- Customer Signature Area -->
             <div class="space-y-1 pt-4 text-black">
                 <div class="border-b">
-                    <p>Customer: {{ customerName }}</p>
+                    <p>Customer: {{ customerGuest }}</p>
                 </div>
                 <div class="border-b">
-                    <p>Address: {{ customerAddress }}</p>
+                    <p>Address:</p>
                 </div>
                 <div class="border-b">
                     <p>Signature:</p>
@@ -145,48 +141,60 @@
 
             <!-- Print Button -->
             <div class="mt-6 text-center">
-                <button
-                    class="bg-blue-500 text-white px-4 py-2 rounded shadow"
-                    @click="printReceipt(customerName)"
-                >
+                <Button class="px-4 py-2" @click="printReceipt(customerGuest)">
                     Print Receipt
-                </button>
+                </Button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { storeName } from '~/composables/useConstant'
-import { useCart } from '~/stores/useCart'
-import { printReceipt } from '~/utils/pos'
+import { storeName } from '~/composables/useConstant';
+import { printReceipt } from '~/utils/pos';
 
-const auth = useAuth()
-const cartStore: any = useCart()
-const customerName: any = inject('customerName')
-const customerAddress = ref('')
-const customerType = ref('Guest')
+const auth = useAuth();
 
-const date: Date = new Date()
-const transactionDate = toBasicDateTime(date)
+const props: any = defineProps({
+    cashTendered: {
+        default: '',
+        type: Number,
+    },
+    change: {
+        default: '',
+        type: Number,
+    },
+    customerGuest: {
+        default: '',
+        type: String,
+    },
+    date: {
+        default: '',
+        type: String,
+    },
+    id: {
+        default: '',
+        type: Number,
+    },
+    orderItems: {
+        default: () => [],
+        type: Array as PropType<any[]>,
+    },
+    totalAmount: {
+        default: '',
+        type: Number,
+    },
+});
 
-const generateTransactionId = computed(() => {
-    const date = new Date()
-    const dateTime = toBasicDateTime(date).replace(/[^a-zA-Z0-9]/g, '')
-
-    const transactionId = `${dateTime}`
-
-    return transactionId
-})
-
-const cashTendered: any = inject('cashTendered')
-const change: ComputedRef<number> = computed(() =>
-    parseFloat(
-        (cashTendered.value - cartStore.totalAmountWithTaxAndDiscount).toFixed(
-            2,
-        ),
-    ),
-)
+const taxRate = 12 / 100; // 12% tax rate
+const discountRate = 10 / 100; // 10% discount rate
+const subTotal = computed(() => {
+    return props.orderItems.reduce((total: number, item: any) => {
+        return total + item.total_amount;
+    }, 0);
+});
+const totalTax = computed(() => subTotal.value * taxRate);
+const promotionAmount = computed(() => subTotal.value * discountRate);
 </script>
 
 <style scoped>
