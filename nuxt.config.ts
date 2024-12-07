@@ -9,6 +9,16 @@ export default defineNuxtConfig({
     app: {
         layoutTransition: { mode: 'out-in', name: 'layout' },
         pageTransition: { mode: 'out-in', name: 'page' },
+
+        head: {
+            script: [{
+                src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
+                defer: true
+            }, {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
+                defer: true
+            }]
+        }
     },
     colorMode: { classSuffix: '' },
     compatibilityDate: '2024-04-03',
