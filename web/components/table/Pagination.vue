@@ -5,7 +5,7 @@
                 <select
                     v-model="localPerPage"
                     class="w-full px-3 py-1.5 rounded bg-secondary outline-none"
-                    @change="onPerPageChange"
+                    @update:model-value="handlePerPageChange"
                 >
                     <option
                         v-for="option in perPageOptions"
@@ -42,10 +42,18 @@
                 >
                     <PaginationFirst
                         class="rounded-full"
+                        :disabled="
+                            paginatorInfo?.lastPage <= 1 ||
+                            paginatorInfo?.currentPage === 1
+                        "
                         @click.prevent="firstPage()"
                     />
                     <PaginationPrev
                         class="rounded-full"
+                        :disabled="
+                            paginatorInfo?.lastPage <= 1 ||
+                            paginatorInfo?.currentPage === 1
+                        "
                         @click.prevent="prevPage()"
                     />
 
@@ -94,10 +102,20 @@
 
                     <PaginationNext
                         class="rounded-full"
+                        :disabled="
+                            paginatorInfo?.lastPage <= 1 ||
+                            paginatorInfo?.currentPage ===
+                                paginatorInfo?.lastPage
+                        "
                         @click.prevent="nextPage()"
                     />
                     <PaginationLast
                         class="rounded-full"
+                        :disabled="
+                            paginatorInfo?.lastPage <= 1 ||
+                            paginatorInfo?.currentPage ===
+                                paginatorInfo?.lastPage
+                        "
                         @click.prevent="lastPage()"
                     />
                 </PaginationList>
@@ -128,6 +146,10 @@ const props = defineProps({
         default: () => () => {},
         type: Function,
     },
+    handlePerPageChange: {
+        default: () => () => {},
+        type: Function,
+    },
     lastPage: {
         default: () => () => {},
         type: Function,
@@ -150,16 +172,8 @@ const props = defineProps({
     },
 });
 
-const perPageOptions = [10, 25, 100];
 const emit = defineEmits(['update:perPage']);
 
+const perPageOptions = [10, 25, 50, 100, 500];
 const localPerPage = ref(props.paginatorInfo.perPage || 10);
-const onPerPageChange = () => emit('update:perPage', localPerPage.value);
-
-watch(
-    () => props.paginatorInfo.perPage,
-    (newValue) => {
-        localPerPage.value = newValue;
-    },
-);
 </script>

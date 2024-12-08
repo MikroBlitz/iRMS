@@ -55,6 +55,7 @@
             :number-page="numberPage"
             :paginator-info="paginatorInfo"
             :prev-page="prevPage"
+            :handle-per-page-change="handlePerPageChange"
         />
     </div>
 </template>
@@ -63,11 +64,6 @@
 import type { Config, ColumnDef } from 'datatables.net';
 import type { PaginatorInfo } from '~/types';
 import Datatable from '~/components/ui/Datatable.client.vue';
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from '~/components/ui/popover';
 import { Button } from '~/components/ui/button';
 
 const props = defineProps<{

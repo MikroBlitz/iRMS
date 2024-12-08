@@ -178,17 +178,30 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     );
 
     // Pagination Functions
-    const firstPage = () => fetchDataPaginate(perPage, 1);
-    const prevPage = () =>
-        fetchDataPaginate(perPage, paginatorInfo.value.currentPage - 1);
-    const nextPage = () =>
-        fetchDataPaginate(perPage, paginatorInfo.value.currentPage + 1);
-    const lastPage = () =>
-        fetchDataPaginate(perPage, paginatorInfo.value.lastPage);
-    const numberPage = (page: number) => fetchDataPaginate(perPage, page);
-    const handlePerPageChange = async (perPage: number) => {
-        await refetch({ first: perPage, page: currentPage });
+    const firstPage = () => {
+        if (paginatorInfo.value.lastPage > 1) fetchDataPaginate(perPage, 1);
     };
+    const prevPage = () => {
+        if (
+            paginatorInfo.value.lastPage > 1 &&
+            paginatorInfo.value.currentPage > 1
+        )
+            fetchDataPaginate(perPage, paginatorInfo.value.currentPage - 1);
+    };
+    const nextPage = () => {
+        if (
+            paginatorInfo.value.lastPage > 1 &&
+            paginatorInfo.value.currentPage < paginatorInfo.value.lastPage
+        )
+            fetchDataPaginate(perPage, paginatorInfo.value.currentPage + 1);
+    };
+    const lastPage = () => {
+        if (paginatorInfo.value.lastPage > 1)
+            fetchDataPaginate(perPage, paginatorInfo.value.lastPage);
+    };
+    const numberPage = (page: number) => fetchDataPaginate(perPage, page);
+    const handlePerPageChange = async (perPage: number, page: number) =>
+        await fetchDataPaginate(perPage, page);
 
     const paginationControls = {
         firstPage,

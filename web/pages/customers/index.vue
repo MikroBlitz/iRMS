@@ -49,13 +49,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Headers, CrudModalField } from '~/types'
+import type { Headers, CrudModalField } from '~/types';
 
-import { useModelCrud } from '~/composables/useModelCrud'
+import { useModelCrud } from '~/composables/useModelCrud';
 
-const modelName = 'customer'
-const pageTitle = ref(getPluralName(toTitleCase(modelName)))
-const icon = 'solar:user-hand-up-linear'
+const modelName = 'customer';
+const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const icon = 'solar:user-hand-up-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
@@ -64,7 +64,7 @@ const modelHeaders: Headers[] = [
     { key: 'address', label: 'Address' },
     { key: (val) => formatPrice(val.points), label: 'Points' },
     { key: 'created_at', label: 'Created At' },
-]
+];
 
 const modelFields: CrudModalField[] = [
     {
@@ -79,7 +79,7 @@ const modelFields: CrudModalField[] = [
     { label: 'Phone', name: 'phone', type: 'text' },
     { label: 'Address', name: 'address', type: 'text' },
     { label: 'Points', name: 'points', type: 'text' },
-]
+];
 
 const {
     actions,
@@ -99,11 +99,11 @@ const {
     paginatorInfo,
     selectedModel,
     showModal,
-} = await useModelCrud(modelName, modelFields)
+} = await useModelCrud(modelName, modelFields);
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
@@ -113,5 +113,5 @@ useHead({
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>

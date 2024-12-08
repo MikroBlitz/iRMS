@@ -1,27 +1,41 @@
 <template>
     <div class="relative flex justify-center items-center w-full">
         <template v-if="isLoading || !data.length">
-            <div
-                class="absolute flex-col top-64 flex justify-center items-center text-xl text-gray-500 dark:text-gray-300 mt-4"
-            >
-                <template v-if="isLoading">
+            <template v-if="isLoading">
+                <div
+                    class="absolute z-10 flex-col top-56 flex justify-center items-center text-xl mt-4"
+                >
                     <SpinnerTadpole
-                        class="size-16 mb-2 text-primary dark:text-accent"
+                        class="size-16 mb-2 text-primary dark:text-foreground"
                     />
-                    <p class="animate-pulse">Loading...</p>
-                </template>
-
-                <div v-else class="flex flex-col items-center">
-                    <Icon
-                        name="mdi:warning"
-                        class="text-destructive"
-                        size="65"
-                    />
-                    <span>No data</span>
+                    <p class="animate-pulse">Loading data...</p>
                 </div>
+                <Skeleton
+                    class="h-[600px] rounded-b rounded-t-none w-full bg-secondary"
+                />
+                <div
+                    class="absolute -bottom-12 px-2 flex items-center justify-between w-full"
+                >
+                    <Skeleton class="h-10 w-16 bg-secondary" />
+                    <div class="flex items-center space-x-1">
+                        <Skeleton
+                            class="h-5 w-20 mr-2 rounded-full bg-secondary"
+                        />
+                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                    </div>
+                </div>
+            </template>
+            <div v-else class="flex flex-col mt-60 items-center">
+                <Icon name="mdi:warning" class="text-destructive" size="65" />
+                <span>No data</span>
             </div>
         </template>
 
+        <!--    Auth user    -->
         <template v-else-if="auth.user.role">
             <TableData
                 :headers="headers"
@@ -35,12 +49,13 @@
                 :next-page="paginationControls.nextPage"
                 :last-page="paginationControls.lastPage"
                 :number-page="paginationControls.numberPage"
-                @update:per-page="paginationControls.handlePerPageChange"
+                :handle-per-page-change="paginationControls.handlePerPageChange"
             />
         </template>
 
+        <!--    No auth user    -->
         <template v-else>
-            <div class="relative">
+            <div class="relative w-full">
                 <div
                     class="absolute top-64 flex flex-col items-center justify-center w-full"
                 >
@@ -49,6 +64,7 @@
                         class="text-destructive animate-pulse"
                         size="70"
                     />
+                    <span>Unauthorized Access</span>
                 </div>
             </div>
         </template>
@@ -63,6 +79,7 @@ defineProps({
     isLoading: Boolean,
     paginationControls: {
         firstPage: Function,
+        handlePerPageChange: Function,
         lastPage: Function,
         nextPage: Function,
         numberPage: Function,
