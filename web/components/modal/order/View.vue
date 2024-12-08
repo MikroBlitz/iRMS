@@ -2,9 +2,12 @@
     <div
         v-if="visible"
         v-auto-animate
-        class="fixed inset-0 bg-black/50 flex items-center justify-center"
+        class="fixed inset-0 backdrop-blur-sm flex items-center justify-center"
     >
-        <div class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+        <div
+            v-on-click-outside="closeModal"
+            class="bg-card rounded-lg shadow-lg w-full max-w-lg p-6 relative"
+        >
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-foreground">
                     {{ title }}
@@ -53,8 +56,13 @@
                     </div>
                 </div>
 
-                <div class="flex gap-2 p-4">
-                    <Button @click="showToggle"> Receipt </Button>
+                <div class="flex gap-2 p-4 justify-end">
+                    <Button
+                        :variant="showReceipt ? 'outline' : 'default'"
+                        @click="showToggle"
+                    >
+                        {{ showReceipt ? 'Hide Receipt' : 'Show Receipt' }}
+                    </Button>
                 </div>
             </div>
         </div>
@@ -78,6 +86,7 @@
 </template>
 
 <script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components';
 import { Button } from '~/components/ui/button';
 
 defineProps({
@@ -101,4 +110,6 @@ const showReceipt = ref(false);
 const showToggle = () => {
     showReceipt.value = !showReceipt.value;
 };
+
+useBodyClass('overflow-hidden');
 </script>

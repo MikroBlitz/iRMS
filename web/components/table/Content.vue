@@ -3,7 +3,7 @@
         <template v-if="isLoading || !data.length">
             <template v-if="isLoading">
                 <div
-                    class="absolute z-10 flex-col top-56 flex justify-center items-center text-xl mt-4"
+                    class="absolute flex-col top-56 flex justify-center items-center text-xl mt-4"
                 >
                     <SpinnerTadpole
                         class="size-16 mb-2 text-primary dark:text-foreground"

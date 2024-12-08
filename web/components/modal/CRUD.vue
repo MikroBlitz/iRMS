@@ -383,5 +383,8 @@ onMounted(async () => {
     }
 });
 
+watch(continueSubmit, (e) => (e ? handleSubmit() : null));
+watch(cancelSubmit, (e) => (e ? closeModal() : null));
+
 useBodyClass('overflow-hidden');
 </script>

@@ -37,13 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Headers, CrudModalField } from '~/types'
+import type { Headers, CrudModalField } from '~/types';
 
-import { useModelCrud } from '~/composables/useModelCrud'
+import { useModelCrud } from '~/composables/useModelCrud';
 
-const modelName = 'order'
-const pageTitle = ref(getPluralName(toTitleCase(modelName)))
-const icon = 'solar:cart-outline'
+const modelName = 'order';
+const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const icon = 'solar:cart-outline';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
@@ -65,8 +65,8 @@ const modelHeaders: Headers[] = [
                 0: 'Cash',
                 1: 'Gcash',
                 2: 'Bank Transfer',
-            }
-            return paymentTypes[val.payment]
+            };
+            return paymentTypes[val.payment];
         },
         label: 'Payment',
     },
@@ -77,15 +77,15 @@ const modelHeaders: Headers[] = [
                 0: 'Completed',
                 1: 'On-Hold',
                 2: 'Cancelled',
-            }
-            return statusTypes[val.status]
+            };
+            return statusTypes[val.status];
         },
         label: 'Status',
     },
     { key: 'created_at', label: 'Created At' },
-]
+];
 
-const modelFields: CrudModalField[] = []
+const modelFields: CrudModalField[] = [];
 
 const {
     actions,
@@ -98,19 +98,19 @@ const {
     paginatorInfo,
     selectedModel,
     showModal,
-} = await useModelCrud(modelName, modelFields)
+} = await useModelCrud(modelName, modelFields);
 
 const customActions = actions.map((action) => {
     action.name === 'delete' || action.name === 'edit'
         ? (action.showButton = false)
-        : null
-    action.name === 'print' ? (action.showButton = true) : null
-    return action
-})
+        : null;
+    action.name === 'view' ? (action.showButton = true) : null;
+    return action;
+});
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
@@ -120,5 +120,5 @@ useHead({
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>
