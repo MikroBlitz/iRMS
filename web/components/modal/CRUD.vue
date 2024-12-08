@@ -270,8 +270,26 @@
                     v-if="submitButtonText"
                     class="flex justify-end space-x-2 px-4"
                 >
-                    <Button type="submit" class="bg-emerald-700">
-                        {{ submitButtonText }}
+                    <Button
+                        :disabled="isLoading"
+                        :class="
+                            isLoading
+                                ? 'px-6 bg-secondary'
+                                : 'bg-emerald-700 gap-2'
+                        "
+                        type="submit"
+                    >
+                        <SpinnerTadpole
+                            v-if="isLoading"
+                            class="size-7 text-card dark:text-card-foreground mx-1"
+                        />
+                        <span
+                            v-else
+                            class="font-bold"
+                            :class="{ 'animate-pulse': isLoading }"
+                        >
+                            {{ submitButtonText }}
+                        </span>
                     </Button>
                 </div>
             </form>
@@ -323,6 +341,7 @@ const props = defineProps({
     visible: Boolean,
 });
 
+const isLoading = ref(false);
 const keys = useMagicKeys();
 const continueSubmit: any = keys['Enter'];
 const cancelSubmit: any = keys['Escape'];
@@ -338,7 +357,13 @@ watch(
     { immediate: true },
 );
 
-const handleSubmit = () => emit('submit', form.value);
+const handleSubmit = () => {
+    isLoading.value = true;
+    emit('submit', form.value);
+    setTimeout(() => {
+        isLoading.value = false;
+    }, 2000);
+};
 const closeModal = () => emit('close');
 
 const togglePasswordVisibility = (fieldName: string) =>
