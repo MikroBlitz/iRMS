@@ -24,18 +24,16 @@
 </template>
 
 <script setup lang="ts">
-import useChartData from '~/composables/useChartData'
-
-const pageTitle = ref('Dashboard')
-const icon = 'mdi:view-dashboard-outline'
-const { charts } = useChartData()
+const pageTitle = ref('Dashboard');
+const icon = 'mdi:view-dashboard-outline';
+const { charts } = useChartData();
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [{ content: 'View dashboard', name: 'Dashboard' }],
     title: pageTitle.value,
-})
+});
 </script>

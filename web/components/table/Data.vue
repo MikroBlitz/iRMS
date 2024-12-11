@@ -111,23 +111,22 @@ const formattedColumns = computed(() => {
     return columns;
 });
 
-const options: Config = {
+const options: Config | any = {
     autoWidth: true,
     buttons: [
         {
             columns: ':not(.no-export)',
             extend: 'colvis',
-            text: 'Columns',
+            text: 'Cols',
         },
-        'copy',
-        'excel',
-        'pdf',
-        'csv',
-        'print',
     ],
     dom: "Q<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-5'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between pt-3 p-5'li><''p>",
     paging: false,
     responsive: true,
     select: true,
 };
+const auth = useAuth();
+auth.user.role === 1 || auth.user.role === 3
+    ? options.buttons?.push('copy', 'excel', 'pdf', 'csv', 'print')
+    : null;
 </script>
