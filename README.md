@@ -11,6 +11,10 @@ This project is a full-stack application built using **Nuxt.js** on the frontend
 - **Laravel Lighthouse**: Integrates GraphQL API into Laravel.
 - **Pinia**: Provides an intuitive and powerful state management solution.
 - **Sanctum**: Implements secure authentication for API access.
+- **ShadCn-Vue**: A lightweight and customizable UI library for Vue.js.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **Vite**: A fast and lightweight build tool for modern web development.
+- **Codegen**: Automatically generates GraphQL types from your Laravel models.
 
 ## Tech Stack
 ![Nuxt.js](https://img.shields.io/badge/Nuxt.js-00C58E?style=for-the-badge&logo=nuxt.js&logoColor=white)
@@ -99,4 +103,12 @@ This application uses **Laravel Sanctum** for API authentication. To authenticat
 GraphQL queries and mutations are handled by **Laravel Lighthouse**. You can explore and test the GraphQL API through the GraphQL Playground available at:
 ```bash
 http://localhost:8000/graphiql
+```
+
+## Generating GraphQL Types
+
+To generate the GraphQL types, run the following command:
+
+```bash
+npm run codegen
 ```
