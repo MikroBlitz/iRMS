@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { logFragment } from '~/graphql/Fragment';
 
 export const logs = gql`
-    query logsPaginate($search: String) {
-        logsPaginate(search: $search) {
+    query logs($search: String) {
+        logs(search: $search) {
             ...log
         }
     }

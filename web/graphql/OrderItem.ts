@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { OrderItemFragment } from '~/graphql/Fragment';
 
 export const orderItemFilter = gql`
-    query orderItemFilter($search: String) {
-        orderItems(search: $search) {
+    query orderItemFilter {
+        orderItems {
             id
         }
     }
