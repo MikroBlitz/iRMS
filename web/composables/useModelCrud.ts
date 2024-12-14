@@ -12,6 +12,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const currentPage: number = paginatorInfo.value?.currentPage || 1;
     const perPage: number = paginatorInfo.value?.perPage || 10;
 
+    // GraphQL Dynamic Queries & Mutations
+    const { DELETE_MUTATION, PAGINATE_QUERY, UPSERT_MUTATION } =
+        await useGraphQLAction(model);
+
     const {
         closeCrudModal,
         modalButtonText,
@@ -23,10 +27,6 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         selectedModel,
         showModal,
     } = useCrudModal(model, checkAuth());
-
-    // GraphQL Dynamic Queries & Mutations
-    const { DELETE_MUTATION, PAGINATE_QUERY, UPSERT_MUTATION } =
-        await useGraphQLQuery(model);
 
     const {
         loading: queryLoading,

@@ -34,8 +34,7 @@
                         {{ field.label }}
                     </label>
 
-                    <!-- Input Field -->
-                    <input
+                    <template
                         v-if="
                             field.type === 'text' ||
                             field.type === 'email' ||
@@ -43,204 +42,51 @@
                             field.type === 'password' ||
                             field.type === 'float'
                         "
-                        :id="field.name"
-                        v-model="form[field.name]"
-                        :disabled="submitButtonText === ''"
-                        :type="getInputType(field)"
-                        :required="field.required"
-                        :min="field.min"
-                        :max="field.max"
-                        :step="field.step"
-                        class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                    />
-
-                    <textarea
-                        v-if="field.type === 'textarea'"
-                        :id="field.name"
-                        v-model="form[field.name]"
-                        :disabled="submitButtonText === ''"
-                        :required="field.required"
-                        class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                    />
-
-                    <!-- File Field -->
-                    <input
-                        v-if="field.type === 'file'"
-                        :id="field.name"
-                        type="file"
-                        :disabled="submitButtonText === ''"
-                        :required="field.required"
-                        class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                        v-on="form[field.name]"
-                    />
-
-                    <!-- Checkbox Field -->
-                    <input
-                        v-if="field.type === 'checkbox'"
-                        :id="field.name"
-                        v-model="form[field.name]"
-                        :disabled="submitButtonText === ''"
-                        type="checkbox"
-                        :required="field.required"
-                        class="mt-1 mr-2 rounded border-none outline-none shadow-sm sm:text-sm"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                    />
-
-                    <!-- Combobox Field -->
-                    <template v-if="field.type === 'combobox'">
-                        <ComboboxRoot
-                            :id="field.name"
-                            v-model="form[field.name]"
-                            :display-value="
-                                (value) =>
-                                    getData(field.model as string).find(
-                                        (item: any) => item.id === value,
-                                    )?.[field.optionTitle as string] || ''
-                            "
-                            class="relative"
-                        >
-                            <ComboboxAnchor
-                                class="mt-1 w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-secondary text-foreground flex justify-between items-center"
-                                :class="
-                                    submitButtonText === ''
-                                        ? 'bg-transparent shadow-none'
-                                        : ''
-                                "
-                            >
-                                <ComboboxInput
-                                    :value="
-                                        getOptionText(form[field.name], field)
-                                    "
-                                    :disabled="submitButtonText === ''"
-                                    class="!bg-transparent outline-none w-full text-grass11 h-full selection:bg-grass5 placeholder-mauve8"
-                                    :class="
-                                        submitButtonText === ''
-                                            ? 'bg-transparent shadow-none'
-                                            : ''
-                                    "
-                                    :placeholder="`Select ${field.model}`"
-                                    :required="field.required"
-                                />
-                                <ComboboxTrigger
-                                    :disabled="submitButtonText === ''"
-                                >
-                                    <Icon
-                                        name="mdi:chevron-down"
-                                        class="size-4"
-                                    />
-                                </ComboboxTrigger>
-                            </ComboboxAnchor>
-
-                            <ComboboxContent
-                                class="absolute z-10 w-full mt-0.5 bg-secondary overflow-y-scroll max-h-[400px] rounded"
-                            >
-                                <ComboboxViewport class="p-[5px]">
-                                    <ComboboxEmpty
-                                        class="text-mauve8 text-xs font-medium text-center py-2"
-                                    >
-                                        No options available
-                                    </ComboboxEmpty>
-
-                                    <ComboboxGroup>
-                                        <ComboboxItem
-                                            v-for="option in getData(
-                                                field.model as string,
-                                            )"
-                                            :key="option.id"
-                                            :value="option.id"
-                                            class="flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none rounded hover:bg-accent"
-                                        >
-                                            <ComboboxItemIndicator
-                                                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                                            >
-                                                <Icon name="mdi:check" />
-                                            </ComboboxItemIndicator>
-                                            <span>
-                                                {{
-                                                    option[
-                                                        field.optionTitle as string
-                                                    ]
-                                                }}
-                                            </span>
-                                        </ComboboxItem>
-                                        <ComboboxSeparator
-                                            class="h-[1px] bg-grass6 m-[5px]"
-                                        />
-                                    </ComboboxGroup>
-                                </ComboboxViewport>
-                            </ComboboxContent>
-                        </ComboboxRoot>
+                    >
+                        <InputBasic
+                            :field="field"
+                            :form="form"
+                            :submit-button-text="submitButtonText"
+                            :get-input-type="getInputType"
+                        />
                     </template>
 
-                    <!-- Select Field -->
-                    <select
-                        v-if="field.type === 'select'"
-                        :id="field.name"
-                        v-model="form[field.name]"
-                        :required="field.required"
-                        class="mt-1 block w-full rounded border-none outline-none p-2 shadow-sm sm:text-sm bg-secondary text-foreground"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                    >
-                        <option selected value="">
-                            Select {{ field.model }}
-                        </option>
-                        <option
-                            v-for="option in getData(field.model as string)"
-                            :key="option.id"
-                            :value="option.id"
-                        >
-                            {{ option[field.optionTitle as string] }}
-                        </option>
-                    </select>
+                    <template v-if="field.type === 'textarea'">
+                        <InputTextarea
+                            :field="field"
+                            :form="form"
+                            :submit-button-text="submitButtonText"
+                        />
+                    </template>
 
-                    <!-- User Role Select - TODO: fix dynamic select -->
-                    <select
-                        v-if="field.type === 'roleSelect'"
-                        :id="field.name"
-                        v-model="form[field.name]"
-                        :disabled="submitButtonText === ''"
-                        :required="field.required"
-                        class="mt-1 block w-full rounded border-none outline-none px-3 p-2 shadow-sm sm:text-sm bg-gray-200 bg-secondary text-foreground"
-                        :class="
-                            submitButtonText === ''
-                                ? 'bg-transparent shadow-none'
-                                : ''
-                        "
-                    >
-                        <option disabled value="">
-                            Select {{ field.model }}
-                        </option>
-                        <option
-                            v-for="option in roles || []"
-                            :key="option.id"
-                            :value="option.id"
-                        >
-                            {{ option.name }}
-                        </option>
-                    </select>
+                    <template v-if="field.type === 'combobox'">
+                        <InputCombobox
+                            :data="getData(field.model as string)"
+                            :field="field"
+                            :form="form"
+                            :get-option-text="getOptionText"
+                            :submit-button-text="submitButtonText"
+                            :get-data="getData"
+                        />
+                    </template>
+
+                    <template v-if="field.type === 'select'">
+                        <InputSelect
+                            :field="field"
+                            :form="form"
+                            :get-data="getData"
+                            :submit-button-text="submitButtonText"
+                        />
+                    </template>
+
+                    <template v-if="field.type === 'roleSelect'">
+                        <InputRoles
+                            :field="field"
+                            :form="form"
+                            :get-data="getData"
+                            :submit-button-text="submitButtonText"
+                        />
+                    </template>
 
                     <!-- Toggle button for password visibility -->
                     <button
@@ -300,24 +146,10 @@
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core';
 import { vOnClickOutside } from '@vueuse/components';
-import {
-    ComboboxAnchor,
-    ComboboxContent,
-    ComboboxEmpty,
-    ComboboxGroup,
-    ComboboxInput,
-    ComboboxItem,
-    ComboboxItemIndicator,
-    ComboboxRoot,
-    ComboboxSeparator,
-    ComboboxTrigger,
-    ComboboxViewport,
-} from 'radix-vue';
 
 import type { CrudModalField, Field } from '~/types';
 
 import { Button } from '~/components/ui/button';
-import { roles } from '~/utils/authHelpers';
 
 const props = defineProps({
     fields: {
@@ -348,14 +180,7 @@ const cancelSubmit: any = keys['Escape'];
 const showPassword = ref<Record<string, boolean>>({});
 const emit = defineEmits(['submit', 'close']);
 const form = ref<Record<string, any>>({});
-
-watch(
-    () => props.initialValues,
-    (newValues) => {
-        form.value = { ...newValues };
-    },
-    { immediate: true },
-);
+const data: Ref<Record<string, any>> = ref({});
 
 const handleSubmit = () => {
     isLoading.value = true;
@@ -379,37 +204,31 @@ const getInputType = (field: Field) => {
     return field.type;
 };
 
-const data: Ref<Record<string, any>> = ref({});
 const getData = (model: string) => data.value[model.toLowerCase()] || [];
-
-const getOptionText = (value, field) => {
-    const option = getData(field.model).find((item) => item.id === value);
+const getOptionText = (
+    value: string | number,
+    field: { model: string; optionTitle: string },
+) => {
+    const option = getData(field.model).find(
+        (item: { id: string | number }) => item.id === value,
+    );
     return option ? option[field.optionTitle] : '';
 };
 
 onMounted(async () => {
     if (Array.isArray(props.fields)) {
-        for (const field of props.fields) {
-            if (
-                (field.type === 'select' || field.type === 'combobox') &&
-                field.model &&
-                field.queryName
-            ) {
-                const queryModule = await import(`~/graphql/${field.model}.ts`);
-                const query = queryModule[field.queryName];
-                if (query) {
-                    const result: any = await useAsyncQuery(query);
-                    const resultKey: any = Object.keys(result.data.value)[0];
-                    data.value[field.model.toLowerCase()] =
-                        result.data.value[resultKey] || [];
-                }
-            }
-        }
+        await processFields(props.fields, data);
     }
 });
 
+watch(
+    () => props.initialValues,
+    (newValues) => {
+        form.value = { ...newValues };
+    },
+    { immediate: true },
+);
 watch(continueSubmit, (e) => (e ? handleSubmit() : null));
 watch(cancelSubmit, (e) => (e ? closeModal() : null));
-
 useBodyClass('overflow-hidden');
 </script>
