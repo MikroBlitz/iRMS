@@ -1,116 +1,61 @@
 <template>
     <div>
-        <main v-auto-animate class="max-w-screen-2xl mx-auto">
-            <TableHeader :title="pageTitle" :icon="icon">
-                <template #actions>
-                    <TableCRUD
-                        :on-create="openCreateModal"
-                        :on-refresh="
-                            () =>
-                                fetchDataPaginate(
-                                    paginatorInfo.perPage,
-                                    paginatorInfo.currentPage,
-                                )
-                        "
-                    />
-                </template>
-            </TableHeader>
+        <main v-auto-animate class="max-w-screen-2xl mx-auto h-[780px]">
+            <ClientOnly>
+                <PageHeader :page-title="pageTitle" />
 
-            <TableContent
-                :headers="modelHeaders"
-                :is-loading="isLoading"
-                :data="modelData"
-                :actions="actions"
-                :paginator-info="paginatorInfo"
-                :pagination-controls="paginationControls"
-            />
+                <ChartSimple
+                    v-for="chart in inventoryChart"
+                    :key="chart.title"
+                    :title="chart.title"
+                    :value="chart.value"
+                    :icon="chart.icon"
+                    :color="chart.color"
+                    :border-color="chart.borderColor"
+                />
 
-            <ModalCRUD
-                v-if="showModal"
-                :visible="showModal"
-                :title="modalTitle"
-                :fields="modalFields"
-                :initial-values="selectedModel"
-                :submit-button-text="modalButtonText"
-                @submit="handleCrudSubmit"
-                @close="closeCrudModal"
-            />
-
-            <ModalConfirm
-                v-if="isConfirmModalOpen"
-                :is-open="isConfirmModalOpen"
-                title="Confirm Deletion"
-                :message="`Delete ${selectedModel?.product.name || modelName.name}?`"
-                @confirm="confirmDeletion"
-                @cancel="cancelDeletion"
-            />
+                <PageRouter :item-links="itemLinks" />
+            </ClientOnly>
         </main>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Headers, CrudModalField } from '~/types'
+const modelName = 'inventory';
+const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const { charts } = useChartData();
+const inventoryChart = computed(() =>
+    charts.filter((chart) => chart.title === 'Inventory Stock Value'),
+);
 
-import { useModelCrud } from '~/composables/useModelCrud'
-import { thousandSeparator } from '~/utils/numberHelpers'
-
-const modelName = 'inventory'
-const pageTitle = ref(getPluralName(toTitleCase(modelName)))
-const icon = 'solar:box-minimalistic-linear'
-
-const modelHeaders: Headers[] = [
-    { key: 'id', label: 'ID' },
-    { key: 'product.name', label: 'Product' },
-    { key: (val) => `${thousandSeparator(val.qty)} pc/s`, label: 'Stocks' },
-    { key: 'location', label: 'Location' },
-    { key: 'created_at', label: 'Created At' },
-]
-
-const modelFields: CrudModalField[] = [
+const itemLinks = [
     {
-        label: 'Product *',
-        model: 'Product',
-        name: 'product_id',
-        optionTitle: 'name',
-        queryName: 'productFilter',
-        required: true,
-        type: 'combobox',
+        icon: 'solar:box-minimalistic-linear',
+        iconColor: 'text-foreground',
+        path: '/inventories/manage-inventories',
+        textColor: 'text-foreground',
+        title: 'Manage Inventories',
     },
-    { label: 'Stocks *', name: 'qty', required: true, type: 'number' },
-    { label: 'Location', name: 'location', type: 'text' },
-]
-
-const {
-    actions,
-    cancelDeletion,
-    closeCrudModal,
-    confirmDeletion,
-    fetchDataPaginate,
-    handleCrudSubmit,
-    isConfirmModalOpen,
-    isLoading,
-    modalButtonText,
-    modalFields,
-    modalTitle,
-    modelData,
-    openCreateModal,
-    paginationControls,
-    paginatorInfo,
-    selectedModel,
-    showModal,
-} = await useModelCrud(modelName, modelFields)
+    {
+        icon: 'solar:filter-outline',
+        iconColor: 'text-foreground',
+        path: '/categories/manage-categories',
+        textColor: 'text-foreground',
+        title: 'Manage Categories',
+    },
+];
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
         {
-            content: 'Add, edit, and delete inventories',
-            name: 'Manage inventories',
+            content: 'Inventories page',
+            name: 'Manage inventory page',
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>

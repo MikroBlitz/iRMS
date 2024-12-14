@@ -6,6 +6,12 @@ export const totalUsers = gql`
     }
 `;
 
+export const totalCustomers = gql`
+    query totalCustomers {
+        customersCount
+    }
+`;
+
 export const totalCategories = gql`
     query totalCategories {
         categoriesCount

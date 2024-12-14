@@ -27,6 +27,7 @@ const documents = {
     "\n    mutation deleteCustomer($id: [ID!]!) {\n        deleteCustomer(id: $id) {\n            id\n        }\n    }\n": types.DeleteCustomerDocument,
     "\n    mutation restoreCustomer($id: [ID!]!) {\n        restoreCustomer(id: $id) {\n            id\n        }\n    }\n": types.RestoreCustomerDocument,
     "\n    query totalUsers {\n        usersCount\n    }\n": types.TotalUsersDocument,
+    "\n    query totalCustomers {\n        customersCount\n    }\n": types.TotalCustomersDocument,
     "\n    query totalCategories {\n        categoriesCount\n    }\n": types.TotalCategoriesDocument,
     "\n    query totalProducts {\n        productsCount\n    }\n": types.TotalProductsDocument,
     "\n    query totalOrders {\n        ordersCount\n    }\n": types.TotalOrdersDocument,
@@ -142,6 +143,10 @@ export function graphql(source: "\n    mutation restoreCustomer($id: [ID!]!) {\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query totalUsers {\n        usersCount\n    }\n"): (typeof documents)["\n    query totalUsers {\n        usersCount\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query totalCustomers {\n        customersCount\n    }\n"): (typeof documents)["\n    query totalCustomers {\n        customersCount\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

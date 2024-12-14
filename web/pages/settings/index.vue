@@ -2,38 +2,16 @@
     <div>
         <main v-auto-animate class="max-w-screen-2xl mx-auto h-[780px]">
             <ClientOnly>
-                <TableHeader
-                    :title="pageTitle"
-                    :icon="icon"
-                    :search-bar="false"
-                />
-                <div
-                    class="mt-2 flex items-center justify-center flex-wrap gap-2 p-4"
-                >
-                    <div v-for="item in itemLinks" :key="item.title">
-                        <NuxtLink
-                            :to="item.path"
-                            class="p-4 px-6 hover:bg-accent transition duration-300 rounded flex items-center gap-2 bg-secondary dark:bg-primary dark:hover:bg-accent w-[200px]"
-                        >
-                            <Icon
-                                :class="item.iconColor"
-                                :name="item.icon"
-                                size="40"
-                            />
-                            <span :class="item.textColor">{{
-                                item.title
-                            }}</span>
-                        </NuxtLink>
-                    </div>
-                </div>
+                <PageHeader :page-title="pageTitle" />
+                <PageRouter :item-links="itemLinks" />
             </ClientOnly>
         </main>
     </div>
 </template>
 
 <script setup lang="ts">
-const icon = 'solar:settings-linear'
-const pageTitle = ref('Settings')
+const pageTitle = ref('Settings');
+
 const itemLinks = [
     {
         icon: 'mdi:theme-light-dark',
@@ -70,11 +48,11 @@ const itemLinks = [
         textColor: 'text-foreground',
         title: 'Recycle Bin',
     },
-]
+];
 
 definePageMeta({
     layout: 'app-layout',
-})
+});
 
 useHead({
     meta: [
@@ -84,5 +62,5 @@ useHead({
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>

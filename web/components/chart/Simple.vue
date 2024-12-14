@@ -1,20 +1,22 @@
 <template>
-    <div
-        :class="color"
-        class="w-full md:w-[280px] xl:w-[400px] p-8 rounded flex-col"
-    >
-        <div class="flex items-start justify-between">
-            <div>
-                <div class="text-sm text-foreground font-medium">
-                    {{ title }}
+    <div class="flex gap-2 flex-wrap items-center w-full md:w-auto m-auto p-4">
+        <div
+            :class="color"
+            class="w-full md:w-[280px] xl:w-[450px] p-8 rounded flex-col"
+        >
+            <div class="flex items-start justify-between">
+                <div>
+                    <div class="text-sm text-foreground font-medium">
+                        {{ title }}
+                    </div>
+                    <div class="text-xl xl:text-3xl font-bold">
+                        {{ value }}
+                    </div>
                 </div>
-                <div class="text-xl xl:text-3xl font-bold">
-                    {{ value }}
-                </div>
+                <Icon :name="icon" :size="size" />
             </div>
-            <Icon :name="icon" :size="size" />
+            <div class="border-b-2 mt-4" :class="borderColor" />
         </div>
-        <div class="border-b-2 mt-4" :class="borderColor" />
     </div>
 </template>
 
@@ -45,5 +47,5 @@ defineProps({
         required: true,
         type: [Number, String],
     },
-})
+});
 </script>

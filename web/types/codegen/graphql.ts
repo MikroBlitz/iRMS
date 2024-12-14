@@ -550,6 +550,7 @@ export type Query = {
   categoriesCount: Scalars['Int']['output'];
   categoriesPaginate: CategoryPaginator;
   customers: Array<Customer>;
+  customersCount: Scalars['Int']['output'];
   customersPaginate: CustomerPaginator;
   filterCustomer: Array<User>;
   inventories: Array<Inventory>;
@@ -838,6 +839,11 @@ export type TotalUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TotalUsersQuery = { __typename?: 'Query', usersCount: number };
+
+export type TotalCustomersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TotalCustomersQuery = { __typename?: 'Query', customersCount: number };
 
 export type TotalCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1196,6 +1202,7 @@ export const UpsertCustomerDocument = {"kind":"Document","definitions":[{"kind":
 export const DeleteCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteCustomerMutation, DeleteCustomerMutationVariables>;
 export const RestoreCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"restoreCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"restoreCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<RestoreCustomerMutation, RestoreCustomerMutationVariables>;
 export const TotalUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"totalUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"usersCount"}}]}}]} as unknown as DocumentNode<TotalUsersQuery, TotalUsersQueryVariables>;
+export const TotalCustomersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"totalCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customersCount"}}]}}]} as unknown as DocumentNode<TotalCustomersQuery, TotalCustomersQueryVariables>;
 export const TotalCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"totalCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categoriesCount"}}]}}]} as unknown as DocumentNode<TotalCategoriesQuery, TotalCategoriesQueryVariables>;
 export const TotalProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"totalProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productsCount"}}]}}]} as unknown as DocumentNode<TotalProductsQuery, TotalProductsQueryVariables>;
 export const TotalOrdersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"totalOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ordersCount"}}]}}]} as unknown as DocumentNode<TotalOrdersQuery, TotalOrdersQueryVariables>;

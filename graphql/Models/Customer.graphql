@@ -41,6 +41,7 @@ extend type Query {
     customersPaginate(
         search: String @scope(name: "search")
     ): [Customer!]! @paginate #@can(ability: "read")
+    customersCount: Int! @count(model: "Customer")
 }
 
 extend type Mutation {
