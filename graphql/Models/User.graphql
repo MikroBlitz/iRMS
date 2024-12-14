@@ -8,7 +8,8 @@ type User {
     password: String
     email_verified_at: DateTime
     role: Int # TODO: use enum
-    customers: [Customer!]! @hasMany
+    customers: [Customer] @hasMany
+    usersCount: Int
     logs: [Log] @hasMany
     created_at: DateTime
     updated_at: DateTime

@@ -1,34 +1,41 @@
 <template>
     <div>
-        <div v-auto-animate class="max-w-screen-2xl mx-auto">
-            <TableHeader :title="pageTitle" :icon="icon" :search-bar="false" />
+        <div v-auto-animate class="max-w-screen-2xl mx-auto w-auto">
+            <PageHeader :page-title="pageTitle" />
             <div
-                class="p-4 border-2 rounded-b w-full border-secondary dark:border-primary h-full min-h-[780px]"
+                class="flex flex-col md:grid md:grid-cols-3 md:gap-1 sm:items-start"
             >
-                <div
-                    class="flex gap-4 flex-wrap items-center m-auto justify-evenly"
-                >
-                    <ChartSimple
-                        v-for="(chart, index) in charts"
-                        :key="index"
-                        :title="chart.title"
-                        :value="chart.value"
-                        :icon="chart.icon"
-                        :color="chart.color"
-                        :border-color="chart.borderColor"
-                    />
-                </div>
+                <ChartSimple
+                    v-for="(chart, index) in chartData"
+                    :key="index"
+                    :title="chart.title"
+                    :value="chart.value"
+                    :icon="chart.icon"
+                    :color="chart.color"
+                    :border-color="chart.borderColor"
+                    :loading="chart.loading"
+                />
             </div>
+            <PageRouter :item-links="itemLinks" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { BarChart } from '@/components/ui/chart-bar';
+import type { Chart } from '~/types';
 
 const pageTitle = ref('Dashboard');
-const icon = 'mdi:view-dashboard-outline';
-const { charts } = useChartData();
+const chartData: Ref<Chart[]> = ref([]);
+
+const itemLinks = [
+    {
+        icon: 'solar:settings-linear',
+        iconColor: 'text-foreground',
+        path: '/settings',
+        textColor: 'text-foreground',
+        title: 'Settings',
+    },
+];
 
 definePageMeta({
     layout: 'app-layout',
@@ -37,5 +44,10 @@ definePageMeta({
 useHead({
     meta: [{ content: 'View dashboard', name: 'Dashboard' }],
     title: pageTitle.value,
+});
+
+onMounted(async () => {
+    const { charts } = await useChartData();
+    chartData.value = charts;
 });
 </script>

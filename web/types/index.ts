@@ -184,3 +184,12 @@ export type PaginatorInfo = {
     perPage?: number;
     total?: number;
 };
+
+export type Chart = {
+    title: string;
+    value: string;
+    icon: string;
+    color: string;
+    borderColor: string;
+    loading: boolean;
+};

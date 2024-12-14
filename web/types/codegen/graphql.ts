@@ -697,7 +697,7 @@ export enum Trashed {
 export type User = {
   __typename?: 'User';
   created_at?: Maybe<Scalars['DateTime']['output']>;
-  customers: Array<Customer>;
+  customers?: Maybe<Array<Maybe<Customer>>>;
   deleted_at?: Maybe<Scalars['DateTime']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   email_verified_at?: Maybe<Scalars['DateTime']['output']>;
@@ -710,6 +710,7 @@ export type User = {
   password?: Maybe<Scalars['String']['output']>;
   role?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['DateTime']['output']>;
+  usersCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UserInput = {

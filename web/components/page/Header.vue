@@ -12,7 +12,7 @@
         </Button>
 
         <div class="flex items-center">
-            <p class="text-foreground text-2xl font-bold">
+            <p class="text-foreground text-2xl md:text-3xl font-bold">
                 {{ pageTitle }}
             </p>
         </div>
