@@ -29,6 +29,27 @@ const chartData: Ref<Chart[]> = ref([]);
 
 const itemLinks = [
     {
+        icon: 'mdi:monitor-dashboard',
+        iconColor: 'text-foreground',
+        path: '/pos',
+        textColor: 'text-foreground',
+        title: 'Point of Sale',
+    },
+    {
+        icon: 'solar:chat-round-line-linear',
+        iconColor: 'text-foreground',
+        path: '/messages',
+        textColor: 'text-foreground',
+        title: 'Messages',
+    },
+    {
+        icon: 'mdi:form-select',
+        iconColor: 'text-foreground',
+        path: '/reports',
+        textColor: 'text-foreground',
+        title: 'Reports',
+    },
+    {
         icon: 'solar:settings-linear',
         iconColor: 'text-foreground',
         path: '/settings',

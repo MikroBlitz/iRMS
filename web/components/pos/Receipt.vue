@@ -157,36 +157,22 @@
 </template>
 
 <script setup lang="ts">
-import { storeName } from '~/composables/useConstant'
-import { useCart } from '~/stores/useCart'
-import { printReceipt } from '~/utils/pos'
+const auth = useAuth();
+const cartStore: any = useCart();
+const customerName: any = inject('customerName');
+const customerAddress = ref('');
+const customerType = ref('Guest');
 
-const auth = useAuth()
-const cartStore: any = useCart()
-const customerName: any = inject('customerName')
-const customerAddress = ref('')
-const customerType = ref('Guest')
+const transactionDate = toBasicDateTime(new Date());
 
-const date: Date = new Date()
-const transactionDate = toBasicDateTime(date)
-
-const generateTransactionId = computed(() => {
-    const date = new Date()
-    const dateTime = toBasicDateTime(date).replace(/[^a-zA-Z0-9]/g, '')
-
-    const transactionId = `${dateTime}`
-
-    return transactionId
-})
-
-const cashTendered: any = inject('cashTendered')
+const cashTendered: any = inject('cashTendered');
 const change: ComputedRef<number> = computed(() =>
     parseFloat(
         (cashTendered.value - cartStore.totalAmountWithTaxAndDiscount).toFixed(
             2,
         ),
     ),
-)
+);
 </script>
 
 <style scoped>

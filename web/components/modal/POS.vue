@@ -311,6 +311,7 @@ const completeOrder = async () => {
                 paymentMethod,
                 status,
                 totalAmount,
+                generateTransactionId.value,
             ),
         });
 

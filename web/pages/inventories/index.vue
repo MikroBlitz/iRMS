@@ -64,7 +64,9 @@ useHead({
 onMounted(async () => {
     const { charts } = await useChartData();
     chartData.value = charts.filter(
-        (chart) => chart.title === 'Inventory Stock Value',
+        (chart) =>
+            chart.title === 'Inventory Stock Value' ||
+            chart.title === 'Categories',
     );
 });
 </script>

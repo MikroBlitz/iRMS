@@ -44,7 +44,7 @@ export default async function useChartData() {
     const charts = reactiveComputed(() => [
         {
             borderColor: 'border-blue-300/80 dark:border-blue-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:account-multiple',
             loading: loading.value,
             title: 'Total Users',
@@ -52,7 +52,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-green-300/80 dark:border-green-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:folder-multiple-outline',
             loading: loading.value,
             title: 'Categories',
@@ -60,7 +60,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-red-300/80 dark:border-red-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:cube-outline',
             loading: loading.value,
             title: 'Products',
@@ -68,7 +68,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-purple-300/80 dark:border-purple-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:cash-multiple',
             loading: loading.value,
             title: 'Inventory Stock Value',
@@ -76,7 +76,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-yellow-300/80 dark:border-yellow-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:cart-outline',
             loading: loading.value,
             title: 'Total Orders',
@@ -84,7 +84,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-pink-300/80 dark:border-pink-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:currency-usd',
             loading: loading.value,
             title: 'Overall Sales',
@@ -92,7 +92,7 @@ export default async function useChartData() {
         },
         {
             borderColor: 'border-orange-300/80 dark:border-orange-500/50',
-            color: 'bg-primary/20 dark:bg-secondary/30',
+            color: 'bg-secondary/50',
             icon: 'mdi:user-multiple',
             loading: loading.value,
             title: 'Total Customers',

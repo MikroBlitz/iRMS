@@ -63,6 +63,11 @@ useHead({
 
 onMounted(async () => {
     const { charts } = await useChartData();
-    chartData.value = charts.filter((chart) => chart.title === 'Total Orders');
+    chartData.value = charts.filter(
+        (chart) =>
+            chart.title === 'Total Orders' ||
+            chart.title === 'Total Customers' ||
+            chart.title === 'Overall Sales',
+    );
 });
 </script>

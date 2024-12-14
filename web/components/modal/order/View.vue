@@ -26,7 +26,7 @@
                 <div>
                     <h4 class="font-bold mt-2">Order Details:</h4>
                     <div class="py-2 px-4 rounded bg-secondary text-sm">
-                        <p>Transaction No.: {{ data.id }}</p>
+                        <p>Transaction No.: {{ data.transaction_number }}</p>
                         <p>Date: {{ toBasicDateTime(data.date) }}</p>
                         <p>Customer {{ data.customer_guest }}</p>
                         <p>
@@ -80,6 +80,7 @@
                 :order-items="data.order_items"
                 :promotion-amount="data.promotion_amount"
                 :total-tax="data.total_tax"
+                :transaction-number="data.transaction_number"
             />
         </div>
     </div>

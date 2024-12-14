@@ -46,8 +46,8 @@ const pageTitle = ref(getPluralName(toTitleCase(modelName)));
 const icon = 'solar:cart-outline';
 
 const modelHeaders: Headers[] = [
-    { key: 'id', label: 'ID' },
-    { key: (val) => toBasicDateTime(val.date), label: 'Date' },
+    // { key: 'id', label: 'ID' },
+    { key: 'transaction_number', label: 'Transaction Number' },
     {
         key: (val) => (val.customer_guest ? '*******' : 'Guest'),
         label: 'Customer',
@@ -82,7 +82,7 @@ const modelHeaders: Headers[] = [
         },
         label: 'Status',
     },
-    { key: 'created_at', label: 'Created At' },
+    { key: (val) => toBasicDateTime(val.date), label: 'Date' },
 ];
 
 const modelFields: CrudModalField[] = [];

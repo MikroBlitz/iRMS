@@ -13,24 +13,6 @@
                 <template #actions="{ cellData }: { cellData: any }">
                     <div class="flex justify-start items-center space-x-1">
                         <div v-for="(action, index) in actions">
-                            <!--                        <Popover> -->
-                            <!--                            <PopoverTrigger as-child> -->
-                            <!--                                <Button -->
-                            <!--                                    class="relative size-8 p-0 rounded-full" -->
-                            <!--                                    variant="outline" -->
-                            <!--                                > -->
-                            <!--                                    <span -->
-                            <!--                                        class="absolute font-bold text-2xl bottom-1.5" -->
-                            <!--                                        >...</span -->
-                            <!--                                    > -->
-                            <!--                                </Button> -->
-                            <!--                            </PopoverTrigger> -->
-                            <!--                            <PopoverContent -->
-                            <!--                                class="w-auto bg-card -mt-10 p-1 space-x-1" -->
-                            <!--                            > -->
-                            <!--                                -->
-                            <!--                            </PopoverContent> -->
-                            <!--                        </Popover> -->
                             <Button
                                 v-if="action.showButton"
                                 :key="index"

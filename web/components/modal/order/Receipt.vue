@@ -115,8 +115,8 @@
 
             <!-- Transaction Details -->
             <div class="mb-2 text-black">
-                <p>Transaction #:</p>
-                <p>Date/Time: {{ date }}</p>
+                <p>Transaction #: {{ transactionNumber }}</p>
+                <p>Date/Time: {{ toBasicDateTime(date) }}</p>
             </div>
 
             <!-- Footer Message -->
@@ -183,6 +183,10 @@ const props: any = defineProps({
     totalAmount: {
         default: '',
         type: Number,
+    },
+    transactionNumber: {
+        default: '',
+        type: String,
     },
 });
 

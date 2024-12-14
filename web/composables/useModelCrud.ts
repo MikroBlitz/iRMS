@@ -1,18 +1,5 @@
 import type { PaginatorInfo, CrudModalField } from '~/types';
 
-import { useCrudModal } from '~/composables/useCrudModal';
-import { useGraphQLQuery } from '~/composables/useGraphQLQuery';
-import { checkAuth } from '~/utils/authHelpers';
-import {
-    handleGraphQLError,
-    transformGraphQLInputData,
-} from '~/utils/dataHelper';
-import {
-    getPluralName,
-    getSingularName,
-    toTitleCase,
-} from '~/utils/textHelpers';
-
 export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const pluralName = getPluralName(model);
     const singularName = getSingularName(model);
@@ -54,7 +41,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         useMutation(DELETE_MUTATION);
 
     const fetchDataPaginate = async (first: number, page: number) => {
-        checkAuth()
+        checkAuthNormal()
             ? ((isLoading.value = true),
               await refetch({ first, page }),
               (isLoading.value = false))

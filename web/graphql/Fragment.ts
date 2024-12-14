@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const logFragment = gql`
     fragment log on Log {
@@ -14,7 +14,7 @@ export const logFragment = gql`
         deleted_at
         updated_at
     }
-`
+`;
 
 export const userFragment = gql`
     fragment user on User {
@@ -30,7 +30,7 @@ export const userFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const OrderItemFragment = gql`
     fragment orderItem on OrderItem {
@@ -47,7 +47,7 @@ export const OrderItemFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const CategoryFragment = gql`
     fragment category on Category {
@@ -58,7 +58,7 @@ export const CategoryFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const ProductFragment = gql`
     fragment product on Product {
@@ -85,7 +85,7 @@ export const ProductFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const InventoryFragment = gql`
     fragment inventory on Inventory {
@@ -101,7 +101,7 @@ export const InventoryFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const CustomerFragment = gql`
     fragment customer on Customer {
@@ -129,7 +129,7 @@ export const CustomerFragment = gql`
         updated_at
         deleted_at
     }
-`
+`;
 
 export const OrderFragment = gql`
     fragment order on Order {
@@ -140,6 +140,7 @@ export const OrderFragment = gql`
         payment
         status
         total_amount
+        transaction_number
         customer_guest
         order_items {
             ...orderItem
@@ -156,15 +157,9 @@ export const OrderFragment = gql`
         #                name
         #            }
         #        }
-        #        order_items {
-        #            product_id
-        #            price
-        #            qty
-        #            total_amount
-        #        }
         created_at
         updated_at
         deleted_at
     }
     ${OrderItemFragment}
-`
+`;

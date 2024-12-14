@@ -1,27 +1,42 @@
 <template>
-    <div class="w-full h-dvh mx-auto p-0.5">
-        <div v-auto-animate>
-            <Header :title="pageTitle" back-route="dashboard" />
-
-            <MessagesBody />
-        </div>
+    <div>
+        <main v-auto-animate class="max-w-screen-2xl mx-auto h-[780px]">
+            <ClientOnly>
+                <PageHeader :page-title="pageTitle" />
+                <PageRouter :item-links="itemLinks" />
+            </ClientOnly>
+        </main>
     </div>
 </template>
 
 <script setup lang="ts">
-const pageTitle = ref('Messages')
+import type { Chart } from '~/types';
+
+const modelName = 'message';
+const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const chartData: Ref<Chart[]> = ref([]);
+
+const itemLinks = [
+    {
+        icon: 'solar:chat-round-line-linear',
+        iconColor: 'text-foreground',
+        path: '/messages/dashboard',
+        textColor: 'text-foreground',
+        title: 'Go to Messages',
+    },
+];
 
 definePageMeta({
-    layout: 'messages',
-})
+    layout: 'app-layout',
+});
 
 useHead({
     meta: [
         {
-            content: 'Add, edit, and delete messages',
-            name: 'Manage messages',
+            content: 'Messages page',
+            name: 'Manage Messages page',
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>

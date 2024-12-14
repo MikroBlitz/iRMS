@@ -47,8 +47,8 @@ definePageMeta({
 useHead({
     meta: [
         {
-            content: 'Products page',
-            name: 'Manage products page',
+            content: 'Categories page',
+            name: 'Manage categories page',
         },
     ],
     title: pageTitle.value,

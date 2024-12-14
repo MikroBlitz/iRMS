@@ -2,14 +2,14 @@
     <div class="p-2">
         <div v-if="loading">
             <div
-                class="animate-pulse relative w-full min-w-[350px] md:w-[280px] xl:w-[450px] p-6 rounded border-2 border-accent flex-col"
+                class="animate-pulse relative w-full min-w-[350px] md:w-[280px] xl:w-[450px] p-6 rounded border-2 border-secondary flex-col"
             >
-                <Skeleton class="h-3 w-1/2 mb-1" />
-                <Skeleton class="h-5 w-3/4 mb-2" />
+                <Skeleton class="h-3 w-1/2 mb-1 bg-secondary" />
+                <Skeleton class="h-5 w-3/4 mb-2 bg-secondary" />
                 <div class="flex items-start justify-between">
-                    <Skeleton class="size-8 rounded-full" />
+                    <Skeleton class="size-8 rounded-full bg-secondary" />
                 </div>
-                <Skeleton class="h-[2px] w-full mt-3" />
+                <Skeleton class="h-[2px] w-full mt-3 bg-secondary" />
             </div>
         </div>
 
