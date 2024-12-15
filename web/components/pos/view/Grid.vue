@@ -7,7 +7,7 @@
                 ? 'cursor-not-allowed pointer-events-none'
                 : ''
         "
-        class="relative rounded bg-card border-2 border-secondary p-3 flex-grow size-[130px] md:size-[190px] max-w-[250px] pb-1 font-medium overflow-hidden"
+        class="relative rounded bg-card border-2 border-secondary p-1 flex-grow size-[130px] md:size-[190px] max-w-[250px] pb-1 font-medium overflow-hidden"
         @click="cartStore.addProductToCart(product)"
     >
         <div
@@ -41,12 +41,12 @@
                 <NuxtImg
                     alt="prod-image"
                     :src="product.image || noImage"
-                    class="rounded h-16 md:h-28 w-auto"
+                    class="rounded h-[68px] md:h-32 w-auto object-cover"
                 />
             </div>
 
             <div
-                class="flex items-center justify-between absolute bottom-0 left-0 rounded-b-md w-full py-1 px-3 bg-card"
+                class="border-t-2 border-secondary flex items-center justify-between absolute bottom-0 left-0 rounded-b-md w-full py-1 px-3 bg-card"
             >
                 <div class="flex-1 overflow-hidden">
                     <div
