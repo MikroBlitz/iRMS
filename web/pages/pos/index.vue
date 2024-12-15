@@ -26,8 +26,7 @@
 <script setup lang="ts">
 import type { Chart } from '~/types';
 
-const modelName = 'point of sale';
-const pageTitle = ref(getPluralName(toTitleCase(modelName)));
+const pageTitle = ref('Point of Sale');
 const chartData: Ref<Chart[]> = ref([]);
 
 const itemLinks = [

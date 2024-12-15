@@ -325,7 +325,7 @@ const completeOrder = async () => {
         cartStore.paymentSuccess();
 
         cashTendered.value = '';
-        customerName.value = '';
+        customerName.value = 'Guest';
         paymentMethod.value = 0;
     } catch (error: any) {
         errorOrder(error);

@@ -103,34 +103,6 @@ export const InventoryFragment = gql`
     }
 `;
 
-export const CustomerFragment = gql`
-    fragment customer on Customer {
-        id
-        user {
-            id
-            first_name
-            middle_name
-            last_name
-            name
-        }
-        user_id
-        name
-        phone
-        address
-        points
-        orders {
-            id
-            customer_id
-            total_amount
-            payment
-            status
-        }
-        created_at
-        updated_at
-        deleted_at
-    }
-`;
-
 export const OrderFragment = gql`
     fragment order on Order {
         id
@@ -151,9 +123,6 @@ export const OrderFragment = gql`
         #            name
         #            user {
         #                id
-        #                first_name
-        #                middle_name
-        #                last_name
         #                name
         #            }
         #        }
@@ -162,4 +131,29 @@ export const OrderFragment = gql`
         deleted_at
     }
     ${OrderItemFragment}
+`;
+
+export const CustomerFragment = gql`
+    fragment customer on Customer {
+        id
+        user_id
+        user {
+            id
+            first_name
+            middle_name
+            last_name
+            name
+        }
+        name
+        phone
+        address
+        points
+        orders {
+            ...order
+        }
+        created_at
+        updated_at
+        deleted_at
+    }
+    ${OrderFragment}
 `;

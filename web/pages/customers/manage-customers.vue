@@ -40,7 +40,7 @@
                 v-if="isConfirmModalOpen"
                 :is-open="isConfirmModalOpen"
                 title="Confirm Deletion"
-                :message="`Delete ${selectedModel?.user.name || name}?`"
+                :message="`Delete ${selectedModel?.name || selectedModel?.user.name}?`"
                 @confirm="confirmDeletion"
                 @cancel="cancelDeletion"
             />
@@ -59,7 +59,7 @@ const icon = 'solar:user-hand-up-linear';
 
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
-    { key: 'user.name', label: 'Name' },
+    { key: (val) => val.name || val.user.name, label: 'Name' },
     { key: 'phone', label: 'Phone' },
     { key: 'address', label: 'Address' },
     { key: (val) => formatPrice(val.points), label: 'Points' },
@@ -67,18 +67,19 @@ const modelHeaders: Headers[] = [
 ];
 
 const modelFields: CrudModalField[] = [
-    {
-        label: 'Customer',
-        model: 'User',
-        name: 'user_id',
-        optionTitle: 'name',
-        queryName: 'filterCustomer',
-        required: true,
-        type: 'combobox',
-    },
+    // {
+    //     label: 'Customer',
+    //     model: 'User',
+    //     name: 'user_id',
+    //     optionTitle: 'name',
+    //     queryName: 'filterCustomer',
+    //     required: true,
+    //     type: 'combobox',
+    // },
+    { label: 'Customer', name: 'name', type: 'text' },
     { label: 'Phone', name: 'phone', type: 'text' },
     { label: 'Address', name: 'address', type: 'text' },
-    { label: 'Points', name: 'points', type: 'text' },
+    // { label: 'Points', name: 'points', type: 'text' },
 ];
 
 const {

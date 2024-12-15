@@ -28,7 +28,7 @@
                     <div class="py-2 px-4 rounded bg-secondary text-sm">
                         <p>Transaction No.: {{ data.transaction_number }}</p>
                         <p>Date: {{ toBasicDateTime(data.date) }}</p>
-                        <p>Customer {{ data.customer_guest }}</p>
+                        <p>Customer: {{ data.customer_guest }}</p>
                         <p>
                             Total Amount:
                             {{ currencyFormat(data.total_amount) }}

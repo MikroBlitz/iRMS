@@ -136,17 +136,17 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui/table';
 
-import type { CartProduct } from '~/types'
+import type { CartProduct } from '~/types';
 
-import { cn } from '~/lib/utils'
-import { useCart } from '~/stores/useCart'
-import { currencyFormat } from '~/utils/pos'
+import { cn } from '~/lib/utils';
+import { useCart } from '~/stores/useCart';
+import { currencyFormat } from '~/utils/pos';
 
-const cartStore = useCart()
+const cartStore = useCart();
 
 defineProps({
     products: Array as PropType<CartProduct[]>,
-})
+});
 </script>

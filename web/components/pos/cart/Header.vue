@@ -45,13 +45,21 @@
                         name="solar:user-hand-up-linear"
                         size="25"
                     />
-                    <input
+                    <select
                         v-model="customerName"
-                        type="text"
-                        placeholder="Customer name"
                         class="pl-9 py-2 rounded outline-none bg-card"
-                        :class="isMobile ? 'w-[230px]' : 'w-auto'"
-                    />
+                        :class="isMobile ? 'w-[230px]' : 'w-[300px]'"
+                    >
+                        <option value="Guest">Guest</option>
+                        <option
+                            v-for="option in customers"
+                            :key="option.id"
+                            :value="option.name"
+                            class="cursor-pointer bg-card"
+                        >
+                            {{ option.name }}
+                        </option>
+                    </select>
                 </span>
                 <Button
                     type="button"
@@ -70,19 +78,20 @@
 import { Button } from '~/components/ui/button';
 import { toasts } from '~/composables/useToast';
 import { useCart } from '~/stores/useCart';
+import { customerFilter } from '~/graphql/Customer';
 
 const cartStore = useCart();
 const customerName: any = inject('customerName');
 const isMobile = inject('isMobile');
-
 const openToolsDrawer: any = inject('openToolsDrawer');
 const closeDrawer = () => {
     openToolsDrawer.value = false;
 };
+const customers: Ref<any> = ref([]);
 
 const clearCart = () => {
     cartStore.clearCart();
-    customerName.value = '';
+    customerName.value = 'Guest';
     toasts('Cart cleared!', { type: 'success' });
     try {
         closeDrawer();
@@ -90,4 +99,13 @@ const clearCart = () => {
         console.warn('Drawer not found', e.message);
     }
 };
+
+onMounted(() => {
+    const { result } = useQuery(customerFilter);
+
+    setTimeout(() => {
+        if (result.value && result.value.customers)
+            customers.value = result.value.customers;
+    }, 1000);
+});
 </script>

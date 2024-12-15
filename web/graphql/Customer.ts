@@ -5,6 +5,7 @@ export const customerFilter = gql`
     query customerFilter($search: String) {
         customers(search: $search) {
             id
+            name
         }
     }
 `;
