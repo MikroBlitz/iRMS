@@ -102,7 +102,8 @@ const options: Config | any = {
             text: 'Cols',
         },
     ],
-    dom: "Q<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-5'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between pt-3 p-5'li><''p>",
+    // TODO: Add Q to enable query builder -> "Q<'flex
+    dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-2'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-center pt-2 px-2'li><''p>",
     paging: false,
     responsive: true,
     select: true,

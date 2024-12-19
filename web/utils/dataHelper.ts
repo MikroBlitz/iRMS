@@ -16,22 +16,24 @@ export const transformGraphQLInputData = (formData: any) => {
         const value = input[key];
 
         // for select fields
-        key.endsWith('_id')
-            ? ((input[key.replace('_id', '')] = { connect: value }),
-              delete input[key])
-            : null;
+        if (key.endsWith('_id')) {
+            if (value !== null)
+                input[key.replace('_id', '')] = { connect: value };
+            delete input[key];
+        }
 
-        // TODO: refactor this, for combobox fields
-        key === 'user' ? (input.user = { connect: value.id || value }) : null;
+        // dynamically handle combobox fields
+        if (value && typeof value === 'object' && 'id' in value)
+            input[key] = { connect: value.id || value };
 
-        Array.isArray(value)
-            ? (input[key] = {
-                  upsert: value.map((item) => ({
-                      id: item.id,
-                      ...item,
-                  })),
-              })
-            : null;
+        if (Array.isArray(value)) {
+            input[key] = {
+                upsert: value.map((arr) => ({
+                    id: arr?.id,
+                    ...arr,
+                })),
+            };
+        }
     });
 
     return input;
