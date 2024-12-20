@@ -425,7 +425,7 @@ export type MutationUpsertCategoryArgs = {
 
 
 export type MutationUpsertContactArgs = {
-  contact: ContactInput;
+  input: ContactInput;
 };
 
 
@@ -445,7 +445,7 @@ export type MutationUpsertLogArgs = {
 
 
 export type MutationUpsertMessageArgs = {
-  message: MessageInput;
+  input: MessageInput;
 };
 
 
@@ -820,6 +820,7 @@ export enum Trashed {
 
 export type User = {
   __typename?: 'User';
+  contacts?: Maybe<Array<Maybe<Contact>>>;
   created_at?: Maybe<Scalars['DateTime']['output']>;
   customers?: Maybe<Array<Maybe<Customer>>>;
   deleted_at?: Maybe<Scalars['DateTime']['output']>;
@@ -829,6 +830,7 @@ export type User = {
   id: Scalars['ID']['output'];
   last_name?: Maybe<Scalars['String']['output']>;
   logs?: Maybe<Array<Maybe<Log>>>;
+  messages?: Maybe<Array<Maybe<Message>>>;
   middle_name?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   password?: Maybe<Scalars['String']['output']>;

@@ -35,7 +35,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    upsertContact(contact: ContactInput!): Contact @upsert
+    upsertContact(input: ContactInput! @spread): Contact @upsert
     deleteContact(id: ID! @eq): Contact @delete
     restoreContact(id: ID! @eq): Contact @restore
 }

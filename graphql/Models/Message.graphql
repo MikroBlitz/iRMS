@@ -37,7 +37,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    upsertMessage(message: MessageInput!): Message @upsert
+    upsertMessage(input: MessageInput! @spread): Message @upsert
     deleteMessage(id: ID! @eq): Message @delete
     restoreMessage(id: ID! @eq): Message @restore
 }
