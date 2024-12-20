@@ -97,25 +97,25 @@
                 </div>
             </div>
 
-            <!-- Sales Information -->
-            <!--            <div class="mb-4 space-y-2 text-black"> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>VAT Sales:</p> -->
-            <!--                    <p>{{ formatPrice(vatSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Non-VAT Sales:</p> -->
-            <!--                    <p>{{ formatPrice(nonVatSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Zero-Rated Sales:</p> -->
-            <!--                    <p>{{ formatPrice(zeroRatedSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Total VAT:</p> -->
-            <!--                    <p>{{ formatPrice(totalVat) }}</p> -->
-            <!--                </div> -->
-            <!--            </div> -->
+            <div class="mb-4 text-black">
+                <p class="text-center">Sales Information</p>
+                <div class="flex justify-between">
+                    <p>VAT Sales:</p>
+                    <p>{{ formatPrice(cartStore.totalAmount) }}</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Non-VAT Sales:</p>
+                    <p>0.00</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Zero-Rated Sales:</p>
+                    <p>0.00</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Total VAT:</p>
+                    <p>{{ formatPrice(cartStore.totalTax) }}</p>
+                </div>
+            </div>
 
             <!-- Transaction Details -->
             <div class="mb-2 text-black">
@@ -180,5 +180,8 @@ const change: ComputedRef<number> = computed(() =>
     button {
         display: none;
     }
+}
+* {
+    font-family: 'Courier New', Courier, monospace;
 }
 </style>

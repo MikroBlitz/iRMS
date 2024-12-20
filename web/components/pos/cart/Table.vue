@@ -47,7 +47,7 @@
                             >
                                 <NuxtImg
                                     :src="product.image || noImage"
-                                    class="size-[50px] object-cover rounded"
+                                    class="size-[65px] object-cover rounded"
                                 />
                                 <div class="flex flex-col">
                                     <div class="text-overflow-hidden">
@@ -61,62 +61,67 @@
                         </div>
                     </TableCell>
                     <TableCell class="flex items-center justify-center">
-                        <NumberField
-                            :default-value="product.qty"
-                            :min="0"
-                            class="w-[130px]"
-                        >
-                            <NumberFieldContent>
-                                <div class="pb-1">
-                                    <template v-if="product.qty > 1">
-                                        <NumberFieldDecrement
-                                            @click.prevent="
-                                                cartStore.updateQuantity(
+                        <div class="mt-2">
+                            <NumberField
+                                :default-value="product.qty"
+                                :min="0"
+                                class="w-[130px]"
+                            >
+                                <NumberFieldContent>
+                                    <div class="pb-1">
+                                        <template v-if="product.qty > 1">
+                                            <NumberFieldDecrement
+                                                @click.prevent="
+                                                    cartStore.updateQuantity(
+                                                        product,
+                                                        -1,
+                                                    )
+                                                "
+                                            />
+                                        </template>
+                                        <template v-else>
+                                            <span
+                                                :class="
+                                                    cn(
+                                                        'absolute top-1/2 -translate-y-1/2 left-0 p-3',
+                                                    )
+                                                "
+                                                @click="
+                                                    () =>
+                                                        cartStore.deleteCartItem(
+                                                            product.item,
+                                                        )
+                                                "
+                                            >
+                                                <Icon
+                                                    name="solar:trash-bin-2-bold"
+                                                    size="1.8rem"
+                                                    class="text-destructive cursor-pointer"
+                                                />
+                                            </span>
+                                        </template>
+                                        <NumberFieldInput
+                                            class="font-bold"
+                                            :value="product.qty"
+                                            @input="
+                                                cartStore.onQuantityInput(
+                                                    $event,
                                                     product,
-                                                    -1,
                                                 )
                                             "
                                         />
-                                    </template>
-                                    <template v-else>
-                                        <span
-                                            :class="
-                                                cn(
-                                                    'absolute top-1/2 -translate-y-1/2 left-0 p-3',
+                                        <NumberFieldIncrement
+                                            @click.prevent="
+                                                cartStore.updateQuantity(
+                                                    product,
+                                                    1,
                                                 )
                                             "
-                                            @click="
-                                                () =>
-                                                    cartStore.deleteCartItem(
-                                                        product.item,
-                                                    )
-                                            "
-                                        >
-                                            <Icon
-                                                name="solar:trash-bin-2-bold"
-                                                size="1.8rem"
-                                                class="text-destructive cursor-pointer"
-                                            />
-                                        </span>
-                                    </template>
-                                    <NumberFieldInput
-                                        class="font-bold"
-                                        :value="product.qty"
-                                        @input="
-                                            cartStore.onQuantityInput(
-                                                $event,
-                                                product,
-                                            )
-                                        "
-                                    />
-                                    <NumberFieldIncrement
-                                        @click.prevent="
-                                            cartStore.updateQuantity(product, 1)
-                                        "
-                                    />
-                                </div>
-                            </NumberFieldContent>
-                        </NumberField>
+                                        />
+                                    </div>
+                                </NumberFieldContent>
+                            </NumberField>
+                        </div>
                     </TableCell>
                     <TableCell class="text-right">
                         <span class="font-bold">{{

@@ -93,25 +93,25 @@
                 </div>
             </div>
 
-            <!-- Sales Information -->
-            <!--            <div class="mb-4 space-y-2 text-black"> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>VAT Sales:</p> -->
-            <!--                    <p>{{ formatPrice(vatSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Non-VAT Sales:</p> -->
-            <!--                    <p>{{ formatPrice(nonVatSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Zero-Rated Sales:</p> -->
-            <!--                    <p>{{ formatPrice(zeroRatedSales) }}</p> -->
-            <!--                </div> -->
-            <!--                <div class="flex justify-between"> -->
-            <!--                    <p>Total VAT:</p> -->
-            <!--                    <p>{{ formatPrice(totalVat) }}</p> -->
-            <!--                </div> -->
-            <!--            </div> -->
+            <div class="mb-4 text-black">
+                <p class="text-center">Sales Information</p>
+                <div class="flex justify-between">
+                    <p>VAT Sales:</p>
+                    <p>{{ formatPrice(subTotal) }}</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Non-VAT Sales:</p>
+                    <p>0.00</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Zero-Rated Sales:</p>
+                    <p>0.00</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Total VAT:</p>
+                    <p>{{ formatPrice(Number(totalTax)) }}</p>
+                </div>
+            </div>
 
             <!-- Transaction Details -->
             <div class="mb-2 text-black">
@@ -206,5 +206,8 @@ const promotionAmount = computed(() => subTotal.value * discountRate);
     button {
         display: none;
     }
+}
+* {
+    font-family: 'Courier New', Courier, monospace;
 }
 </style>
