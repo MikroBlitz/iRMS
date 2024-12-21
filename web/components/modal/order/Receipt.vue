@@ -59,6 +59,4 @@ const subTotal = computed(() => {
 });
 const totalTax = computed(() => subTotal.value * taxRate);
 const promotionAmount = computed(() => subTotal.value * discountRate);
-
-console.log(promotionAmount.value);
 </script>

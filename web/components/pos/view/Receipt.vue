@@ -71,11 +71,13 @@
                 </div>
                 <div class="flex justify-between">
                     <p>Less 10% discount:</p>
-                    <p>{{ currencyFormat(promotionAmount) }}</p>
+                    <p>
+                        {{ currencyFormat(promotionAmount || subTotal * 0.1) }}
+                    </p>
                 </div>
                 <div class="flex justify-between">
                     <p>Tax 12%:</p>
-                    <p>{{ currencyFormat(totalTax) }}</p>
+                    <p>{{ currencyFormat(totalTax || subTotal * 0.12) }}</p>
                 </div>
             </div>
 
@@ -101,7 +103,7 @@
                 <p class="text-center">Sales Information</p>
                 <div class="flex justify-between">
                     <p>VAT Sales:</p>
-                    <p>{{ formatPrice(subTotal) }}</p>
+                    <p>{{ formatPrice(subTotal || totalAmount) }}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Non-VAT Sales:</p>
@@ -113,7 +115,7 @@
                 </div>
                 <div class="flex justify-between">
                     <p>Total VAT:</p>
-                    <p>{{ formatPrice(totalTax) }}</p>
+                    <p>{{ formatPrice(totalTax || subTotal * 0.12) }}</p>
                 </div>
             </div>
 
