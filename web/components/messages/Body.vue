@@ -12,6 +12,7 @@
         </h2>
         <div
             v-if="selectedContact && messages.length"
+            ref="messagesContainer"
             class="flex-grow overflow-y-auto mb-4 p-2"
         >
             <div
@@ -97,6 +98,8 @@ const messages: any = inject('messages');
 const selectContact: any = inject('selectContact');
 const selectedContact: any = inject('selectedContact');
 const newMessage = ref('');
+const messagesContainer = ref<HTMLElement | null>(null);
+
 const sendMessage = async () => {
     const { mutate } = useMutation(upsertMessage);
 
@@ -126,4 +129,23 @@ const sendMessage = async () => {
         console.error(e);
     }
 };
+
+watch(
+    () => messages.value.length,
+    () => {
+        nextTick(() => {
+            if (messagesContainer.value) {
+                messagesContainer.value.scrollTop =
+                    messagesContainer.value.scrollHeight;
+            }
+        });
+    },
+);
+
+onMounted(() => {
+    if (messagesContainer.value) {
+        messagesContainer.value.scrollTop =
+            messagesContainer.value.scrollHeight;
+    }
+});
 </script>
