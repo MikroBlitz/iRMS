@@ -1,0 +1,43 @@
+type Message {
+    id: ID!
+    sender: User @belongsTo
+    receiver: User @belongsTo
+    message: String
+    created_at: DateTime
+    updated_at: DateTime
+    deleted_at: DateTime
+}
+
+input MessageInput {
+    id: ID
+    sender: ConnectUserRelation
+    receiver: ConnectUserRelation
+    message: String
+}
+
+input ConnectMessageRelation {
+    id: ID
+    connect: ID
+    upsert: MessageInput
+    delete: ID
+}
+
+input ConnectMessagesRelation {
+    id: [ID]
+    connect: [ID]
+    upsert: [MessageInput]
+    delete: [ID]
+}
+
+extend type Query {
+    message(id: ID! @eq): Message @find
+    messages(
+        search: String @scope(name: "search")
+    ): [Message!]! @all
+}
+
+extend type Mutation {
+    upsertMessage(message: MessageInput!): Message @upsert
+    deleteMessage(id: ID! @eq): Message @delete
+    restoreMessage(id: ID! @eq): Message @restore
+}

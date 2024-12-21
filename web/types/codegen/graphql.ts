@@ -56,6 +56,20 @@ export type ConnectCategoryRelation = {
   upsert?: InputMaybe<CategoryInput>;
 };
 
+export type ConnectContactRelation = {
+  connect?: InputMaybe<Scalars['ID']['input']>;
+  delete?: InputMaybe<Scalars['ID']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  upsert?: InputMaybe<ContactInput>;
+};
+
+export type ConnectContactsRelation = {
+  connect?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  delete?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  id?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  upsert?: InputMaybe<Array<InputMaybe<ContactInput>>>;
+};
+
 export type ConnectCustomerRelation = {
   connect?: InputMaybe<Scalars['ID']['input']>;
   delete?: InputMaybe<Scalars['ID']['input']>;
@@ -73,6 +87,20 @@ export type ConnectInventoriesRelation = {
   delete?: InputMaybe<Scalars['Boolean']['input']>;
   disconnect?: InputMaybe<Scalars['Boolean']['input']>;
   upsert: Array<InventoryInput>;
+};
+
+export type ConnectMessageRelation = {
+  connect?: InputMaybe<Scalars['ID']['input']>;
+  delete?: InputMaybe<Scalars['ID']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  upsert?: InputMaybe<MessageInput>;
+};
+
+export type ConnectMessagesRelation = {
+  connect?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  delete?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  id?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  upsert?: InputMaybe<Array<InputMaybe<MessageInput>>>;
 };
 
 export type ConnectOrderItemsRelation = {
@@ -119,6 +147,22 @@ export type ConnectUsersRelation = {
   delete?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   id?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   upsert?: InputMaybe<Array<InputMaybe<UserInput>>>;
+};
+
+export type Contact = {
+  __typename?: 'Contact';
+  contact?: Maybe<User>;
+  created_at?: Maybe<Scalars['DateTime']['output']>;
+  deleted_at?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  user?: Maybe<User>;
+};
+
+export type ContactInput = {
+  contact?: InputMaybe<ConnectUserRelation>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  user?: InputMaybe<ConnectUserRelation>;
 };
 
 export type Customer = {
@@ -216,12 +260,32 @@ export type LoginInput = {
   password: Scalars['String']['input'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  created_at?: Maybe<Scalars['DateTime']['output']>;
+  deleted_at?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  receiver?: Maybe<User>;
+  sender?: Maybe<User>;
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type MessageInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  receiver?: InputMaybe<ConnectUserRelation>;
+  sender?: InputMaybe<ConnectUserRelation>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   deleteCategory?: Maybe<Array<Maybe<Category>>>;
+  deleteContact?: Maybe<Contact>;
   deleteCustomer?: Maybe<Array<Maybe<Customer>>>;
   deleteInventory?: Maybe<Array<Maybe<Inventory>>>;
   deleteLog?: Maybe<Array<Maybe<Log>>>;
+  deleteMessage?: Maybe<Message>;
   deleteOrder?: Maybe<Array<Maybe<Order>>>;
   deleteOrderItem?: Maybe<Array<Maybe<OrderItem>>>;
   deleteProduct?: Maybe<Array<Maybe<Product>>>;
@@ -229,16 +293,20 @@ export type Mutation = {
   login?: Maybe<Scalars['String']['output']>;
   reduceInventory?: Maybe<Array<Maybe<Inventory>>>;
   restoreCategory?: Maybe<Array<Maybe<Category>>>;
+  restoreContact?: Maybe<Contact>;
   restoreCustomer?: Maybe<Array<Maybe<Customer>>>;
   restoreLog?: Maybe<Array<Maybe<Log>>>;
+  restoreMessage?: Maybe<Message>;
   restoreOrder?: Maybe<Array<Maybe<Order>>>;
   restoreOrderItem?: Maybe<Array<Maybe<OrderItem>>>;
   restoreProduct?: Maybe<Array<Maybe<Product>>>;
   restoreUser?: Maybe<Array<Maybe<User>>>;
   upsertCategory?: Maybe<Category>;
+  upsertContact?: Maybe<Contact>;
   upsertCustomer?: Maybe<Customer>;
   upsertInventory?: Maybe<Inventory>;
   upsertLog?: Maybe<Log>;
+  upsertMessage?: Maybe<Message>;
   upsertOrder?: Maybe<Order>;
   upsertOrderItem?: Maybe<OrderItem>;
   upsertProduct?: Maybe<Product>;
@@ -248,6 +316,11 @@ export type Mutation = {
 
 export type MutationDeleteCategoryArgs = {
   id?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+
+export type MutationDeleteContactArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -263,6 +336,11 @@ export type MutationDeleteInventoryArgs = {
 
 export type MutationDeleteLogArgs = {
   id?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+
+export type MutationDeleteMessageArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -301,6 +379,11 @@ export type MutationRestoreCategoryArgs = {
 };
 
 
+export type MutationRestoreContactArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationRestoreCustomerArgs = {
   id?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
@@ -308,6 +391,11 @@ export type MutationRestoreCustomerArgs = {
 
 export type MutationRestoreLogArgs = {
   id?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+
+export type MutationRestoreMessageArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -336,6 +424,11 @@ export type MutationUpsertCategoryArgs = {
 };
 
 
+export type MutationUpsertContactArgs = {
+  contact: ContactInput;
+};
+
+
 export type MutationUpsertCustomerArgs = {
   input: CustomerInput;
 };
@@ -348,6 +441,11 @@ export type MutationUpsertInventoryArgs = {
 
 export type MutationUpsertLogArgs = {
   input: LogInput;
+};
+
+
+export type MutationUpsertMessageArgs = {
+  message: MessageInput;
 };
 
 
@@ -551,6 +649,8 @@ export type Query = {
   categories: Array<Category>;
   categoriesCount: Scalars['Int']['output'];
   categoriesPaginate: CategoryPaginator;
+  contact?: Maybe<Contact>;
+  contacts: Array<Contact>;
   customers: Array<Customer>;
   customersCount: Scalars['Int']['output'];
   customersPaginate: CustomerPaginator;
@@ -560,6 +660,8 @@ export type Query = {
   logs: Array<Log>;
   logsPaginate: LogPaginator;
   me?: Maybe<User>;
+  message?: Maybe<Message>;
+  messages: Array<Message>;
   orderItems: Array<OrderItem>;
   orderItemsPaginate: OrderItemPaginator;
   orders: Array<Order>;
@@ -583,6 +685,16 @@ export type QueryCategoriesArgs = {
 export type QueryCategoriesPaginateArgs = {
   first: Scalars['Int']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryContactArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryContactsArgs = {
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -623,6 +735,16 @@ export type QueryLogsArgs = {
 export type QueryLogsPaginateArgs = {
   first: Scalars['Int']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryMessageArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryMessagesArgs = {
   search?: InputMaybe<Scalars['String']['input']>;
 };
 
