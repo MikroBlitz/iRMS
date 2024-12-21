@@ -2,7 +2,7 @@ type Message {
     id: ID!
     sender: User @belongsTo
     receiver: User @belongsTo
-    message: String
+    message: String!
     created_at: DateTime
     updated_at: DateTime
     deleted_at: DateTime
@@ -34,6 +34,7 @@ extend type Query {
     messages(
         search: String @scope(name: "search")
     ): [Message!]! @all
+    getMessages(id: ID!): [Message!]! @all
 }
 
 extend type Mutation {

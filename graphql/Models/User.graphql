@@ -57,6 +57,7 @@ type Query {
     user(id: ID! @eq): User @find
     users(
         search: String @scope(name: "search")
+        limit: Int @limit
     ): [User!]! @all
     filterCustomer(
         limit: Int @limit

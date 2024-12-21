@@ -3,17 +3,17 @@
         <div v-auto-animate>
             <Header :title="pageTitle" back-route="dashboard" />
 
-            <MessagesBody />
+            <Messages />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const pageTitle = ref('Messages')
+const pageTitle = ref('Messages');
 
 definePageMeta({
     layout: 'messages',
-})
+});
 
 useHead({
     meta: [
@@ -23,5 +23,5 @@ useHead({
         },
     ],
     title: pageTitle.value,
-})
+});
 </script>
