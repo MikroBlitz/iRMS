@@ -51,6 +51,14 @@ export default async function useChartData() {
             value: data.value.usersCount || 0,
         },
         {
+            borderColor: 'border-red-300/80 dark:border-red-500/50',
+            color: 'bg-secondary/50',
+            icon: 'mdi:sms',
+            loading: loading.value,
+            title: 'Total Sent Messages',
+            value: data.value.messagesCount || 0,
+        },
+        {
             borderColor: 'border-green-300/80 dark:border-green-500/50',
             color: 'bg-secondary/50',
             icon: 'mdi:folder-multiple-outline',

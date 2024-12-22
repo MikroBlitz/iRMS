@@ -5,6 +5,7 @@ type Message {
     sender_id: Int
     receiver_id: Int
     message: String!
+    messagesCount: Int
     created_at: DateTime
     updated_at: DateTime
     deleted_at: DateTime
@@ -37,6 +38,7 @@ extend type Query {
         search: String @scope(name: "search")
         where: _ @whereConditions(columns: ["sender_id", "receiver_id"])
     ): [Message!]! @paginate
+    messagesCount: Int! @count(model: "Message")
 }
 
 extend type Mutation {
