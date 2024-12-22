@@ -64,6 +64,16 @@ class User extends Authenticatable
         return implode(' ', array_filter(array_map('trim', $obj)));
     }
 
+    public function messages(): hasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function contacts(): hasMany
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     public function logs(): HasMany
     {
         return $this->hasMany(Log::class);

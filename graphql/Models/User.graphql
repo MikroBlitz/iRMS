@@ -6,6 +6,8 @@ type User {
     name: String
     email: String
     password: String
+    messages: [Message] @hasMany
+    contacts: [Contact] @hasMany
     email_verified_at: DateTime
     role: Int # TODO: use enum
     customers: [Customer] @hasMany
@@ -55,6 +57,7 @@ type Query {
     user(id: ID! @eq): User @find
     users(
         search: String @scope(name: "search")
+        limit: Int @limit
     ): [User!]! @all
     filterCustomer(
         limit: Int @limit

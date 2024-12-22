@@ -46,6 +46,8 @@ const documents = {
     "\n    mutation upsertLog($input: LogInput!) {\n        upsertLog(input: $input) {\n            ...log\n        }\n    }\n    \n": types.UpsertLogDocument,
     "\n    mutation deleteLog($id: [ID!]) {\n        deleteLog(id: $id) {\n            id\n        }\n    }\n": types.DeleteLogDocument,
     "\n    mutation restoreLog($id: [ID!]) {\n        restoreLog(id: $id) {\n            id\n        }\n    }\n": types.RestoreLogDocument,
+    "\n    query messages($first: Int!, $page: Int, $sender: Mixed, $receiver: Mixed) {\n        messages(\n            first: $first\n            page: $page\n            where: {\n                AND: [\n                    { column: SENDER_ID, operator: EQ, value: $sender }\n                    { column: RECEIVER_ID, operator: EQ, value: $receiver }\n                ]\n            }\n        ) {\n            data {\n                id\n                sender_id\n                receiver_id\n                message\n                created_at\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n": types.MessagesDocument,
+    "\n    mutation upsertMessage($input: MessageInput!) {\n        upsertMessage(input: $input) {\n            id\n            sender {\n                id\n                name\n            }\n            receiver {\n                id\n                name\n            }\n            message\n        }\n    }\n": types.UpsertMessageDocument,
     "\n    query orderFilter($search: String) {\n        orders(search: $search) {\n            id\n        }\n    }\n": types.OrderFilterDocument,
     "\n    query orders {\n        orders {\n            ...order\n        }\n    }\n    \n": types.OrdersDocument,
     "\n    query OrdersPaginate($page: Int, $first: Int!, $search: String) {\n        ordersPaginate(page: $page, first: $first, search: $search) {\n            data {\n                ...order\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n    \n": types.OrdersPaginateDocument,
@@ -64,8 +66,8 @@ const documents = {
     "\n    mutation upsertProduct($input: ProductInput!) {\n        upsertProduct(input: $input) {\n            ...product\n        }\n    }\n    \n": types.UpsertProductDocument,
     "\n    mutation deleteProduct($id: [ID!]) {\n        deleteProduct(id: $id) {\n            id\n        }\n    }\n": types.DeleteProductDocument,
     "\n    mutation restoreProduct($id: [ID!]) {\n        restoreProduct(id: $id) {\n            id\n        }\n    }\n": types.RestoreProductDocument,
-    "\n    query userFilter($search: String) {\n        users(search: $search) {\n            id\n            name\n            email\n        }\n    }\n": types.UserFilterDocument,
-    "\n    query users {\n        users {\n            ...user\n        }\n    }\n    \n": types.UsersDocument,
+    "\n    query userFilter($search: String) {\n        users(search: $search, limit: 50) {\n            id\n            name\n        }\n    }\n": types.UserFilterDocument,
+    "\n    query users($limit: Int) {\n        users(limit: $limit) {\n            ...user\n        }\n    }\n    \n": types.UsersDocument,
     "\n    query filterCustomer($limit: Int) {\n        filterCustomer(limit: $limit, filter: \"role = 0\") {\n            id\n            name\n            email\n        }\n    }\n": types.FilterCustomerDocument,
     "\n    query usersPaginate($first: Int!, $page: Int) {\n        usersPaginate(first: $first, page: $page) {\n            data {\n                ...user\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n    \n": types.UsersPaginateDocument,
     "\n    mutation upsertUser($input: UserInput!) {\n        upsertUser(input: $input) {\n            ...user\n        }\n    }\n    \n": types.UpsertUserDocument,
@@ -218,6 +220,14 @@ export function graphql(source: "\n    mutation restoreLog($id: [ID!]) {\n      
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n    query messages($first: Int!, $page: Int, $sender: Mixed, $receiver: Mixed) {\n        messages(\n            first: $first\n            page: $page\n            where: {\n                AND: [\n                    { column: SENDER_ID, operator: EQ, value: $sender }\n                    { column: RECEIVER_ID, operator: EQ, value: $receiver }\n                ]\n            }\n        ) {\n            data {\n                id\n                sender_id\n                receiver_id\n                message\n                created_at\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n"): (typeof documents)["\n    query messages($first: Int!, $page: Int, $sender: Mixed, $receiver: Mixed) {\n        messages(\n            first: $first\n            page: $page\n            where: {\n                AND: [\n                    { column: SENDER_ID, operator: EQ, value: $sender }\n                    { column: RECEIVER_ID, operator: EQ, value: $receiver }\n                ]\n            }\n        ) {\n            data {\n                id\n                sender_id\n                receiver_id\n                message\n                created_at\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    mutation upsertMessage($input: MessageInput!) {\n        upsertMessage(input: $input) {\n            id\n            sender {\n                id\n                name\n            }\n            receiver {\n                id\n                name\n            }\n            message\n        }\n    }\n"): (typeof documents)["\n    mutation upsertMessage($input: MessageInput!) {\n        upsertMessage(input: $input) {\n            id\n            sender {\n                id\n                name\n            }\n            receiver {\n                id\n                name\n            }\n            message\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n    query orderFilter($search: String) {\n        orders(search: $search) {\n            id\n        }\n    }\n"): (typeof documents)["\n    query orderFilter($search: String) {\n        orders(search: $search) {\n            id\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -290,11 +300,11 @@ export function graphql(source: "\n    mutation restoreProduct($id: [ID!]) {\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query userFilter($search: String) {\n        users(search: $search) {\n            id\n            name\n            email\n        }\n    }\n"): (typeof documents)["\n    query userFilter($search: String) {\n        users(search: $search) {\n            id\n            name\n            email\n        }\n    }\n"];
+export function graphql(source: "\n    query userFilter($search: String) {\n        users(search: $search, limit: 50) {\n            id\n            name\n        }\n    }\n"): (typeof documents)["\n    query userFilter($search: String) {\n        users(search: $search, limit: 50) {\n            id\n            name\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query users {\n        users {\n            ...user\n        }\n    }\n    \n"): (typeof documents)["\n    query users {\n        users {\n            ...user\n        }\n    }\n    \n"];
+export function graphql(source: "\n    query users($limit: Int) {\n        users(limit: $limit) {\n            ...user\n        }\n    }\n    \n"): (typeof documents)["\n    query users($limit: Int) {\n        users(limit: $limit) {\n            ...user\n        }\n    }\n    \n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
