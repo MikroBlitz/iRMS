@@ -32,7 +32,12 @@ extend type Query {
     inventories(
         search: String @scope(name: "search")
     ): [Inventory!]! @all
-    inventoriesPaginate: [Inventory!]! @paginate
+    inventoriesPaginate(
+        search: String @scope(name: "search")
+    ): [Inventory!]! @paginate
+    lowStocksInventories(
+        value: Int @eq
+    ): [Inventory!]! @field(resolver: "InventoryQuery@lowStockItems")
 }
 
 extend type Mutation {

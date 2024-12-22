@@ -24,4 +24,9 @@ class Inventory extends Model
         return empty($search) ? $query :
             $query->where('location', 'like', "%{$search}%");
     }
+
+    public function scopeLowStock(Builder $query, int $value): Builder
+    {
+        return $query->where('qty', '<=', $value)->orderBy('qty');
+    }
 }

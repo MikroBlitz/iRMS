@@ -18,6 +18,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
 
     const {
         closeCrudModal,
+        crudActions,
         modalButtonText,
         modalTitle,
         openCreateModal,
@@ -26,7 +27,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         openViewModal,
         selectedModel,
         showModal,
-    } = useCrudModal(model, checkAuth());
+    } = useCrudModal(model);
 
     const {
         loading: queryLoading,
@@ -45,8 +46,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             ? ((isLoading.value = true),
               await refetch({ first, page }),
               (isLoading.value = false))
-            : // toasts('You are not authorized to view.', { type: 'warning' })
-              console.error('You are not authorized to view.');
+            : console.error('You are not authorized to view.');
     };
 
     const handleCrudSubmit = async (formData: any) => {
@@ -65,13 +65,12 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                 : toasts('You are not authorized to perform this action.', {
                       type: 'warning',
                   });
+            isLoading.value = false;
         } catch (error: any) {
             handleGraphQLError(
                 error,
                 selectedModel.value ? 'update' : 'create',
             );
-        } finally {
-            isLoading.value = false;
         }
     };
 
@@ -90,12 +89,12 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                 : toasts('You are not authorized to delete.', {
                       type: 'warning',
                   });
+            isLoading.value = false;
         } catch (error: any) {
             handleGraphQLError(error, 'delete');
-        } finally {
-            isLoading.value = false;
         }
     };
+
     const isConfirmModalOpen = ref(false);
     const showDeleteConfirmation = (model: any) => {
         selectedModel.value = model;
@@ -108,48 +107,14 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             selectedModel.value = null;
         }
     };
-    const cancelDeletion = () => {
-        isConfirmModalOpen.value = false;
-    };
+    const cancelDeletion = () => (isConfirmModalOpen.value = false);
 
-    const crudActions = (
-        openViewModal: (model: any) => void,
-        openEditModal: (model: any) => void,
-        openPrintModal: (model: any) => void,
-    ) => {
-        return [
-            {
-                class: 'text-yellow-700',
-                handler: openViewModal,
-                icon: 'solar:eye-outline',
-                name: 'view',
-                showButton: false,
-            },
-            {
-                class: 'text-emerald-700',
-                handler: openEditModal,
-                icon: 'solar:pen-line-duotone',
-                name: 'edit',
-                showButton: true,
-            },
-            {
-                class: 'text-destructive',
-                handler: showDeleteConfirmation,
-                icon: 'solar:trash-bin-minimalistic-outline',
-                name: 'delete',
-                showButton: true,
-            },
-            {
-                class: 'text-blue-700',
-                handler: openPrintModal,
-                icon: 'solar:printer-line-duotone',
-                name: 'print',
-                showButton: false,
-            },
-        ];
-    };
-
-    const actions = crudActions(openViewModal, openEditModal, openPrintModal);
+    const actions = crudActions(
+        openViewModal,
+        openEditModal,
+        openPrintModal,
+        showDeleteConfirmation,
+    );
 
     const queryPaginatedData = computed(() => {
         if (result.value) {

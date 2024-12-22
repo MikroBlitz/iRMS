@@ -39,6 +39,13 @@ const itemLinks = [
         title: 'Manage Inventories',
     },
     {
+        icon: 'mdi:garage-warning',
+        iconColor: 'text-foreground',
+        path: '/inventories/manage-low-stocks',
+        textColor: 'text-foreground',
+        title: 'Critical Stocks',
+    },
+    {
         icon: 'solar:filter-outline',
         iconColor: 'text-foreground',
         path: '/categories/manage-categories',

@@ -110,5 +110,13 @@ http://localhost:8000/graphiql
 To generate the GraphQL types, run the following command:
 
 ```bash
-npm run codegen
+npm codegen
+```
+
+## Clear backend cache
+
+This will clear all the cache files in the backend.
+
+```bash
+npm clear
 ```
