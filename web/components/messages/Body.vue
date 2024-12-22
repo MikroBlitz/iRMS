@@ -113,8 +113,6 @@ const sendMessage = async () => {
     });
     lastPage.value = result.value?.messages.paginatorInfo.lastPage;
 
-    console.log(lastPage.value);
-
     try {
         const trimmedMessage = newMessage.value.trim();
 
