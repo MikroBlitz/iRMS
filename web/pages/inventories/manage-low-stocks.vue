@@ -5,13 +5,7 @@
                 <template #actions>
                     <TableCRUD
                         :on-create="openCreateModal"
-                        :on-refresh="
-                            () =>
-                                fetchDataPaginate(
-                                    paginatorInfo.perPage,
-                                    paginatorInfo.currentPage,
-                                )
-                        "
+                        :on-refresh="() => refetch()"
                     />
                 </template>
             </TableHeader>
@@ -19,7 +13,7 @@
             <TableContent
                 :headers="modelHeaders"
                 :is-loading="isLoading"
-                :data="modelData"
+                :data="queryData"
                 :actions="actions"
                 :paginator-info="paginatorInfo"
                 :pagination-controls="paginationControls"
@@ -60,17 +54,12 @@ const modelName = 'critical stock';
 const pageTitle = ref(getPluralName(toTitleCase(modelName)));
 const icon = 'mdi:garage-warning';
 
-const { result } = useQuery(lowStocksInventories);
-const queryData = ref(result.value);
-
-console.log(queryData.value);
-
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'product.name', label: 'Product' },
     { key: (val) => `${thousandSeparator(val.qty)} pc/s`, label: 'Stocks' },
     { key: 'location', label: 'Location' },
-    { key: 'created_at', label: 'Created At' },
+    { key: 'updated_at', label: 'Updated At' },
 ];
 
 const modelFields: CrudModalField[] = [
@@ -92,20 +81,25 @@ const {
     cancelDeletion,
     closeCrudModal,
     confirmDeletion,
-    fetchDataPaginate,
     handleCrudSubmit,
     isConfirmModalOpen,
     isLoading,
     modalButtonText,
     modalFields,
     modalTitle,
-    modelData,
     openCreateModal,
     paginationControls,
     paginatorInfo,
     selectedModel,
     showModal,
 } = await useModelCrud('inventory', modelFields);
+
+const { refetch, result } = useQuery(lowStocksInventories);
+const queryData = ref([]);
+
+if (result.value && result.value.lowStocksInventories) {
+    queryData.value = result.value.lowStocksInventories;
+}
 
 definePageMeta({
     layout: 'app-layout',
