@@ -50,15 +50,18 @@
                         }"
                         class="flex items-center"
                     >
-                        {{ message.text }}
-                        <SpinnerRing v-show="message.sending" class="ml-2" />
+                        {{ message.message }}
+                        <SpinnerRotatingCircle
+                            v-show="message.sending"
+                            class="ml-2"
+                        />
                     </span>
                 </div>
             </div>
         </div>
 
         <div
-            v-else-if="selectedContact && !messages.length"
+            v-if="selectedContact && !messages.length"
             class="flex-grow flex items-center justify-center"
         >
             <p class="text-xl text-destructive">No messages yet</p>
@@ -89,19 +92,28 @@
 </template>
 
 <script setup lang="ts">
-import { upsertMessage } from '~/graphql/Message';
-
-const auth = useAuth();
-const currentUser = ref(auth.user.id);
+import { getMessages, upsertMessage } from '~/graphql/Message';
 
 const messages: any = inject('messages');
 const selectContact: any = inject('selectContact');
 const selectedContact: any = inject('selectedContact');
+const currentUser: any = inject('currentUser');
 const newMessage = ref('');
 const messagesContainer = ref<HTMLElement | null>(null);
+const lastPage = ref<number>(1);
 
 const sendMessage = async () => {
     const { mutate } = useMutation(upsertMessage);
+    const { refetch, result } = useQuery(getMessages, {
+        first: 100,
+        id: selectedContact.value?.id,
+        page: lastPage.value,
+        receiver: selectedContact.value?.id,
+        sender: currentUser.value,
+    });
+    lastPage.value = result.value?.messages.paginatorInfo.lastPage;
+
+    console.log(lastPage.value);
 
     try {
         const trimmedMessage = newMessage.value.trim();
@@ -112,7 +124,6 @@ const sendMessage = async () => {
                 sending: true,
                 text: trimmedMessage,
             };
-
             messages.value.push(newMsg);
 
             await mutate({
@@ -122,8 +133,18 @@ const sendMessage = async () => {
                     sender: { connect: currentUser.value },
                 },
             });
+
             newMsg.sending = false;
             newMessage.value = '';
+
+            const { data } = await refetch();
+            messages.value = data.messages.data.map((msg: any) => ({
+                created_at: msg.created_at,
+                id: msg.id,
+                message: msg.message,
+                receiver: msg.receiver_id,
+                sender: msg.sender_id,
+            }));
         }
     } catch (e) {
         console.error(e);
@@ -134,18 +155,16 @@ watch(
     () => messages.value.length,
     () => {
         nextTick(() => {
-            if (messagesContainer.value) {
+            if (messagesContainer.value)
                 messagesContainer.value.scrollTop =
                     messagesContainer.value.scrollHeight;
-            }
         });
     },
 );
 
 onMounted(() => {
-    if (messagesContainer.value) {
+    if (messagesContainer.value)
         messagesContainer.value.scrollTop =
             messagesContainer.value.scrollHeight;
-    }
 });
 </script>

@@ -1,10 +1,27 @@
 export const getMessages = gql`
-    query getMessages($id: ID!) {
-        getMessages(id: $id) {
-            id
-            message
-            sender {
-                name
+    query messages($first: Int!, $page: Int, $sender: Mixed, $receiver: Mixed) {
+        messages(
+            first: $first
+            page: $page
+            where: {
+                AND: [
+                    { column: SENDER_ID, operator: EQ, value: $sender }
+                    { column: RECEIVER_ID, operator: EQ, value: $receiver }
+                ]
+            }
+        ) {
+            data {
+                id
+                sender_id
+                receiver_id
+                message
+                created_at
+            }
+            paginatorInfo {
+                currentPage
+                lastPage
+                perPage
+                total
             }
         }
     }

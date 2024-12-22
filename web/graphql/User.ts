@@ -3,7 +3,7 @@ import { userFragment } from '~/graphql/Fragment';
 
 export const userFilter = gql`
     query userFilter($search: String) {
-        users(search: $search, limit: 10) {
+        users(search: $search, limit: 50) {
             id
             name
         }
