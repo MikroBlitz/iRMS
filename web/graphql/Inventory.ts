@@ -11,6 +11,20 @@ export const inventoryFilter = gql`
     }
 `;
 
+export const lowStocksInventories = gql`
+    query lowStocksInventories($value: Int) {
+        lowStocksInventories(value: $value) {
+            id
+            product {
+                name
+            }
+            qty
+            location
+            updated_at
+        }
+    }
+`;
+
 export const inventories = gql`
     query inventories {
         inventories {

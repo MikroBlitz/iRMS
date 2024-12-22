@@ -36,6 +36,7 @@ const documents = {
     "\n    fragment order on Order {\n        id\n        cash_tendered\n        change\n        date\n        payment\n        status\n        total_amount\n        transaction_number\n        customer_guest\n        order_items {\n            ...orderItem\n        }\n        #        customer_id\n        #        customer {\n        #            id\n        #            name\n        #            user {\n        #                id\n        #                name\n        #            }\n        #        }\n        created_at\n        updated_at\n        deleted_at\n    }\n    \n": types.OrderFragmentDoc,
     "\n    fragment customer on Customer {\n        id\n        user_id\n        user {\n            id\n            first_name\n            middle_name\n            last_name\n            name\n        }\n        name\n        phone\n        address\n        points\n        orders {\n            ...order\n        }\n        created_at\n        updated_at\n        deleted_at\n    }\n    \n": types.CustomerFragmentDoc,
     "\n    query inventoryFilter($search: String) {\n        inventories(search: $search) {\n            id\n            qty\n            location\n        }\n    }\n": types.InventoryFilterDocument,
+    "\n    query lowStocksInventories($value: Int) {\n        lowStocksInventories(value: $value) {\n            id\n            product {\n                name\n            }\n            qty\n            location\n            updated_at\n        }\n    }\n": types.LowStocksInventoriesDocument,
     "\n    query inventories {\n        inventories {\n            ...inventory\n        }\n    }\n    \n": types.InventoriesDocument,
     "\n    query inventoriesPaginate($first: Int!, $page: Int) {\n        inventoriesPaginate(first: $first, page: $page) {\n            data {\n                ...inventory\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n    \n": types.InventoriesPaginateDocument,
     "\n    mutation upsertInventory($input: InventoryInput!) {\n        upsertInventory(input: $input) {\n            ...inventory\n        }\n    }\n    \n": types.UpsertInventoryDocument,
@@ -177,6 +178,10 @@ export function graphql(source: "\n    fragment customer on Customer {\n        
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query inventoryFilter($search: String) {\n        inventories(search: $search) {\n            id\n            qty\n            location\n        }\n    }\n"): (typeof documents)["\n    query inventoryFilter($search: String) {\n        inventories(search: $search) {\n            id\n            qty\n            location\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query lowStocksInventories($value: Int) {\n        lowStocksInventories(value: $value) {\n            id\n            product {\n                name\n            }\n            qty\n            location\n            updated_at\n        }\n    }\n"): (typeof documents)["\n    query lowStocksInventories($value: Int) {\n        lowStocksInventories(value: $value) {\n            id\n            product {\n                name\n            }\n            qty\n            location\n            updated_at\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

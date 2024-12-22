@@ -68,7 +68,11 @@ const selectContact = async (contact: Contact) => {
     );
 };
 
-onMounted(() => (contacts.value = usersResult.value.users));
+onMounted(() => {
+    setTimeout(() => {
+        contacts.value = usersResult.value?.users;
+    }, 1000);
+});
 
 provide('messages', messages);
 provide('selectContact', selectContact);
