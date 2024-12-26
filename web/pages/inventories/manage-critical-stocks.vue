@@ -14,7 +14,7 @@
             <TableContent
                 :headers="modelHeaders"
                 :is-loading="isLoading"
-                :data="queryData"
+                :data="modelData"
                 :actions="customActions"
                 :paginator-info="nonFunc"
                 :pagination-controls="nonFunc"
@@ -80,17 +80,24 @@ const {
     showModal,
 } = await useModelCrud('inventory', modelFields);
 
-const { loading: isLoading, refetch, result } = useQuery(lowStocksInventories);
-const queryData = ref([]);
-
-if (result.value && result.value.lowStocksInventories) {
-    queryData.value = result.value.lowStocksInventories;
-}
+const {
+    loading: isLoading,
+    refetch,
+    result: data,
+} = useQuery(lowStocksInventories);
+const modelData = ref([]);
 
 const customActions = actions.map((action) => {
     action.name === 'delete' ? (action.showButton = false) : null;
     action.name === 'edit' ? (action.showButton = true) : null;
     return action;
+});
+
+onMounted(() => {
+    refetch();
+    data.value && data.value.lowStocksInventories
+        ? (modelData.value = data.value.lowStocksInventories)
+        : {};
 });
 
 definePageMeta({
