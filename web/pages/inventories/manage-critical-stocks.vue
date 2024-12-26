@@ -4,7 +4,8 @@
             <TableHeader :title="`Manage ${pageTitle}`" :icon="icon">
                 <template #actions>
                     <TableCRUD
-                        :on-create="openCreateModal"
+                        :disabled-buttons="['create']"
+                        :on-create="nonFunc"
                         :on-refresh="() => refetch()"
                     />
                 </template>
@@ -13,10 +14,10 @@
             <TableContent
                 :headers="modelHeaders"
                 :is-loading="isLoading"
-                :data="queryData"
-                :actions="actions"
-                :paginator-info="paginatorInfo"
-                :pagination-controls="paginationControls"
+                :data="modelData"
+                :actions="customActions"
+                :paginator-info="nonFunc"
+                :pagination-controls="nonFunc"
             />
 
             <ModalCRUD
@@ -28,15 +29,6 @@
                 :submit-button-text="modalButtonText"
                 @submit="handleCrudSubmit"
                 @close="closeCrudModal"
-            />
-
-            <ModalConfirm
-                v-if="isConfirmModalOpen"
-                :is-open="isConfirmModalOpen"
-                title="Confirm Deletion"
-                :message="`Delete ${selectedModel?.product.name || modelName.name}?`"
-                @confirm="confirmDeletion"
-                @cancel="cancelDeletion"
             />
         </main>
     </div>
@@ -73,33 +65,40 @@ const modelFields: CrudModalField[] = [
         type: 'combobox',
     },
     { label: 'Stocks *', name: 'qty', required: true, type: 'number' },
-    { label: 'Location', name: 'location', type: 'text' },
 ];
+
+const nonFunc = () => {};
 
 const {
     actions,
-    cancelDeletion,
     closeCrudModal,
-    confirmDeletion,
     handleCrudSubmit,
-    isConfirmModalOpen,
-    isLoading,
     modalButtonText,
     modalFields,
     modalTitle,
-    openCreateModal,
-    paginationControls,
-    paginatorInfo,
     selectedModel,
     showModal,
 } = await useModelCrud('inventory', modelFields);
 
-const { refetch, result } = useQuery(lowStocksInventories);
-const queryData = ref([]);
+const {
+    loading: isLoading,
+    refetch,
+    result: data,
+} = useQuery(lowStocksInventories);
+const modelData = ref([]);
 
-if (result.value && result.value.lowStocksInventories) {
-    queryData.value = result.value.lowStocksInventories;
-}
+const customActions = actions.map((action) => {
+    action.name === 'delete' ? (action.showButton = false) : null;
+    action.name === 'edit' ? (action.showButton = true) : null;
+    return action;
+});
+
+onMounted(() => {
+    refetch();
+    data.value && data.value.lowStocksInventories
+        ? (modelData.value = data.value.lowStocksInventories)
+        : {};
+});
 
 definePageMeta({
     layout: 'app-layout',
