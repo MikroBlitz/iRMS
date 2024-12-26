@@ -41,7 +41,7 @@ const itemLinks = [
     {
         icon: 'mdi:garage-warning',
         iconColor: 'text-foreground',
-        path: '/inventories/manage-low-stocks',
+        path: '/inventories/manage-critical-stocks',
         textColor: 'text-foreground',
         title: 'Critical Stocks',
     },

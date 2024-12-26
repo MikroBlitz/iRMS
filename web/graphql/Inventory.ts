@@ -15,6 +15,7 @@ export const lowStocksInventories = gql`
     query lowStocksInventories($value: Int) {
         lowStocksInventories(value: $value) {
             id
+            product_id
             product {
                 name
             }
