@@ -19,14 +19,14 @@ input LogInput {
 extend type Query {
     logs(
         search: String @scope(name: "search")
-    ): [Log!]! @all
+    ): [Log!]! @all(model: "App\\Modules\\Log\\Models\\Log")
     logsPaginate(
         search: String @scope(name: "search")
-    ): [Log!]! @paginate
+    ): [Log!]! @paginate(model: "App\\Modules\\Log\\Models\\Log")
 }
 
 extend type Mutation {
-    upsertLog(input: LogInput! @spread): Log @upsert
-    deleteLog(id: [ID!] @eq): [Log] @delete
-    restoreLog(id: [ID!] @eq): [Log] @restore
+    upsertLog(input: LogInput! @spread): Log @upsert(model: "App\\Modules\\Log\\Models\\Log")
+    deleteLog(id: [ID!] @eq): [Log] @delete(model: "App\\Modules\\Log\\Models\\Log")
+    restoreLog(id: [ID!] @eq): [Log] @restore(model: "App\\Modules\\Log\\Models\\Log")
 }

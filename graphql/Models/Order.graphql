@@ -57,15 +57,15 @@ enum PaymentStatus {
 extend type Query {
     orders(
         search: String @scope(name: "search")
-    ): [Order!]! @all #@can(ability: "read")
+    ): [Order!]! @all(model: "App\\Modules\\Order\\Models\\Order")
     ordersPaginate(
         search: String @scope(name: "search")
-    ): [Order!]! @paginate #@can(ability: "read")
-    ordersCount: Int! @count(model: "Order")
+    ): [Order!]! @paginate(model: "App\\Modules\\Order\\Models\\Order")
+    ordersCount: Int! @count(model: "App\\Modules\\Order\\Models\\Order")
 }
 
 extend type Mutation {
-    upsertOrder(input: OrderInput! @spread): Order @upsert #@can(ability: "upsert")
-    deleteOrder(id: [ID!] @eq): [Order] @delete #@can(ability: "delete", find: "id")
-    restoreOrder(id: [ID!] @eq): [Order] @restore #@can(ability: "restore", find: "id")
+    upsertOrder(input: OrderInput! @spread): Order @upsert(model: "App\\Modules\\Order\\Models\\Order")
+    deleteOrder(id: [ID!] @eq): [Order] @delete(model: "App\\Modules\\Order\\Models\\Order")
+    restoreOrder(id: [ID!] @eq): [Order] @restore(model: "App\\Modules\\Order\\Models\\Order")
 }

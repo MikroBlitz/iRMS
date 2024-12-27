@@ -54,21 +54,21 @@ enum Role {
 
 type Query {
     me: User @auth(guards: "api")
-    user(id: ID! @eq): User @find
+    user(id: ID! @eq): User @find(model: "App\\Modules\\User\\Models\\User")
     users(
         search: String @scope(name: "search")
         limit: Int @limit
-    ): [User!]! @all
+    ): [User!]! @all(model: "App\\Modules\\User\\Models\\User")
     filterCustomer(
         limit: Int @limit
         filter: String @scope(name: "filterCustomer")
-    ): [User!]! @all
-    usersPaginate: [User!]! @paginate
-    usersCount: Int! @count(model: "User")
+    ): [User!]! @all(model: "App\\Modules\\User\\Models\\User")
+    usersPaginate: [User!]! @paginate(model: "App\\Modules\\User\\Models\\User")
+    usersCount: Int! @count(model: "App\\Modules\\User\\Models\\User")
 }
 
 extend type Mutation {
-    upsertUser(input: UserInput! @spread): User @upsert #@can(ability: "upsert")
-    deleteUser(id: [ID!] @eq): [User] @delete #@can(ability: "delete", find: "id")
-    restoreUser(id: [ID!] @eq): [User] @restore #@can(ability: "restore", find: "id")
+    upsertUser(input: UserInput! @spread): User @upsert(model: "App\\Modules\\User\\Models\\User")
+    deleteUser(id: [ID!] @eq): [User] @delete(model: "App\\Modules\\User\\Models\\User")
+    restoreUser(id: [ID!] @eq): [User] @restore(model: "App\\Modules\\User\\Models\\User")
 }

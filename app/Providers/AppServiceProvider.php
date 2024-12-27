@@ -33,22 +33,6 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
-        // Dynamically Load GraphQL files
-//        foreach ($modules as $module) {
-//            $graphqlPath = $module . '/GraphQL';
-//
-//            if (!File::exists($graphqlPath)) {
-//                continue;
-//            }
-//
-//            collect(File::files($graphqlPath))->each(function ($file) {
-//                $schemaDirectory = resource_path('graphql');
-//
-//                File::ensureDirectoryExists($schemaDirectory);
-//                File::copy($file->getPathname(), $schemaDirectory . '/' . $file->getFilename());
-//            });
-//        }
-
         // Customize Password Reset URL
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url') . "/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

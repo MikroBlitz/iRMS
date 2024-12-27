@@ -31,11 +31,11 @@ extend type Query {
     contact(id: ID! @eq): Contact @find
     contacts(
         search: String @scope(name: "search")
-    ): [Contact!]! @all
+    ): [Contact!]! @all(model: "App\\Modules\\Message\\Models\\Contact")
 }
 
 extend type Mutation {
-    upsertContact(input: ContactInput! @spread): Contact @upsert
-    deleteContact(id: ID! @eq): Contact @delete
-    restoreContact(id: ID! @eq): Contact @restore
+    upsertContact(input: ContactInput! @spread): Contact @upsert(model: "App\\Modules\\Message\\Models\\Contact")
+    deleteContact(id: ID! @eq): Contact @delete(model: "App\\Modules\\Message\\Models\\Contact")
+    restoreContact(id: ID! @eq): Contact @restore(model: "App\\Modules\\Message\\Models\\Contact")
 }

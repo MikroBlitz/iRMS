@@ -37,15 +37,15 @@ input ConnectCustomersRelation {
 extend type Query {
     customers(
         search: String @scope(name: "search")
-    ): [Customer!]! @all #@can(ability: "read")
+    ): [Customer!]! @all(model: "App\\Modules\\Customer\\Models\\Customer")
     customersPaginate(
         search: String @scope(name: "search")
-    ): [Customer!]! @paginate #@can(ability: "read")
-    customersCount: Int! @count(model: "Customer")
+    ): [Customer!]! @paginate(model: "App\\Modules\\Customer\\Models\\Customer")
+    customersCount: Int! @count(model: "App\\Modules\\Customer\\Models\\Customer")
 }
 
 extend type Mutation {
-    upsertCustomer(input: CustomerInput! @spread): Customer @upsert #@can(ability: "upsert")
-    deleteCustomer(id: [ID!] @eq): [Customer] @delete #@can(ability: "delete", find: "id")
-    restoreCustomer(id: [ID!] @eq): [Customer] @restore #@can(ability: "restore", find: "id")
+    upsertCustomer(input: CustomerInput! @spread): Customer @upsert(model: "App\\Modules\\Customer\\Models\\Customer")
+    deleteCustomer(id: [ID!] @eq): [Customer] @delete(model: "App\\Modules\\Customer\\Models\\Customer")
+    restoreCustomer(id: [ID!] @eq): [Customer] @restore(model: "App\\Modules\\Customer\\Models\\Customer")
 }
