@@ -1,8 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Modules\Customer\Models\Customer;
+use App\Modules\Log\Models\Log;
+use App\Modules\Message\Models\Contact;
+use App\Modules\Message\Models\Message;
+use App\Modules\User\Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +41,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
     }
 
     protected static function boot(): void
