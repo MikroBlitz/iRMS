@@ -85,7 +85,6 @@ const {
     refetch,
     result: data,
 } = useQuery(lowStocksInventories);
-const modelData = ref([]);
 
 const customActions = actions.map((action) => {
     action.name === 'delete' ? (action.showButton = false) : null;
@@ -93,12 +92,9 @@ const customActions = actions.map((action) => {
     return action;
 });
 
-onMounted(() => {
-    refetch();
-    data.value && data.value.lowStocksInventories
-        ? (modelData.value = data.value.lowStocksInventories)
-        : {};
-});
+const modelData = computed(() =>
+    data.value ? data.value.lowStocksInventories : [],
+);
 
 definePageMeta({
     layout: 'app-layout',
