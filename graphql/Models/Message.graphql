@@ -33,16 +33,16 @@ input ConnectMessagesRelation {
 }
 
 extend type Query {
-    message(id: ID! @eq): Message @find
+    message(id: ID! @eq): Message @find(model: "App\\Modules\\Message\\Models\\Message")
     messages(
         search: String @scope(name: "search")
         where: _ @whereConditions(columns: ["sender_id", "receiver_id"])
-    ): [Message!]! @paginate
-    messagesCount: Int! @count(model: "Message")
+    ): [Message!]! @paginate(model: "App\\Modules\\Message\\Models\\Message")
+    messagesCount: Int! @count(model: "App\\Modules\\Message\\Models\\Message")
 }
 
 extend type Mutation {
-    upsertMessage(input: MessageInput! @spread): Message @upsert
-    deleteMessage(id: ID! @eq): Message @delete
-    restoreMessage(id: ID! @eq): Message @restore
+    upsertMessage(input: MessageInput! @spread): Message @upsert(model: "App\\Modules\\Message\\Models\\Message")
+    deleteMessage(id: ID! @eq): Message @delete(model: "App\\Modules\\Message\\Models\\Message")
+    restoreMessage(id: ID! @eq): Message @restore(model: "App\\Modules\\Message\\Models\\Message")
 }

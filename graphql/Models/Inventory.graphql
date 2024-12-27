@@ -31,17 +31,17 @@ input CartProductQuantityInput {
 extend type Query {
     inventories(
         search: String @scope(name: "search")
-    ): [Inventory!]! @all
+    ): [Inventory!]! @all(model: "App\\Modules\\Inventory\\Models\\Inventory")
     inventoriesPaginate(
         search: String @scope(name: "search")
-    ): [Inventory!]! @paginate
+    ): [Inventory!]! @paginate(model: "App\\Modules\\Inventory\\Models\\Inventory")
     lowStocksInventories(
         value: Int @eq
     ): [Inventory!]! @field(resolver: "InventoryQuery@lowStockItems")
 }
 
 extend type Mutation {
-    upsertInventory(input: InventoryInput! @spread): Inventory @upsert #@can(ability: "upsert")
-    deleteInventory(id: [ID!] @eq): [Inventory] @delete #@can(ability: "delete", find: "id")
+    upsertInventory(input: InventoryInput! @spread): Inventory @upsert(model: "App\\Modules\\Inventory\\Models\\Inventory")
+    deleteInventory(id: [ID!] @eq): [Inventory] @delete(model: "App\\Modules\\Inventory\\Models\\Inventory")
     reduceInventory(products: [CartProductQuantityInput!]!): [Inventory] @field(resolver: "InventoryResolver@reduceInventory")
 }

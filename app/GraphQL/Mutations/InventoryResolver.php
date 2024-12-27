@@ -1,7 +1,7 @@
 <?php
 
 namespace App\GraphQL\Mutations;
-use App\Models\Inventory;
+use App\Modules\Inventory\Models\Inventory;
 use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;

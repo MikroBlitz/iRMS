@@ -1,7 +1,7 @@
 <?php
 
 namespace App\GraphQL\Queries;
-use App\Models\Inventory;
+use App\Modules\Inventory\Models\Inventory;
 use Illuminate\Database\Eloquent\Collection;
 
 class InventoryQuery

@@ -42,13 +42,13 @@ input ConnectProductsRelation {
 extend type Query {
     products(
         search: String @scope(name: "search")
-    ): [Product!]! @all
-    productsPaginate: [Product!]! @paginate
-    productsCount: Int! @count(model: "Product")
+    ): [Product!]! @all(model: "App\\Modules\\Product\\Models\\Product")
+    productsPaginate: [Product!]! @paginate(model: "App\\Modules\\Product\\Models\\Product")
+    productsCount: Int! @count(model: "App\\Modules\\Product\\Models\\Product")
 }
 
 extend type Mutation {
-    upsertProduct(input: ProductInput! @spread): Product @upsert #@can(ability: "upsert")
-    deleteProduct(id: [ID!] @eq): [Product] @delete #@can(ability: "delete", find: "id")
-    restoreProduct(id: [ID!] @eq): [Product] @restore #@can(ability: "restore", find: "id")
+    upsertProduct(input: ProductInput! @spread): Product @upsert(model: "App\\Modules\\Product\\Models\\Product")
+    deleteProduct(id: [ID!] @eq): [Product] @delete(model: "App\\Modules\\Product\\Models\\Product")
+    restoreProduct(id: [ID!] @eq): [Product] @restore(model: "App\\Modules\\Product\\Models\\Product")
 }

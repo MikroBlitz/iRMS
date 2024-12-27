@@ -31,12 +31,12 @@ input ConnectOrderItemsRelation {
 }
 
 extend type Query {
-    orderItems: [OrderItem!]! @all #@can(ability: "read")
-    orderItemsPaginate: [OrderItem!]! @paginate #@can(ability: "read")
+    orderItems: [OrderItem!]! @all(model: "App\\Modules\\Order\\Models\\OrderItem")
+    orderItemsPaginate: [OrderItem!]! @paginate(model: "App\\Modules\\Order\\Models\\OrderItem")
 }
 
 extend type Mutation {
-    upsertOrderItem(input: OrderItemInput! @spread): OrderItem @upsert #@can(ability: "upsert")
-    restoreOrderItem(id: [ID!] @eq): [OrderItem] @restore #@can(ability: "restore", find: "id")
-    deleteOrderItem(id: [ID!] @eq): [OrderItem] @delete #@can(ability: "delete", find: "id")
+    upsertOrderItem(input: OrderItemInput! @spread): OrderItem @upsert(model: "App\\Modules\\Order\\Models\\OrderItem")
+    restoreOrderItem(id: [ID!] @eq): [OrderItem] @restore(model: "App\\Modules\\Order\\Models\\OrderItem")
+    deleteOrderItem(id: [ID!] @eq): [OrderItem] @delete(model: "App\\Modules\\Order\\Models\\OrderItem")
 }
