@@ -25,7 +25,7 @@ input UserInput {
     last_name: String
     name: String
     email: String
-    password: String @hash
+    password: String
     role: Int # TODO: use enum
     customers: ConnectCustomersRelation
     logs: ConnectUsersRelation
@@ -68,7 +68,8 @@ type Query {
 }
 
 extend type Mutation {
-    upsertUser(input: UserInput! @spread): User @upsert(model: "App\\Modules\\User\\Models\\User")
+#    upsertUser(input: UserInput! @spread): User @upsert(model: "App\\Modules\\User\\Models\\User")
+    upsertUser(input: UserInput!): User @field(resolver: "UserResolver@upsertUser")
     deleteUser(id: [ID!] @eq): [User] @delete(model: "App\\Modules\\User\\Models\\User")
     restoreUser(id: [ID!] @eq): [User] @restore(model: "App\\Modules\\User\\Models\\User")
 }

@@ -29,11 +29,46 @@ const chartData: Ref<Chart[]> = ref([]);
 
 const itemLinks = [
     {
+        icon: 'solar:settings-linear',
+        iconColor: 'text-foreground',
+        path: '/settings',
+        textColor: 'text-foreground',
+        title: 'Settings',
+    },
+    {
         icon: 'mdi:monitor-dashboard',
         iconColor: 'text-foreground',
         path: '/pos',
         textColor: 'text-foreground',
         title: 'Point of Sale',
+    },
+    {
+        icon: 'solar:cart-outline',
+        iconColor: 'text-foreground/80',
+        path: '/orders',
+        textColor: 'text-foreground/80',
+        title: 'Orders',
+    },
+    {
+        icon: 'solar:user-circle-linear',
+        iconColor: 'text-foreground/80',
+        path: '/users',
+        textColor: 'text-foreground/80',
+        title: 'Users',
+    },
+    {
+        icon: 'solar:shop-linear',
+        iconColor: 'text-foreground/80',
+        path: '/products',
+        textColor: 'text-foreground/80',
+        title: 'Products',
+    },
+    {
+        icon: 'solar:box-minimalistic-linear',
+        iconColor: 'text-foreground/80',
+        path: '/inventories',
+        textColor: 'text-foreground/80',
+        title: 'Inventories',
     },
     {
         icon: 'solar:chat-round-line-linear',
@@ -48,13 +83,6 @@ const itemLinks = [
         path: '/reports',
         textColor: 'text-foreground',
         title: 'Reports',
-    },
-    {
-        icon: 'solar:settings-linear',
-        iconColor: 'text-foreground',
-        path: '/settings',
-        textColor: 'text-foreground',
-        title: 'Settings',
     },
 ];
 

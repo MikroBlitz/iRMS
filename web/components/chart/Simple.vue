@@ -16,7 +16,7 @@
         <div
             v-else
             :class="color"
-            class="w-full min-w-[350px] p-8 rounded flex-col"
+            class="w-full min-w-[350px] p-8 rounded-2xl flex-col hover:bg-secondary transition duration-300"
         >
             <div class="flex items-start justify-between">
                 <div>

@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTimeoutFn } from '@vueuse/core';
 import { userFilter } from '~/graphql/User';
 import type { Contact } from '~/types/codegen/graphql';
 import { getMessages } from '~/graphql/Message';
@@ -69,7 +70,7 @@ const selectContact = async (contact: Contact) => {
 };
 
 onMounted(() => {
-    setTimeout(() => {
+    useTimeoutFn(() => {
         contacts.value = usersResult.value?.users;
     }, 1000);
 });

@@ -2,7 +2,7 @@
     <div
         v-if="visible"
         v-auto-animate
-        class="fixed inset-0 backdrop-blur-sm flex items-center justify-center"
+        class="fixed inset-0 backdrop-blur-sm rounded-2xl flex items-center justify-center"
     >
         <div
             v-on-click-outside="closeModal"

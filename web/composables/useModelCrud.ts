@@ -52,19 +52,26 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const handleCrudSubmit = async (formData: any) => {
         const input = transformGraphQLInputData(formData);
 
+        // TODO: temporary fix for user password
+        if (formData.password) {
+            const isHashedPassword = formData.password.startsWith('$2y$');
+            if (isHashedPassword) delete input.password;
+        }
+
         try {
             isLoading.value = true;
             checkAuth()
                 ? (await upsertMutation({ input }),
+                  closeCrudModal(),
+                  fetchDataPaginate(perPage, currentPage),
                   toasts(
                       `${toTitleCase(singularName)} ${selectedModel.value ? 'updated' : 'created'}.`,
                       { type: 'success' },
-                  ),
-                  closeCrudModal(),
-                  fetchDataPaginate(perPage, currentPage))
-                : toasts('You are not authorized to perform this action.', {
+                  ))
+                : (closeCrudModal(),
+                  toasts('You are not authorized to perform this action.', {
                       type: 'warning',
-                  });
+                  }));
             isLoading.value = false;
         } catch (error: any) {
             handleGraphQLError(
@@ -82,10 +89,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                   (modelData.value = modelData.value.filter(
                       (e: any) => e.id !== id,
                   )),
+                  fetchDataPaginate(perPage, currentPage),
                   toasts(`${toTitleCase(singularName)} deleted.`, {
                       type: 'success',
-                  }),
-                  fetchDataPaginate(perPage, currentPage))
+                  }))
                 : toasts('You are not authorized to delete.', {
                       type: 'warning',
                   });

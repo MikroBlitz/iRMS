@@ -5,7 +5,7 @@
     >
         <div
             v-on-click-outside="cancel"
-            class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative"
+            class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
         >
             <h2 class="text-lg font-semibold mb-4">
                 {{ title }}

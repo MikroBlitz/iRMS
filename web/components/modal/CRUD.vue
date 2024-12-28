@@ -5,7 +5,7 @@
     >
         <div
             v-on-click-outside="closeModal"
-            class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative"
+            class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
         >
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-foreground">
@@ -144,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core';
+import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
 import { vOnClickOutside } from '@vueuse/components';
 
 import type { CrudModalField, Field } from '~/types';
@@ -185,7 +185,7 @@ const data: Ref<Record<string, any>> = ref({});
 const handleSubmit = () => {
     isLoading.value = true;
     emit('submit', form.value);
-    setTimeout(() => {
+    useTimeoutFn(() => {
         isLoading.value = false;
     }, 2000);
 };
@@ -195,12 +195,9 @@ const togglePasswordVisibility = (fieldName: string) =>
     (showPassword.value[fieldName] = !showPassword.value[fieldName]);
 
 const getInputType = (field: Field) => {
-    if (field.type === 'password') {
-        return showPassword.value[field.name] ? 'text' : 'password';
-    }
-    if (field.type === 'float') {
-        return 'number';
-    }
+    if (field.type === 'password')
+        showPassword.value[field.name] ? 'text' : 'password';
+    if (field.type === 'float') return 'number';
     return field.type;
 };
 
@@ -216,9 +213,7 @@ const getOptionText = (
 };
 
 onMounted(async () => {
-    if (Array.isArray(props.fields)) {
-        await processFields(props.fields, data);
-    }
+    if (Array.isArray(props.fields)) await processFields(props.fields, data);
 });
 
 watch(

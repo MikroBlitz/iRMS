@@ -4,7 +4,9 @@
         class="fixed z-50 inset-0 backdrop-blur-sm flex items-center justify-center text-foreground"
     >
         <div v-auto-animate class="flex space-x-2">
-            <div class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative">
+            <div
+                class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
+            >
                 <div class="flex justify-between items-center mb-2 px-4">
                     <h3 class="text-xl font-bold">
                         <template v-if="customerName">
