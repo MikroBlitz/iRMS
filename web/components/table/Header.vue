@@ -1,5 +1,5 @@
 <template>
-    <main class="p-4 bg-secondary dark:bg-primary rounded-t-2xl">
+    <main class="px-4 pt-4 pb-2 bg-secondary dark:bg-primary rounded-t-2xl">
         <div class="flex justify-between items-center rounded-md px-1">
             <div class="flex space-x-2 items-center justify-center">
                 <Icon :name="icon" :size="size" />

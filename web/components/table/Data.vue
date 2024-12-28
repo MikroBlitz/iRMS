@@ -1,16 +1,7 @@
 <template>
     <div>
-        <TablePagination
-            :first-page="firstPage"
-            :last-page="lastPage"
-            :next-page="nextPage"
-            :number-page="numberPage"
-            :paginator-info="paginatorInfo"
-            :prev-page="prevPage"
-            :handle-per-page-change="handlePerPageChange"
-        />
         <div
-            class="w-full px-4 p-2 rounded-b-2xl bg-secondary dark:bg-primary border border-secondary dark:border-primary"
+            class="w-full px-4 p-2 bg-secondary dark:bg-primary border border-secondary dark:border-primary"
         >
             <Datatable
                 v-auto-animate
@@ -39,6 +30,15 @@
                 </template>
             </Datatable>
         </div>
+        <TablePagination
+            :first-page="firstPage"
+            :last-page="lastPage"
+            :next-page="nextPage"
+            :number-page="numberPage"
+            :paginator-info="paginatorInfo"
+            :prev-page="prevPage"
+            :handle-per-page-change="handlePerPageChange"
+        />
     </div>
 </template>
 
@@ -109,13 +109,13 @@ const options: Config | any = {
         },
     ],
     // Add Q to enable query builder -> "Q<'flex
-    dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-2'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-center pt-2 px-2'li><''p>",
+    dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-2'Bf><'flex flex-col lg:flex-row lg:items-center lg:justify-start mb-2 px-1'li><'border rounded-lg't><''p>",
     paging: false,
     responsive: true,
     select: true,
 };
 const auth = useAuth();
 auth.user.role === 1 || auth.user.role === 3
-    ? options.buttons?.push('copy', 'excel', 'pdf', 'csv', 'print')
+    ? options.buttons?.push('csv', 'pdf') // print, copy, excel
     : null;
 </script>

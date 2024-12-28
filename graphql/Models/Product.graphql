@@ -8,6 +8,7 @@ type Product {
     order_items: [OrderItem] @hasMany
     description: String
     sku: String!
+    po_unit: String
     price: Float
     created_at: DateTime
     updated_at: DateTime
@@ -23,6 +24,7 @@ input ProductInput {
     order_items: OrderItemInput
     description: String
     sku: String!
+    po_unit: String
     price: Float
 }
 

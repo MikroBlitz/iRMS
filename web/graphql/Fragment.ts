@@ -72,6 +72,7 @@ export const ProductFragment = gql`
         }
         description
         sku
+        po_unit
         price
         inventories {
             id
@@ -94,6 +95,7 @@ export const InventoryFragment = gql`
         product {
             id
             name
+            po_unit
         }
         qty
         location
