@@ -61,7 +61,11 @@ const icon = 'solar:box-minimalistic-linear';
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'product.name', label: 'Product' },
-    { key: (val) => `${thousandSeparator(val.qty)} pc/s`, label: 'Stocks' },
+    {
+        key: (val) =>
+            `${thousandSeparator(val.qty)} ${val.product.po_unit || ''}`,
+        label: 'Stocks',
+    },
     { key: 'location', label: 'Location' },
     { key: 'created_at', label: 'Created At' },
 ];

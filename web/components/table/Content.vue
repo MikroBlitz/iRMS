@@ -14,9 +14,9 @@
                     class="h-[600px] rounded-b rounded-t-none w-full bg-secondary"
                 />
                 <div
-                    class="absolute -bottom-12 px-2 flex items-center justify-between w-full"
+                    class="absolute -bottom-12 px-4 flex items-center justify-between w-full"
                 >
-                    <Skeleton class="h-10 w-16 bg-secondary" />
+                    <Skeleton class="h-10 w-20 bg-secondary" />
                     <div class="flex items-center space-x-1">
                         <Skeleton
                             class="h-5 w-20 mr-2 rounded-full bg-secondary"

@@ -58,7 +58,7 @@ const icon = 'solar:shop-linear';
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'name', label: 'Name' },
-    { key: 'sku', label: 'SKU' },
+    { key: 'po_unit', label: 'PO Unit' },
     { key: 'category.name', label: 'Category' },
     {
         key: (val) =>
@@ -66,14 +66,15 @@ const modelHeaders: Headers[] = [
                 ? val.inventories
                       .map(
                           (stock: Stock) =>
-                              `${stock.location} (${thousandSeparator(stock.qty ?? 0)})`,
+                              `${stock.location} ( ${thousandSeparator(stock.qty ?? 0)} ${val.po_unit || ''} )`,
                       )
                       .join(', ') || 'No Stocks Found!'
                 : 'Error Fetching Inventory!',
         label: 'Stock',
     },
+    { key: 'sku', label: 'SKU' },
     { key: (item) => `${currencyFormat(item.price)}`, label: 'Price' },
-    { key: 'description', label: 'Description' },
+    // { key: 'description', label: 'Description' },
     { key: 'created_at', label: 'Created At' },
 ];
 
@@ -87,6 +88,7 @@ const modelFields: CrudModalField[] = [
         queryName: 'categoryFilter',
         type: 'combobox',
     },
+    { label: 'PO Unit (ex: pcs, kg, etc.)', name: 'po_unit', type: 'text' },
     { label: 'Image URL', name: 'image', type: 'text' },
     // { name: 'image', label: 'Image Upload', type: 'file' },
     { label: 'Description', name: 'description', type: 'textarea' },
