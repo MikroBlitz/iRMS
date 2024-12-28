@@ -9,7 +9,7 @@
             >
                 <NuxtLink
                     :to="item.path"
-                    class="p-6 hover:bg-accent transition duration-300 rounded flex items-center gap-2 bg-secondary border-2 border-primary/60 dark:hover:bg-accent w-full"
+                    class="p-6 hover:bg-accent transition duration-300 rounded-2xl flex items-center gap-2 bg-secondary border-2 border-primary/60 dark:hover:bg-accent w-full"
                 >
                     <Icon :class="item.iconColor" :name="item.icon" size="40" />
                     <span :class="item.textColor" class="font-bold">{{

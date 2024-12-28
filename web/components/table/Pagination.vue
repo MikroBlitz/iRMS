@@ -1,10 +1,12 @@
 <template>
-    <div class="flex justify-between items-center p-2">
+    <div
+        class="flex px-5 justify-between items-center bg-secondary dark:bg-primary"
+    >
         <div class="flex items-center justify-center gap-2">
             <div>
                 <select
                     v-model="localPerPage"
-                    class="w-full px-3 py-1.5 rounded bg-secondary outline-none"
+                    class="= py-1.5 bg-card rounded-md w-20 outline-none"
                     @update:model-value="handlePerPageChange"
                 >
                     <option
@@ -61,7 +63,7 @@
                         <PopoverTrigger as-child>
                             <Button
                                 class="relative size-10 p-0 rounded-full"
-                                variant="secondary"
+                                variant="outline"
                                 :disabled="paginatorInfo?.lastPage <= 1"
                             >
                                 {{ paginatorInfo?.currentPage }}
@@ -174,6 +176,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update:perPage']);
 
-const perPageOptions = [10, 25, 50, 100, 500];
+const perPageOptions = [10, 50, 100, 1000];
 const localPerPage = ref(props.paginatorInfo.perPage || 10);
 </script>

@@ -53,8 +53,10 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
         const input = transformGraphQLInputData(formData);
 
         // TODO: temporary fix for user password
-        const isHashedPassword = formData.password.startsWith('$2y$');
-        if (isHashedPassword) delete input.password;
+        if (formData.password) {
+            const isHashedPassword = formData.password.startsWith('$2y$');
+            if (isHashedPassword) delete input.password;
+        }
 
         try {
             isLoading.value = true;

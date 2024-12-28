@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex p-1 px-4 m-auto items-center justify-between bg-card rounded-b mb-0.5"
+        class="flex p-2 pr-4 m-auto items-center justify-between bg-card rounded-b"
     >
         <ClientOnly>
             <div class="flex items-center gap-2 justify-center">
@@ -11,7 +11,7 @@
                     class="p-1 justify-center flex items-center gap-2 hover:bg-accent transition duration-300 rounded md:p-2"
                     :to="link.path"
                 >
-                    <Icon :name="link.icon" size="25" />
+                    <Icon :name="link.icon" size="20" />
                     <span class="text-sm hidden font-bold md:block">{{
                         link.title
                     }}</span>

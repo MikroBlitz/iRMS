@@ -5,7 +5,7 @@
     >
         <div
             v-on-click-outside="closeModal"
-            class="bg-card rounded shadow-lg w-full max-w-lg p-6 relative"
+            class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
         >
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-foreground">

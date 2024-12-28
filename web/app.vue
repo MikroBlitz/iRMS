@@ -1,6 +1,6 @@
 <template>
     <Body class="antialiased">
-        <NuxtLoadingIndicator color="red" />
+        <NuxtLoadingIndicator color="#F05340" :throttle="500" />
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>

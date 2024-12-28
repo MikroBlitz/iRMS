@@ -1,9 +1,19 @@
 <template>
     <div>
+        <TablePagination
+            :first-page="firstPage"
+            :last-page="lastPage"
+            :next-page="nextPage"
+            :number-page="numberPage"
+            :paginator-info="paginatorInfo"
+            :prev-page="prevPage"
+            :handle-per-page-change="handlePerPageChange"
+        />
         <div
-            class="w-full rounded-b p-2 bg-card border border-secondary dark:border-primary"
+            class="w-full px-4 p-2 rounded-b-2xl bg-secondary dark:bg-primary border border-secondary dark:border-primary"
         >
             <Datatable
+                v-auto-animate
                 :options="options"
                 :columns="formattedColumns"
                 :data="data"
@@ -29,16 +39,6 @@
                 </template>
             </Datatable>
         </div>
-
-        <TablePagination
-            :first-page="firstPage"
-            :last-page="lastPage"
-            :next-page="nextPage"
-            :number-page="numberPage"
-            :paginator-info="paginatorInfo"
-            :prev-page="prevPage"
-            :handle-per-page-change="handlePerPageChange"
-        />
     </div>
 </template>
 
@@ -102,13 +102,13 @@ const options: Config | any = {
             text: 'Cols',
         },
         {
-            action: function (e, dt, _, __) {
+            action: function (e: any, dt: any, _: any, __: any) {
                 dt.rows().select();
             },
             text: 'Select all',
         },
     ],
-    // TODO: Add Q to enable query builder -> "Q<'flex
+    // Add Q to enable query builder -> "Q<'flex
     dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-2'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-center pt-2 px-2'li><''p>",
     paging: false,
     responsive: true,
