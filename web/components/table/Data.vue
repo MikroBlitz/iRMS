@@ -16,9 +16,9 @@
                             <Button
                                 v-if="action.showButton"
                                 :key="index"
-                                class="h-9 w-14"
+                                class="h-9 border-secondary"
                                 :class="action.class"
-                                variant="outline"
+                                variant="ghost"
                                 @click="action.handler(cellData)"
                             >
                                 {{ toTitleCase(action.name) }}
@@ -100,6 +100,12 @@ const options: Config | any = {
             columns: ':not(.no-export)',
             extend: 'colvis',
             text: 'Cols',
+        },
+        {
+            action: function (e, dt, _, __) {
+                dt.rows().select();
+            },
+            text: 'Select all',
         },
     ],
     // TODO: Add Q to enable query builder -> "Q<'flex

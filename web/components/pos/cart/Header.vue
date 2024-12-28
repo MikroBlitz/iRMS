@@ -75,6 +75,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTimeoutFn } from '@vueuse/core';
 import { Button } from '~/components/ui/button';
 import { toasts } from '~/composables/useToast';
 import { useCart } from '~/stores/useCart';
@@ -103,7 +104,7 @@ const clearCart = () => {
 onMounted(() => {
     const { result } = useQuery(customerFilter);
 
-    setTimeout(() => {
+    useTimeoutFn(() => {
         if (result.value && result.value.customers)
             customers.value = result.value.customers;
     }, 1000);

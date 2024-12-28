@@ -27,21 +27,22 @@
 </template>
 
 <script setup lang="ts">
+import { useTimeoutFn } from '@vueuse/core';
 import { Button } from '~/components/ui/button';
 import type { CrudButton } from '~/types';
 
 const props = defineProps({
+    disabledButtons: {
+        default: () => [],
+        type: Array as PropType<string[]>,
+    },
     onCreate: {
-        type: Function,
         default: () => {},
+        type: Function,
     },
     onRefresh: {
-        type: Function,
         default: () => {},
-    },
-    disabledButtons: {
-        type: Array as PropType<string[]>,
-        default: () => [],
+        type: Function,
     },
 });
 
@@ -57,25 +58,25 @@ const handleClick = (index: number, action: Function | undefined) => {
 
     if (action) action();
 
-    setTimeout(() => {
+    useTimeoutFn(() => {
         clickedIndex.value = null;
     }, 1000);
 };
 
 const crudButtons: CrudButton[] = [
     {
-        id: 'create',
+        action: props.onCreate,
+        iconClass: 'text-emerald-500',
         iconName: 'mdi:add',
         iconSize: 20,
-        iconClass: 'text-emerald-500',
-        action: props.onCreate,
+        id: 'create',
     },
     {
-        id: 'refresh',
+        action: props.onRefresh,
+        iconClass: 'text-foreground',
         iconName: 'solar:refresh-line-duotone',
         iconSize: 20,
-        iconClass: 'text-foreground',
-        action: props.onRefresh,
+        id: 'refresh',
     },
 ];
 </script>

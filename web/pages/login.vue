@@ -4,16 +4,14 @@
             class="container bg-transparent md:bg-gray-800/70 rounded mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
         >
             <div
-                class="md:flex-1 flex flex-col items-center text-center md:text-left p-4"
+                class="md:flex-1 flex flex-col items-center text-center md:text-left"
             >
                 <img
                     src="../assets/application_logo.svg"
                     alt="Logo"
                     class="mb-2 w-24 md:w-48"
                 />
-                <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
-                    APP
-                </h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-white">APP</h1>
                 <p class="text-gray-200 max-w-md text-center">
                     Welcome to APP! With fully customizable themes and
                     components. It comes with
@@ -38,20 +36,20 @@
                         id="email"
                         v-model="credentials.email"
                         type="email"
-                        class="block w-full mt-1 p-2 px-3 bg-gray-700 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
+                        class="block w-full mt-1 p-3 bg-gray-700 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
                         placeholder="Enter your username"
                         required
                         autofocus
                     />
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-3">
                     <label for="password" class="text-gray-300">Password</label>
                     <input
                         id="password"
                         v-model="credentials.password"
                         type="password"
-                        class="block w-full mt-1 p-2 bg-gray-700 px-3 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
+                        class="block w-full mt-1 p-3 bg-gray-700 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
                         placeholder="Enter your password"
                         required
                     />
@@ -73,7 +71,7 @@
 
                 <Button
                     :disabled="loading"
-                    class="w-full bg-emerald-700"
+                    class="w-full bg-emerald-700 rounded-full transition duration-300 hover:bg-emerald-500"
                     @click.prevent="login"
                 >
                     <SpinnerTadpole
@@ -86,56 +84,76 @@
                         >{{ loading ? 'Logging in...' : 'Login' }}</span
                     >
                 </Button>
+                <Button
+                    :disabled="demoLoading"
+                    class="bg-indigo-800 mt-2 rounded-full w-full transition duration-300 hover:bg-indigo-500"
+                    @click.prevent="demo"
+                >
+                    <SpinnerTadpole
+                        :class="{ hidden: !demoLoading }"
+                        class="size-7 text-card dark:text-card-foreground mx-1"
+                    />
+                    <span
+                        class="font-bold"
+                        :class="{ 'animate-pulse ml-2': demoLoading }"
+                        >{{ demoLoading ? 'Loading...' : 'Try Demo' }}</span
+                    >
+                </Button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
 
-const auth = useAuth()
-const loading = ref(false)
-const errors = ref(null)
+const auth = useAuth();
+const loading = ref(false);
+const demoLoading = ref(false);
+const errors = ref(null);
 
-const keys = useMagicKeys()
-const continueLogin: any = keys['Enter']
+const keys = useMagicKeys();
+const continueLogin: any = keys['Enter'];
 
 const credentials = reactive({
     email: 'admin@mail.com',
     password: 'admin1234',
     remember: false,
-})
+});
 
 const login = async () => {
-    errors.value = null
-    loading.value = true
+    errors.value = null;
+    loading.value = true;
 
     try {
-        await auth.getTokens()
-        await auth.login(credentials.email, credentials.password)
-        await auth.getUser()
-        if (auth.user.role == 2 || auth.user.role == 3) {
-            navigateTo('/pos')
-        } else {
-            navigateTo('/dashboard')
-        }
+        await auth.getTokens();
+        await auth.login(credentials.email, credentials.password);
+        await auth.getUser();
+        if (auth.user.role == 2 || auth.user.role == 3)
+            navigateTo('/pos/dashboard');
+        else navigateTo('/dashboard');
     } catch (error: any) {
-        console.error(error)
+        console.error(error);
         const message =
             error.response?.data?.message ||
-            'An error occurred. Please try again.'
-        toasts(message, { type: 'error' })
-
-        navigateTo('/dashboard') // TODO: remove this if API is hosted
+            'An error occurred. Please try again.';
+        toasts(message, { type: 'error' });
     } finally {
-        loading.value = false
+        loading.value = false;
     }
-}
+};
+
+const demo = () => {
+    demoLoading.value = true;
+    useTimeoutFn(() => {
+        demoLoading.value = false;
+        navigateTo('/dashboard');
+    }, 3000);
+};
 
 definePageMeta({
     middleware: ['guest'],
-})
+});
 
-watch(continueLogin, (e) => (e ? login() : null))
+watch(continueLogin, (e) => (e ? login() : null));
 </script>

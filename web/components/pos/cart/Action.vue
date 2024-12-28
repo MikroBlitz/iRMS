@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys } from '@vueuse/core';
+import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
 import { Button } from '@/components/ui/button';
 
 import { useCart } from '~/stores/useCart';
@@ -106,7 +106,7 @@ const handleSubmit = () => {
     cartStore.holdOrder(customerName.value);
     if (customerName.value.length > 0) {
         console.log(`Order for ${customerName.value}:`, orderData);
-        setTimeout(() => {
+        useTimeoutFn(() => {
             router.push('/orders');
         }, 2000);
     }

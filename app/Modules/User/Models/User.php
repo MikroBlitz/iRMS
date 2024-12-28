@@ -20,6 +20,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, softDeletes;
 
+    protected $fillable = ['id', 'first_name', 'middle_name', 'last_name', 'email', 'password', 'role'];
+
     /**
      * The attributes that should be hidden for serialization.
      *

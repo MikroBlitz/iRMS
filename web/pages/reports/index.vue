@@ -43,9 +43,9 @@ const { data: users } = await useAsyncData<any[]>(
             const users = Array.from({ length: 10 }, () => {
                 return {
                     age: 23,
-                    name: 'SDFSDF',
-                    office: 'ASDASD',
-                    position: 'adasd',
+                    name: 'Juan Hecker',
+                    office: 'IT Department',
+                    position: 'FrontEnd Dev',
                     salary: 132132,
                 };
             });
@@ -87,7 +87,8 @@ const options: Config = {
         'print',
         'csv',
     ],
-    dom: "Q<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-5'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between pt-3 p-5'li><''p>",
+    dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 pt-2 mb-2'Bf><'border rounded-lg't><'flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-center pt-2 px-2'li><''p>",
+    paging: false,
     responsive: true,
     select: true,
 };

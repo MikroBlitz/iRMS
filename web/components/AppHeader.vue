@@ -59,6 +59,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTimeoutFn } from '@vueuse/core';
 import { Button } from '~/components/ui/button';
 import {
     DropdownMenu,
@@ -75,19 +76,19 @@ const auth = useAuth();
 
 const dropdownItems = [
     {
-        name: 'Settings',
-        icon: 'solar:settings-linear',
         action: () => {
             navigateTo('/settings');
         },
+        icon: 'solar:settings-linear',
+        name: 'Settings',
         shortcut: '⌘S',
     },
     {
-        name: 'Logout',
-        icon: 'solar:logout-2-outline',
         action: () => {
             logout();
         },
+        icon: 'solar:logout-2-outline',
+        name: 'Logout',
         shortcut: '⇧⌘Q',
     },
 ];
@@ -95,12 +96,12 @@ const dropdownItems = [
 const logout = () => {
     try {
         toasts('Logging out.', {
-            type: 'info',
-            position: 'bottom-right',
             autoClose: 1000,
+            position: 'bottom-right',
             transition: 'zoom',
+            type: 'info',
         });
-        setTimeout(() => {
+        useTimeoutFn(() => {
             auth.logout();
         }, 1500);
     } catch (error) {
