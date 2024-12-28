@@ -35,8 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { themeOptions } from '~/composables/useConstant';
-
 const theme = useTheme();
 const changeTheme = (item: string) => {
     theme.name = item;
