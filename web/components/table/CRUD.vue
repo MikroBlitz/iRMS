@@ -7,7 +7,7 @@
             :class="disabledButtons.includes(btn.id) ? 'hidden' : ''"
             variant="outline"
             size="icon"
-            class="rounded-full hover:bg-gray-500"
+            class="rounded-full"
             @click="handleClick(index, btn.action)"
         >
             <Icon
