@@ -187,7 +187,7 @@ const handleSubmit = () => {
     emit('submit', form.value);
     useTimeoutFn(() => {
         isLoading.value = false;
-    }, 2000);
+    }, 500);
 };
 const closeModal = () => emit('close');
 

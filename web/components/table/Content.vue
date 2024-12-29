@@ -3,35 +3,62 @@
         <template v-if="isLoading || !data.length">
             <template v-if="isLoading">
                 <div
-                    class="absolute flex-col top-56 flex justify-center items-center text-xl mt-4"
+                    class="absolute top-0 left-0 right-0 h-0.5 bg-primary dark:bg-foreground overflow-hidden"
                 >
-                    <SpinnerTadpole
-                        class="size-16 mb-2 text-primary dark:text-foreground"
+                    <div class="h-full w-full animate-loading-bar" />
+                </div>
+                <div
+                    class="absolute flex-col top-60 flex justify-center items-center text-xl mt-4"
+                >
+                    <SpinnerBlocksWave
+                        class="size-8 mb-1 text-primary dark:text-foreground"
                     />
                     <p class="animate-pulse">Loading data...</p>
                 </div>
-                <Skeleton
-                    class="h-[600px] rounded-b rounded-t-none w-full bg-secondary"
+                <div
+                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
                 />
                 <div
-                    class="absolute -bottom-12 px-4 flex items-center justify-between w-full"
+                    class="absolute bottom-3 px-4 flex items-center justify-between w-full"
                 >
-                    <Skeleton class="h-10 w-20 bg-secondary" />
+                    <Skeleton
+                        class="h-10 w-20 bg-primary/50 dark:bg-secondary"
+                    />
                     <div class="flex items-center space-x-1">
                         <Skeleton
-                            class="h-5 w-20 mr-2 rounded-full bg-secondary"
+                            class="h-5 w-20 mr-2 rounded-full bg-primary/50 dark:bg-secondary"
                         />
-                        <Skeleton class="size-10 rounded-full bg-secondary" />
-                        <Skeleton class="size-10 rounded-full bg-secondary" />
-                        <Skeleton class="size-10 rounded-full bg-secondary" />
-                        <Skeleton class="size-10 rounded-full bg-secondary" />
-                        <Skeleton class="size-10 rounded-full bg-secondary" />
+                        <Skeleton
+                            class="size-10 rounded-full bg-primary/50 dark:bg-secondary"
+                        />
+                        <Skeleton
+                            class="size-10 rounded-full bg-primary/50 dark:bg-secondary"
+                        />
+                        <Skeleton
+                            class="size-10 rounded-full bg-primary/50 dark:bg-secondary"
+                        />
+                        <Skeleton
+                            class="size-10 rounded-full bg-primary/50 dark:bg-secondary"
+                        />
+                        <Skeleton
+                            class="size-10 rounded-full bg-primary/50 dark:bg-secondary"
+                        />
                     </div>
                 </div>
             </template>
-            <div v-else class="flex flex-col mt-60 items-center">
-                <Icon name="mdi:warning" class="text-destructive" size="65" />
-                <span>No data</span>
+            <div v-else class="flex flex-col w-full items-center">
+                <div
+                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary flex items-center justify-center"
+                >
+                    <div class="flex flex-col items-center justify-center">
+                        <Icon
+                            name="mdi:warning"
+                            class="text-destructive"
+                            size="40"
+                        />
+                        <span>No data</span>
+                    </div>
+                </div>
             </div>
         </template>
 
@@ -90,3 +117,24 @@ defineProps({
 
 const auth = useAuth();
 </script>
+
+<style scoped>
+@keyframes loading-bar {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.animate-loading-bar {
+    animation: loading-bar 1.5s infinite linear;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        hsl(var(--card)) 100%,
+        transparent 100%
+    );
+}
+</style>
