@@ -62,8 +62,20 @@ const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'product.name', label: 'Product' },
     {
-        key: (val) =>
-            `${thousandSeparator(val.qty)} ${val.product.po_unit || ''}`,
+        key: (val) => {
+            const qty = val.qty;
+            let bgColor = '';
+            // TODO: change this if low stocks is implemented
+            if (qty <= 10) {
+                bgColor = 'bg-red-300 text-red-800 animate-pulse';
+            } else if (qty <= 30) {
+                bgColor = 'bg-yellow-300 text-yellow-800';
+            } else {
+                bgColor = 'bg-emerald-300 text-emerald-800';
+            }
+
+            return `<span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${bgColor}">${thousandSeparator(qty)} ${val.product.po_unit || ''}</span>`;
+        },
         label: 'Stocks',
     },
     { key: 'location', label: 'Location' },

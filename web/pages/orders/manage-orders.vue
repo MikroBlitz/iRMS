@@ -47,7 +47,11 @@ const icon = 'solar:cart-outline';
 
 const modelHeaders: Headers[] = [
     // { key: 'id', label: 'ID' },
-    { key: 'transaction_number', label: 'Transaction Number' },
+    {
+        key: (val) =>
+            `<span class="bg-card px-3 py-1 rounded-full text-xs font-bold">${val.transaction_number}</span>`,
+        label: 'Transaction Number',
+    },
     {
         key: (val) => (val.customer_guest ? '*******' : 'Guest'),
         label: 'Customer',
@@ -78,7 +82,13 @@ const modelHeaders: Headers[] = [
                 1: 'On-Hold',
                 2: 'Cancelled',
             };
-            return statusTypes[val.status];
+            const statusClasses: Record<number, string> = {
+                0: 'bg-emerald-300 text-emerald-800',
+                1: 'bg-yellow-300 text-yellow-800',
+                2: 'bg-red-300 text-red-800',
+            };
+
+            return `<span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${statusClasses[val.status]}">${statusTypes[val.status]}</span>`;
         },
         label: 'Status',
     },

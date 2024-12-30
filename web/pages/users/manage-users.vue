@@ -59,18 +59,20 @@ const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     {
         key: (val) => {
-            switch (val.role) {
-                case 0:
-                    return 'User';
-                case 1:
-                    return 'Admin';
-                case 2:
-                    return 'Staff';
-                case 3:
-                    return 'Store Manager';
-                default:
-                    return 'Unknown';
-            }
+            const userTypes: Record<number, string> = {
+                0: 'User',
+                1: 'Admin',
+                2: 'Staff',
+                3: 'Store Manager',
+            };
+            const userClasses: Record<number, string> = {
+                0: 'bg-emerald-300 text-emerald-800',
+                1: 'bg-red-300 text-red-800',
+                2: 'bg-blue-300 text-blue-800',
+                3: 'bg-orange-300 text-orange-800',
+            };
+
+            return `<span class="inline-block px-3 py-1 rounded-full font-bold ${userClasses[val.role]}">${userTypes[val.role]}</span>`;
         },
         label: 'Role',
     },
