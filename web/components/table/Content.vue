@@ -82,17 +82,20 @@
 
         <!--    No auth user    -->
         <template v-else>
-            <div class="relative w-full">
+            <div class="relative w-full flex justify-center items-center">
                 <div
-                    class="absolute top-64 flex flex-col items-center justify-center w-full"
+                    class="absolute flex-col top-56 flex justify-center items-center text-xl mt-4"
                 >
                     <Icon
                         name="mdi:account-alert"
                         class="text-destructive animate-pulse"
-                        size="70"
+                        size="50"
                     />
-                    <span>Unauthorized Access</span>
+                    <p class="animate-pulse">Unauthorized Access</p>
                 </div>
+                <div
+                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
+                />
             </div>
         </template>
     </div>

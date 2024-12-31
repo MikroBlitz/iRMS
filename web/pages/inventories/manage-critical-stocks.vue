@@ -49,7 +49,14 @@ const icon = 'mdi:garage-warning';
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     { key: 'product.name', label: 'Product' },
-    { key: (val) => `${thousandSeparator(val.qty)} pc/s`, label: 'Stocks' },
+    {
+        key: (val) => {
+            const qty = val.qty;
+
+            return `<span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-red-300 text-red-800 animate-pulse">${thousandSeparator(qty)} ${val.product.po_unit || ''}</span>`;
+        },
+        label: 'Stocks',
+    },
     { key: 'location', label: 'Location' },
     { key: 'updated_at', label: 'Updated At' },
 ];

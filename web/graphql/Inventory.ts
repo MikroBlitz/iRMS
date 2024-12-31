@@ -18,6 +18,7 @@ export const lowStocksInventories = gql`
             product_id
             product {
                 name
+                po_unit
             }
             qty
             location
