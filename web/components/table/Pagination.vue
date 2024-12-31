@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex px-4 pb-3 bordet-t border-secondary rounded-b-2xl justify-between items-center bg-secondary dark:bg-primary"
+        class="flex px-4 py-2 bordet-t border-secondary rounded-b-2xl justify-between items-center bg-secondary dark:bg-primary"
     >
         <div class="flex items-center justify-center gap-2">
             <div>
