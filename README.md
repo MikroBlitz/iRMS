@@ -4,6 +4,8 @@
 
 This project is a full-stack application built using **Nuxt.js** on the frontend and **Laravel** on the backend, with **Apollo GraphQL** for data fetching and **Laravel Lighthouse** handling GraphQL on the server. The state management is handled by **Pinia**, and **Sanctum** provides secure authentication.
 
+This APP project features a Retail Management System, a comprehensive software solution designed to streamline and manage various aspects of retail operations.
+
 ### Features
 - **Nuxt.js**: A Vue.js framework that supports SSR (Server Side Rendering) and static site generation.
 - **Laravel**: A powerful PHP framework for backend logic and API handling.
