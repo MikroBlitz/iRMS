@@ -9,11 +9,14 @@
                     </div>
                     <!-- Settings Dropdown  -->
                     <div
-                        class="flex items-center h-full bg-secondary pl-6 pr-4 rounded-l-2xl gap-3"
+                        class="flex items-center h-full bg-secondary pl-2 pr-4 rounded-l-2xl"
                     >
                         <DropdownMenu>
                             <DropdownMenuTrigger as-child>
-                                <Button class="text-foreground" variant="link">
+                                <Button
+                                    class="text-foreground hover:bg-transparent"
+                                    variant="ghost"
+                                >
                                     <span>{{
                                         auth.user.name
                                             ? auth.user.name

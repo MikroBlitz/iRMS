@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div
-            class="w-full px-4 p-2 bg-secondary dark:bg-primary border border-secondary dark:border-primary"
-        >
+        <div class="w-full bg-card border border-secondary dark:border-primary">
             <Datatable
                 v-auto-animate
                 :options="options"
@@ -109,7 +107,7 @@ const options: Config | any = {
         },
     ],
     // Add Q to enable query builder -> "Q<'flex
-    dom: "<'flex flex-col lg:flex-row w-full lg:items-start lg:justify-between gap-5 mb-2'Bf><'flex flex-col lg:flex-row lg:items-center lg:justify-start mb-2 px-1'li><'border rounded-lg't><''p>",
+    dom: "<'flex p-2 flex-col lg:flex-row w-full lg:items-center lg:justify-between gap-5'B li f><'border-t rounded-none't>",
     paging: false,
     responsive: true,
     select: true,
