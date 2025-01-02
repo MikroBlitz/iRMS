@@ -1,8 +1,14 @@
 <template>
     <div class="h-dvh flex flex-col justify-center bg-gray-900/20">
         <div
-            class="container bg-transparent md:bg-gray-800/70 rounded mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
+            class="relative container bg-transparent md:bg-gray-800/70 rounded mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
         >
+            <NuxtLink
+                to="/"
+                class="absolute top-4 left-4 flex size-10 items-center justify-center bg-destructive rounded-full p-2"
+            >
+                <Icon name="mdi:home" size="20" class="bg-card" />
+            </NuxtLink>
             <div
                 class="md:flex-1 flex flex-col items-center text-center md:text-left"
             >
@@ -84,21 +90,6 @@
                         >{{ loading ? 'Logging in...' : 'Login' }}</span
                     >
                 </Button>
-                <Button
-                    :disabled="demoLoading"
-                    class="bg-indigo-800 mt-2 rounded-full w-full transition duration-300 hover:bg-indigo-500"
-                    @click.prevent="demo"
-                >
-                    <SpinnerTadpole
-                        :class="{ hidden: !demoLoading }"
-                        class="size-7 text-card dark:text-card-foreground mx-1"
-                    />
-                    <span
-                        class="font-bold"
-                        :class="{ 'animate-pulse ml-2': demoLoading }"
-                        >{{ demoLoading ? 'Loading...' : 'Try Demo' }}</span
-                    >
-                </Button>
             </div>
         </div>
     </div>
@@ -109,7 +100,6 @@ import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
 
 const auth = useAuth();
 const loading = ref(false);
-const demoLoading = ref(false);
 const errors = ref(null);
 
 const keys = useMagicKeys();
@@ -141,14 +131,6 @@ const login = async () => {
     } finally {
         loading.value = false;
     }
-};
-
-const demo = () => {
-    demoLoading.value = true;
-    useTimeoutFn(() => {
-        demoLoading.value = false;
-        navigateTo('/dashboard');
-    }, 3000);
 };
 
 definePageMeta({
