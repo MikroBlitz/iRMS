@@ -17,7 +17,7 @@
                 v-if="showContent"
                 class="flex flex-col items-center justify-center max-w-[1200px] p-6 w-full h-auto"
             >
-                <div>
+                <div class="w-full">
                     <div>
                         <NuxtImage
                             src="/landing/application_logo.png"
@@ -31,25 +31,46 @@
                             rel="stylesheet"
                         />
                         <h1
-                            class="text-md md:text-[3em] leading-tight extrabold-font text-center mb-4 bg-gradient-to-b from-emerald-500 to-indigo-500 text-transparent bg-clip-text"
+                            class="text-xl md:text-[3em] leading-tight extrabold-font text-center mb-4 bg-gradient-to-b from-emerald-500 to-indigo-500 text-transparent bg-clip-text"
                         >
                             Empower your business with<br />
-                            an All-in-One system
+                            Retail Management system
                         </h1>
+
+                        <div
+                            class="border-2 border-secondary rounded-full mb-1 py-2"
+                        >
+                            <p
+                                class="flex justify-center items-center text-center"
+                            >
+                                POS, Inventory, Sales, Messaging, Customer
+                                Management, fully customizable and more.
+                            </p>
+                        </div>
                     </div>
 
-                    <video
-                        autoplay
-                        loop
-                        muted
-                        class="rounded-md md:rounded-xl border-2 border-secondary shadow-md shadow-gray-500 dark:shadow-black"
+                    <div
+                        v-if="loading"
+                        class="flex justify-center items-center w-full"
                     >
-                        <source
-                            src="/landing/landing-video.mp4"
-                            type="video/mp4"
+                        <Skeleton
+                            class="w-full h-[300px] md:h-[580px] rounded-xl"
                         />
-                        Your browser does not support the video tag.
-                    </video>
+                    </div>
+                    <div v-else>
+                        <video
+                            autoplay
+                            loop
+                            muted
+                            class="rounded-md md:rounded-xl border-2 border-secondary shadow-md shadow-gray-500 dark:shadow-black"
+                        >
+                            <source
+                                src="/landing/landing-video.mp4"
+                                type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
 
                 <div
@@ -94,8 +115,10 @@ import { Button } from '~/components/ui/button';
 const auth = useAuth();
 const showContent = ref(false);
 const demoLoading = ref(false);
+const loading = ref(true);
 
-onMounted(() => useTimeoutFn(() => (showContent.value = true), 2000));
+onMounted(() => useTimeoutFn(() => (showContent.value = true), 1000));
+onMounted(() => useTimeoutFn(() => (loading.value = false), 3000));
 
 definePageMeta({
     layout: false,
