@@ -6,19 +6,19 @@ import axios from '~/plugins/axios';
 const $axios = axios().provide.axios;
 
 export const useAuth = defineStore('auth', {
-    state: () => ({
-        user: {
-            id: '',
-            role: null,
-            first_name: '',
-            middle_name: '',
-            last_name: '',
-            name: '',
-        },
-    }),
     actions: {
         async getTokens() {
             await $axios.get('/sanctum/csrf-cookie');
+        },
+        async getUser() {
+            const response = await $axios.get('/api/authenticated-user');
+
+            this.$state.user.id = response.data[0].id;
+            this.$state.user.role = response.data[0].role;
+            this.$state.user.first_name = response.data[0].first_name;
+            this.$state.user.middle_name = response.data[0].middle_name;
+            this.$state.user.last_name = response.data[0].last_name;
+            this.$state.user.name = response.data[0].name;
         },
         async login(email: string, password: string) {
             try {
@@ -39,16 +39,6 @@ export const useAuth = defineStore('auth', {
                 await mutate({ input: log });
             }
         },
-        async getUser() {
-            const response = await $axios.get('/api/authenticated-user');
-
-            this.$state.user.id = response.data[0].id;
-            this.$state.user.role = response.data[0].role;
-            this.$state.user.first_name = response.data[0].first_name;
-            this.$state.user.middle_name = response.data[0].middle_name;
-            this.$state.user.last_name = response.data[0].last_name;
-            this.$state.user.name = response.data[0].name;
-        },
         async logout() {
             try {
                 const response = await $axios.get('/api/authenticated-user');
@@ -63,7 +53,7 @@ export const useAuth = defineStore('auth', {
                 console.error('Logout failed:', error);
             } finally {
                 this.resetUser();
-                navigateTo('/login');
+                navigateTo('/');
             }
         },
         resetUser() {
@@ -76,4 +66,14 @@ export const useAuth = defineStore('auth', {
         },
     },
     persist: true,
+    state: () => ({
+        user: {
+            first_name: '',
+            id: '',
+            last_name: '',
+            middle_name: '',
+            name: '',
+            role: null,
+        },
+    }),
 });
