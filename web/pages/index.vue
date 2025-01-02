@@ -15,7 +15,7 @@
         >
             <div
                 v-if="showContent"
-                class="flex flex-col items-center justify-center max-w-[1200px] p-6 w-full h-auto"
+                class="flex flex-col items-center justify-center max-w-[1000px] p-6 w-full h-auto"
             >
                 <div class="w-full">
                     <div>
@@ -37,11 +37,9 @@
                             Retail Management system
                         </h1>
 
-                        <div
-                            class="border-2 border-secondary rounded-full mb-1 py-2"
-                        >
+                        <div class="mb-2">
                             <p
-                                class="flex justify-center items-center text-center"
+                                class="text-xs md:text-lg flex justify-center items-center text-center"
                             >
                                 POS, Inventory, Sales, Messaging, Customer
                                 Management, fully customizable and more.
@@ -54,7 +52,7 @@
                         class="flex justify-center items-center w-full"
                     >
                         <Skeleton
-                            class="w-full h-[300px] md:h-[580px] rounded-xl"
+                            class="w-full h-[300px] md:h-[480px] rounded-xl"
                         />
                     </div>
                     <div v-else>
