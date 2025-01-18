@@ -47,28 +47,19 @@
                         </div>
                     </div>
 
-                    <div
-                        v-if="loading"
-                        class="flex justify-center items-center w-full"
-                    >
-                        <Skeleton
-                            class="w-full h-[300px] md:h-[480px] rounded-xl"
-                        />
-                    </div>
-                    <div v-else>
-                        <video
-                            autoplay
-                            loop
-                            muted
-                            class="rounded-md md:rounded-xl border-2 border-secondary shadow-md shadow-gray-500 dark:shadow-black"
-                        >
-                            <source
-                                src="/landing/landing-video.mp4"
-                                type="video/mp4"
-                            />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+                    <ClientOnly>
+                        <div class="flex justify-center items-center w-full">
+                            <video
+                                autoplay
+                                loop
+                                muted
+                                class="rounded-md md:rounded-lg shadow-sm shadow-gray-900 dark:shadow-black"
+                            >
+                                <source :src="video" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </ClientOnly>
                 </div>
 
                 <div
@@ -109,14 +100,13 @@
 <script setup lang="ts">
 import { useTimeoutFn } from '@vueuse/core';
 import { Button } from '~/components/ui/button';
+import video from '/landing/landing-video.mp4';
 
 const auth = useAuth();
 const showContent = ref(false);
 const demoLoading = ref(false);
-const loading = ref(true);
 
 onMounted(() => useTimeoutFn(() => (showContent.value = true), 1000));
-onMounted(() => useTimeoutFn(() => (loading.value = false), 3000));
 
 definePageMeta({
     layout: false,
