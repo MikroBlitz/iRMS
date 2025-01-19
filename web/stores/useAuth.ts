@@ -1,48 +1,54 @@
 import { defineStore } from 'pinia';
-
 import { upsertLog } from '~/graphql/Log';
 import axios from '~/plugins/axios';
 
 const $axios = axios().provide.axios;
 
-export const useAuth = defineStore('auth', {
-    actions: {
-        async getTokens() {
-            await $axios.get('/sanctum/csrf-cookie');
-        },
-        async getUser() {
-            const response = await $axios.get('/api/authenticated-user');
+export const useAuth = defineStore(
+    'auth',
+    () => {
+        // State
+        const user = reactive({
+            first_name: '',
+            id: '',
+            last_name: '',
+            middle_name: '',
+            name: '',
+            role: null,
+        });
 
-            this.$state.user.id = response.data[0].id;
-            this.$state.user.role = response.data[0].role;
-            this.$state.user.first_name = response.data[0].first_name;
-            this.$state.user.middle_name = response.data[0].middle_name;
-            this.$state.user.last_name = response.data[0].last_name;
-            this.$state.user.name = response.data[0].name;
-        },
-        async login(email: string, password: string) {
+        // Actions
+        const getTokens = async () => {
+            await $axios.get('/sanctum/csrf-cookie');
+        };
+        const getUser = async () => {
+            const response = await $axios.get('/api/authenticated-user');
+            const userData = response.data[0];
+            user.id = userData.id;
+            user.role = userData.role;
+            user.first_name = userData.first_name;
+            user.middle_name = userData.middle_name;
+            user.last_name = userData.last_name;
+            user.name = userData.name;
+        };
+        const login = async (email: string, password: string) => {
             try {
-                this.resetUser();
-                await $axios.post('/login', {
-                    email: email,
-                    password: password,
-                });
+                resetUser();
+                await $axios.post('/login', { email, password });
             } catch (error) {
                 console.error('Login failed:', error);
             } finally {
                 const response = await $axios.get('/api/authenticated-user');
-
                 const userId = response.data[0].id;
                 const { mutate } = useMutation(upsertLog);
                 const log = authLogs(userId, 'Login');
 
                 await mutate({ input: log });
             }
-        },
-        async logout() {
+        };
+        const logout = async () => {
             try {
                 const response = await $axios.get('/api/authenticated-user');
-
                 const userId = response.data[0].id;
                 const { mutate } = useMutation(upsertLog);
                 const log = authLogs(userId, 'Logout');
@@ -52,28 +58,29 @@ export const useAuth = defineStore('auth', {
             } catch (error) {
                 console.error('Logout failed:', error);
             } finally {
-                this.resetUser();
+                resetUser();
                 navigateTo('/');
             }
-        },
-        resetUser() {
-            this.$state.user.id = '';
-            this.$state.user.role = null;
-            this.$state.user.first_name = '';
-            this.$state.user.middle_name = '';
-            this.$state.user.last_name = '';
-            this.$state.user.name = '';
-        },
+        };
+        const resetUser = () => {
+            user.id = '';
+            user.role = null;
+            user.first_name = '';
+            user.middle_name = '';
+            user.last_name = '';
+            user.name = '';
+        };
+
+        return {
+            getTokens,
+            getUser,
+            login,
+            logout,
+            resetUser,
+            user,
+        };
     },
-    persist: true,
-    state: () => ({
-        user: {
-            first_name: '',
-            id: '',
-            last_name: '',
-            middle_name: '',
-            name: '',
-            role: null,
-        },
-    }),
-});
+    {
+        persist: true,
+    },
+);
