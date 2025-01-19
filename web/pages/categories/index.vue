@@ -3,8 +3,13 @@
         <main v-auto-animate class="max-w-screen-2xl mx-auto h-[780px]">
             <ClientOnly>
                 <PageHeader :page-title="pageTitle" />
-                <div
+                <VueDraggable
+                    ref="el"
+                    v-model="chartData"
                     class="flex flex-col md:grid md:grid-cols-3 md:gap-1 sm:items-start"
+                    :animation="500"
+                    group="charts"
+                    @end=""
                 >
                     <ChartSimple
                         v-for="chart in chartData"
@@ -16,7 +21,7 @@
                         :border-color="chart.borderColor"
                         :loading="chart.loading"
                     />
-                </div>
+                </VueDraggable>
                 <PageRouter :item-links="itemLinks" />
             </ClientOnly>
         </main>
@@ -24,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import { VueDraggable } from 'vue-draggable-plus';
 import type { Chart } from '~/types';
 
 const modelName = 'category';

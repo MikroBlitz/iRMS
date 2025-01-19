@@ -41,6 +41,80 @@ export default async function useChartData() {
 
     const totalSalesValues = computed(() => calculateTotalSalesValue());
 
+    const areaChart = ref([
+        {
+            name: 'Jan',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Feb',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Mar',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Apr',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'May',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Jun',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Jul',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+    ]);
+
+    const lineChart = ref([
+        {
+            'Export Growth Rate': 2.04,
+            'Import Growth Rate': 1.53,
+            year: 1970,
+        },
+        {
+            'Export Growth Rate': 1.96,
+            'Import Growth Rate': 1.58,
+            year: 1971,
+        },
+        {
+            'Export Growth Rate': 1.96,
+            'Import Growth Rate': 1.61,
+            year: 1972,
+        },
+    ]);
+
+    const barChart = ref([
+        {
+            name: 'Jan',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Feb',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Mar',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+    ]);
+
     const charts = reactiveComputed(() => [
         {
             borderColor: 'border-blue-300/80 dark:border-blue-500/50',
@@ -80,7 +154,7 @@ export default async function useChartData() {
             icon: 'mdi:cash-multiple',
             loading: loading.value,
             title: 'Inventory Stock Value',
-            value: currencyFormat(totalInventoryStockValues.value),
+            value: currencyFormat(totalInventoryStockValues.value) || 0,
         },
         {
             borderColor: 'border-yellow-300/80 dark:border-yellow-500/50',
@@ -96,7 +170,7 @@ export default async function useChartData() {
             icon: 'mdi:currency-usd',
             loading: loading.value,
             title: 'Overall Sales',
-            value: currencyFormat(totalSalesValues.value),
+            value: currencyFormat(totalSalesValues.value) || 0,
         },
         {
             borderColor: 'border-orange-300/80 dark:border-orange-500/50',
@@ -109,6 +183,9 @@ export default async function useChartData() {
     ]);
 
     return {
+        areaChart,
+        barChart,
         charts,
+        lineChart,
     };
 }

@@ -2,12 +2,17 @@
     <div>
         <div v-auto-animate class="max-w-screen-2xl mx-auto w-auto">
             <PageHeader :page-title="pageTitle" />
-            <div
+            <VueDraggable
+                ref="el"
+                v-model="chartData"
                 class="flex flex-col md:grid md:grid-cols-3 md:gap-1 sm:items-start"
+                :animation="500"
+                group="charts"
+                @end=""
             >
                 <ChartSimple
-                    v-for="(chart, index) in chartData"
-                    :key="index"
+                    v-for="chart in chartData"
+                    :key="chart.title"
                     :title="chart.title"
                     :value="chart.value"
                     :icon="chart.icon"
@@ -15,17 +20,74 @@
                     :border-color="chart.borderColor"
                     :loading="chart.loading"
                 />
-            </div>
+            </VueDraggable>
+
+            <VueDraggable
+                ref="el"
+                v-model="charts"
+                class="p-2 flex flex-col md:grid md:grid-cols-3 gap-5 sm:items-start"
+                :animation="500"
+                group="charts"
+                @end=""
+            >
+                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                    <BarChart
+                        :data="barChartData"
+                        index="name"
+                        :categories="['total', 'predicted']"
+                        :y-formatter="
+                            (tick, i) => {
+                                return typeof tick === 'number'
+                                    ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                                    : '';
+                            }
+                        "
+                    />
+                </div>
+                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                    <LineChart
+                        :data="lineChartData"
+                        index="year"
+                        :categories="[
+                            'Export Growth Rate',
+                            'Import Growth Rate',
+                        ]"
+                        :y-formatter="
+                            (tick, i) => {
+                                return typeof tick === 'number'
+                                    ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                                    : '';
+                            }
+                        "
+                    />
+                </div>
+                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                    <AreaChart
+                        :data="lineChartData"
+                        index="name"
+                        :categories="['total', 'predicted']"
+                    />
+                </div>
+            </VueDraggable>
             <PageRouter :item-links="itemLinks" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { VueDraggable } from 'vue-draggable-plus';
 import type { Chart } from '~/types';
+import { BarChart } from '@/components/ui/chart-bar';
+import { LineChart } from '@/components/ui/chart-line';
+import { AreaChart } from '@/components/ui/chart-area';
 
 const pageTitle = ref('Dashboard');
 const chartData: Ref<Chart[]> = ref([]);
+
+const charts = ref();
+const lineChartData = ref([]); // TODO: dynamic data
+const barChartData = ref([]); // TODO: dynamic data
+const areaChartData = ref([]); // TODO: dynamic data
 
 const itemLinks = [
     {
@@ -96,7 +158,15 @@ useHead({
 });
 
 onMounted(async () => {
-    const { charts } = await useChartData();
-    chartData.value = charts;
+    const { areaChart, barChart, charts, lineChart } = await useChartData();
+    chartData.value = charts.filter(
+        (chart) =>
+            chart.title === 'Inventory Stock Value' ||
+            chart.title === 'Total Orders' ||
+            chart.title === 'Overall Sales',
+    );
+    lineChartData.value = lineChart;
+    barChartData.value = barChart;
+    areaChartData.value = areaChart;
 });
 </script>
