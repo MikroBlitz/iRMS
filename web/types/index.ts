@@ -19,7 +19,7 @@ export type User = {
 };
 
 export type Product = {
-    id?: string;
+    id: string | number;
     name?: string;
     image?: string;
     description?: string;
@@ -46,16 +46,16 @@ export type CrudButton = {
 };
 
 export type CartProduct = {
-    id?: any;
-    item?: string | any;
-    image?: string | undefined;
-    price?: number | undefined;
-    qty?: number | undefined;
-    amount?: number | undefined;
-    stock?: Stock[] | any;
-    totalAmount?: number | any;
-    totalTax?: number | any;
-    promotionAmount?: number | any;
+    id: string | number;
+    item?: string;
+    image?: string;
+    price?: number;
+    qty?: number;
+    amount?: number;
+    stock?: Stock[];
+    totalAmount?: number;
+    totalTax?: number;
+    promotionAmount?: number;
 };
 
 export type CartStore = {
