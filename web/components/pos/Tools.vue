@@ -13,7 +13,7 @@
                         class="text-gray-900 dark:text-gray-300"
                     />
                     <span
-                        class="absolute rounded-full bg-destructive px-2 -top-1.5 -right-3 text-background dark:text-foreground font-bold"
+                        class="absolute rounded-full bg-destructive px-2 -top-1.5 -right-3 text-background dark:text-foreground"
                     >
                         {{ cartStore.cartItems.length || '' }}
                     </span>

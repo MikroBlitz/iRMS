@@ -7,7 +7,7 @@
                 :columns="formattedColumns"
                 :data="data"
                 :actions="actions"
-                class="overflow-auto w-full"
+                class="overflow-x-scroll w-full"
             >
                 <template #actions="{ cellData }: { cellData: any }">
                     <div class="flex justify-start items-center space-x-1">

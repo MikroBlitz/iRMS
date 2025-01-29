@@ -7,7 +7,7 @@
     </template>
 
     <div v-else-if="selectContact" class="w-full p-3 flex flex-col">
-        <h2 class="text-xl font-bold mb-4">
+        <h2 class="text-xl mb-4">
             {{ selectedContact ? `Chat with ${selectedContact.name}` : '' }}
         </h2>
         <div

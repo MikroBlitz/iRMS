@@ -83,9 +83,9 @@ const modelHeaders: Headers[] = [
                 2: 'Cancelled',
             };
             const statusClasses: Record<number, string> = {
-                0: 'bg-emerald-300 text-emerald-800',
-                1: 'bg-yellow-300 text-yellow-800',
-                2: 'bg-red-300 text-red-800',
+                0: 'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-500',
+                1: 'bg-yellow-50 text-yellow-700 border border-yellow-700 dark:bg-yellow-900 dark:text-white dark:border-yellow-500',
+                2: 'bg-red-50 text-red-700 border border-red-700 dark:bg-red-900 dark:text-white dark:border-red-500',
             };
 
             return `<span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${statusClasses[val.status]}">${statusTypes[val.status]}</span>`;

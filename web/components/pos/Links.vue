@@ -12,7 +12,7 @@
                     :to="link.path"
                 >
                     <Icon :name="link.icon" size="20" />
-                    <span class="text-sm hidden font-bold md:block">{{
+                    <span class="text-sm hidden md:block">{{
                         link.title
                     }}</span>
                 </NuxtLink>

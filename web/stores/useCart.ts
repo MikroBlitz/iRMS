@@ -6,11 +6,11 @@ export const useCart = defineStore(
     'cart',
     () => {
         // State
-        const cartItems = reactive<CartProduct[]>([]);
+        const cartItems = ref<CartProduct[]>([]);
 
         // Actions
         const addProductToCart = (product: Product) => {
-            const itemIndex = cartItems.findIndex(
+            const itemIndex = cartItems.value.findIndex(
                 (item) => item.item === product.name,
             );
             const stocks = product.inventories[0].qty; // TODO: fix dynamic stocks checker
@@ -24,12 +24,12 @@ export const useCart = defineStore(
                         existingProduct.amount =
                             existingProduct.qty * existingProduct.price;
 
-                        cartItems.splice(itemIndex, 1);
-                        cartItems.unshift(existingProduct);
+                        cartItems.value.splice(itemIndex, 1);
+                        cartItems.value.unshift(existingProduct);
                     }
                 } else console.error('Existing Product is undefined');
             } else {
-                cartItems.unshift({
+                cartItems.value.unshift({
                     amount: product.price,
                     id: product.id,
                     image: product.image,
@@ -46,7 +46,7 @@ export const useCart = defineStore(
             }
         };
         const addQuantity = (product: CartProduct) => {
-            const cartItem = cartItems.find(
+            const cartItem = cartItems.value.find(
                 (item) => item.item === product.item,
             );
             if (cartItem?.qty && cartItem?.price) {
@@ -54,13 +54,14 @@ export const useCart = defineStore(
                 cartItem.amount = cartItem.qty * cartItem.price;
             } else console.error('Cart Item is undefined');
         };
-        const clearCart = () => cartItems.splice(0, cartItems.length);
+        const clearCart = () =>
+            cartItems.value.splice(0, cartItems.value.length);
         const deleteCartItem = (productToDelete: string) => {
-            const index = cartItems.findIndex(
+            const index = cartItems.value.findIndex(
                 (item) => item.item === productToDelete,
             );
             if (index > -1) {
-                cartItems.splice(index, 1);
+                cartItems.value.splice(index, 1);
                 toasts('Item removed!', { type: 'success' });
             } else toasts('Item not found in cart!', { type: 'warning' });
         };
@@ -107,7 +108,7 @@ export const useCart = defineStore(
             });
         };
         const reduceQuantity = (product: CartProduct) => {
-            const cartItem = cartItems.find(
+            const cartItem = cartItems.value.find(
                 (item) => item.item === product.item,
             );
             if (cartItem?.qty && cartItem?.price) {
@@ -132,7 +133,7 @@ export const useCart = defineStore(
 
         // Getters
         const totalAmount = computed(() => {
-            return cartItems.reduce(
+            return cartItems.value.reduce(
                 (total, item: any) => total + item.amount,
                 0,
             );

@@ -8,7 +8,7 @@
             class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
         >
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-foreground">
+                <h3 class="text-xl text-foreground">
                     {{ title }}
                 </h3>
                 <Button

@@ -17,9 +17,7 @@
                         :name="item.icon"
                         size="40"
                     />
-                    <span :class="item.textColor" class="font-bold">{{
-                        item.title
-                    }}</span>
+                    <span :class="item.textColor">{{ item.title }}</span>
                 </NuxtLink>
             </div>
         </div>

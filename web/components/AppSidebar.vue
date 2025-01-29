@@ -25,7 +25,7 @@
                                             alt="logo"
                                         />
                                     </div>
-                                    <span class="font-bold text-3xl">APP</span>
+                                    <span class="text-3xl">APP</span>
                                 </div>
                             </div>
                         </SheetTitle>
