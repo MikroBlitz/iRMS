@@ -1,24 +1,27 @@
 <template>
     <div
-        class="flex p-2 pr-4 m-auto items-center justify-between bg-card rounded-b"
+        class="flex pl-2 pr-3 py-1 m-auto items-center justify-between bg-[hsl(var(--card))] rounded-b-2xl shadow-md"
     >
         <ClientOnly>
-            <div class="flex items-center gap-2 justify-center">
+            <div class="flex items-center gap-3">
                 <PosProductFilter />
                 <NuxtLink
                     v-for="(link, index) in posLinks"
                     :key="index"
-                    class="p-1 justify-center flex items-center gap-2 hover:bg-accent transition duration-300 rounded md:p-2"
+                    class="flex items-center gap-2 px-3 py-2 text-[hsl(var(--foreground))] rounded transition duration-300 hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--accent-foreground))]"
                     :to="link.path"
                 >
-                    <Icon :name="link.icon" size="20" />
+                    <Icon :name="link.icon" size="22" />
                     <span class="text-sm hidden md:block">{{
                         link.title
                     }}</span>
                 </NuxtLink>
             </div>
             <div>
-                <PosTools :class="{ hidden: !isMobile }" />
+                <PosTools
+                    :class="{ hidden: !isMobile }"
+                    class="transition-opacity duration-300"
+                />
             </div>
         </ClientOnly>
     </div>
