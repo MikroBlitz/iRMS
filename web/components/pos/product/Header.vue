@@ -7,7 +7,7 @@
                 class="flex items-center gap-1 text-background dark:text-foreground"
             >
                 <Icon name="solar:shop-linear" size="30" />
-                <p class="text-2xl font-bold py-1">Items</p>
+                <p class="text-2xl py-1">Items</p>
             </div>
             <div class="flex items-center gap-1">
                 <div class="flex items-center relative">
@@ -53,8 +53,8 @@ defineProps({
         required: false,
         type: Function,
     },
-})
+});
 
-const search = inject('search')
-const isMobile = inject('isMobile')
+const search = inject('search');
+const isMobile = inject('isMobile');
 </script>

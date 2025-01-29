@@ -15,7 +15,7 @@
                     <Icon name="mdi:arrow-left" size="20" />
                 </Button>
                 <Icon :name="icon" :size="size" />
-                <p class="text-foreground text-xl font-bold">
+                <p class="text-foreground text-xl">
                     {{ title }}
                 </p>
             </div>

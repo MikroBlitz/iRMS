@@ -14,9 +14,7 @@
             placeholder="Search Contacts"
             class="pl-9 py-2 rounded w-full outline-none bg-secondary dark:bg-primary"
         />
-        <h2 class="text-xl font-bold border-b border-secondary py-2 mb-2">
-            Contacts
-        </h2>
+        <h2 class="text-xl border-b border-secondary py-2 mb-2">Contacts</h2>
         <ul class="space-y-2">
             <li
                 v-for="contact in contacts"

@@ -10,8 +10,7 @@
                         size="20"
                         class="text-gray-900 dark:text-gray-300"
                     />
-                    <span
-                        class="text-sm hidden md:block font-bold text-foreground"
+                    <span class="text-sm hidden md:block text-foreground"
                         >Categories</span
                     >
                 </div>

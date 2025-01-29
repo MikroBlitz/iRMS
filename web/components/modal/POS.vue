@@ -8,7 +8,7 @@
                 class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
             >
                 <div class="flex justify-between items-center mb-2 px-4">
-                    <h3 class="text-xl font-bold">
+                    <h3 class="text-xl">
                         <template v-if="customerName">
                             {{ `Order for: ${customerName}` }}
                         </template>
@@ -194,7 +194,7 @@
 
             <div
                 v-if="change >= 0 && !isMobile"
-                class="h-[670px] bg-card rounded-lg overflow-y-scroll p-2"
+                class="h-[680px] bg-card border overflow-y-scroll"
             >
                 <PosReceipt />
             </div>

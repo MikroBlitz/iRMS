@@ -16,7 +16,7 @@
                         class="text-gray-100"
                     />
                 </Button>
-                <p class="text-gray-100 text-2xl font-bold">
+                <p class="text-gray-100 text-2xl">
                     <span class="block">
                         {{ !isMobile ? title : titleMobile }}
                     </span>
@@ -30,14 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '~/components/ui/button'
+import { Button } from '~/components/ui/button';
 
 defineProps<{
-    title: string
-    titleMobile?: string
-    backRoute?: string
-}>()
+    title: string;
+    titleMobile?: string;
+    backRoute?: string;
+}>();
 
-const isMobile = inject('isMobile')
-const router = useRouter()
+const isMobile = inject('isMobile');
+const router = useRouter();
 </script>

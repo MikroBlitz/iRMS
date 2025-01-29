@@ -17,9 +17,7 @@
         <PosTable>
             <TableHeader v-show="cartStore.cartItems.length">
                 <TableRow>
-                    <TableHead
-                        class="md:w-[480px] h-[50px] text-foreground font-bold"
-                    >
+                    <TableHead class="md:w-[480px] h-[50px] text-foreground">
                         <span>ITEM</span>
                     </TableHead>
                     <TableHead

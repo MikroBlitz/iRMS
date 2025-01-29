@@ -16,7 +16,7 @@
                         size="30"
                     />
                     <span
-                        class="absolute rounded-full bg-destructive px-2 -top-2 -right-3 text-background dark:text-foreground font-bold"
+                        class="absolute rounded-full bg-destructive px-2 -top-2 -right-3 text-background dark:text-foreground"
                     >
                         {{ cartStore.cartItems.length || '' }}
                     </span>
