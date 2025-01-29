@@ -4,22 +4,22 @@
     >
         <div class="flex justify-between items-center rounded-md px-1">
             <div class="flex space-x-2 items-center justify-center">
+                <Button
+                    v-if="router.currentRoute.value.name !== 'dashboard'"
+                    icon
+                    variant="destructive"
+                    size="sm"
+                    class="rounded-full px-2"
+                    @click="router.back()"
+                >
+                    <Icon name="mdi:arrow-left" size="20" />
+                </Button>
                 <Icon :name="icon" :size="size" />
                 <p class="text-foreground text-xl font-bold">
                     {{ title }}
                 </p>
-                <slot name="actions" />
             </div>
-            <Button
-                v-if="router.currentRoute.value.name !== 'dashboard'"
-                icon
-                variant="destructive"
-                size="sm"
-                class="rounded-full px-2"
-                @click="router.back()"
-            >
-                <Icon name="mdi:close" size="20" />
-            </Button>
+            <slot name="actions" />
         </div>
     </main>
 </template>

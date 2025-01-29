@@ -5,7 +5,7 @@
             <VueDraggable
                 ref="el"
                 v-model="chartData"
-                class="flex flex-col md:grid md:grid-cols-3 md:gap-1 sm:items-start"
+                class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-1 sm:items-start"
                 :animation="500"
                 group="charts"
                 @end=""
@@ -30,7 +30,9 @@
                 group="charts"
                 @end=""
             >
-                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                <Card
+                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                >
                     <BarChart
                         :data="barChartData"
                         index="name"
@@ -43,8 +45,10 @@
                             }
                         "
                     />
-                </div>
-                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                </Card>
+                <Card
+                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                >
                     <LineChart
                         :data="lineChartData"
                         index="year"
@@ -60,14 +64,16 @@
                             }
                         "
                     />
-                </div>
-                <div class="bg-secondary/50 hover:bg-secondary rounded-2xl">
+                </Card>
+                <Card
+                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                >
                     <AreaChart
                         :data="lineChartData"
                         index="name"
                         :categories="['total', 'predicted']"
                     />
-                </div>
+                </Card>
             </VueDraggable>
             <PageRouter :item-links="itemLinks" />
         </div>
@@ -159,12 +165,7 @@ useHead({
 
 onMounted(async () => {
     const { areaChart, barChart, charts, lineChart } = await useChartData();
-    chartData.value = charts.filter(
-        (chart) =>
-            chart.title === 'Inventory Stock Value' ||
-            chart.title === 'Total Orders' ||
-            chart.title === 'Overall Sales',
-    );
+    chartData.value = charts;
     lineChartData.value = lineChart;
     barChartData.value = barChart;
     areaChartData.value = areaChart;

@@ -66,13 +66,13 @@ const modelHeaders: Headers[] = [
                 3: 'Store Manager',
             };
             const userClasses: Record<number, string> = {
-                0: 'bg-emerald-300 text-emerald-800',
-                1: 'bg-red-300 text-red-800',
-                2: 'bg-blue-300 text-blue-800',
-                3: 'bg-orange-300 text-orange-800',
+                0: 'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-400',
+                1: 'bg-red-50 text-red-700 border border-red-700 dark:bg-red-900 dark:text-white dark:border-red-400',
+                2: 'bg-blue-50 text-blue-700 border border-blue-700 dark:bg-blue-900 dark:text-white dark:border-blue-400',
+                3: 'bg-orange-50 text-orange-700 border border-orange-700 dark:bg-orange-900 dark:text-white dark:border-orange-400',
             };
 
-            return `<span class="inline-block px-3 py-1 rounded-full font-bold ${userClasses[val.role]}">${userTypes[val.role]}</span>`;
+            return `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${userClasses[val.role]}">${userTypes[val.role]}</span>`;
         },
         label: 'Role',
     },

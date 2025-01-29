@@ -67,14 +67,17 @@ const modelHeaders: Headers[] = [
             let bgColor = '';
             // TODO: change this if low stocks is implemented
             if (qty <= 10) {
-                bgColor = 'bg-red-300 text-red-800 animate-pulse';
+                bgColor =
+                    'bg-red-50 text-red-700 border border-red-700 animate-pulse dark:bg-red-900 dark:text-white dark:border-red-400';
             } else if (qty <= 30) {
-                bgColor = 'bg-yellow-300 text-yellow-800';
+                bgColor =
+                    'bg-yellow-50 text-yellow-700 border border-yellow-700 dark:bg-yellow-900 dark:text-white dark:border-yellow-400';
             } else {
-                bgColor = 'bg-emerald-300 text-emerald-800';
+                bgColor =
+                    'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-400';
             }
 
-            return `<span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${bgColor}">${thousandSeparator(qty)} ${val.product.po_unit || ''}</span>`;
+            return `<span class="inline-block px-3 py-1 rounded-full text-xs ${bgColor}">${thousandSeparator(qty)} ${val.product.po_unit || 'unit'}</span>`;
         },
         label: 'Stocks',
     },
