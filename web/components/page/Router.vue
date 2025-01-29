@@ -1,23 +1,47 @@
 <template>
-    <div class="p-2">
-        <div class="border-t-2 pb-4 w-full h-2 border-secondary/50" />
-        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-2">
+    <div class="p-2 space-y-4">
+        <div
+            class="relative h-0.5 w-full overflow-hidden rounded-full bg-[hsl(var(--muted))]"
+        >
+            <div class="absolute inset-y-0 left-0 w-full bg-secondary" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
             <div
                 v-for="item in itemLinks"
                 :key="item.title"
-                class="w-full h-full"
+                class="group relative"
             >
                 <NuxtLink
                     :to="item.path"
-                    class="p-6 group hover:bg-primary/60 transition duration-300 rounded-2xl flex items-center gap-2 bg-secondary border-2 border-primary/60 w-full"
+                    class="relative flex items-center gap-4 p-6 rounded-2xl bg-[hsl(var(--card))] backdrop-blur-sm border border-[hsl(var(--border))] hover:border-[hsl(var(--primary)/0.5)] transition-all duration-300 group-hover:translate-y-[-2px] group-hover:shadow-lg group-hover:shadow-[hsl(var(--primary)/0.5)]"
                 >
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 bg-current rounded-full blur opacity-0 group-hover:opacity-20 transition-opacity"
+                            :class="item.iconColor"
+                        />
+
+                        <Icon
+                            :name="item.icon"
+                            size="40"
+                            class="relative transform transition duration-300 group-hover:scale-110 group-hover:rotate-3"
+                            :class="item.iconColor"
+                        />
+                    </div>
+
+                    <span
+                        class="font-medium text-lg transition-colors"
+                        :class="item.textColor"
+                    >
+                        {{ item.title }}
+                    </span>
+
                     <Icon
-                        class="group-hover:scale-110 transition duration-300"
-                        :class="item.iconColor"
-                        :name="item.icon"
-                        size="40"
+                        name="solar:double-alt-arrow-right-outline"
+                        class="ml-auto opacity-0 transform translate-x-2 transition-all duration-300 text-[hsl(var(--muted-foreground))] group-hover:opacity-100 group-hover:translate-x-0"
+                        size="30"
                     />
-                    <span :class="item.textColor">{{ item.title }}</span>
                 </NuxtLink>
             </div>
         </div>
@@ -34,6 +58,20 @@ interface Item {
 }
 
 defineProps({
-    itemLinks: Array as PropType<Item[]>,
+    itemLinks: {
+        required: true,
+        type: Array as PropType<Item[]>,
+    },
 });
 </script>
+
+<style scoped>
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+</style>

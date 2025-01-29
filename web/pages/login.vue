@@ -1,102 +1,125 @@
 <template>
-    <div class="h-dvh flex flex-col justify-center bg-gray-900/20">
-        <div
-            class="relative container bg-transparent md:bg-gray-800/70 rounded mx-auto flex flex-col md:flex-row items-center justify-center p-4 md:p-36 md:space-y-0"
-        >
-            <NuxtLink
-                to="/"
-                class="absolute top-4 left-4 flex size-10 items-center justify-center bg-destructive rounded-full p-2"
-            >
-                <Icon name="mdi:home" size="20" class="bg-card" />
-            </NuxtLink>
+    <div
+        class="min-h-dvh flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800"
+    >
+        <div class="container mx-auto px-4">
             <div
-                class="md:flex-1 flex flex-col items-center text-center md:text-left"
+                class="relative justify-center flex flex-col md:flex-row items-center max-w-6xl mx-auto bg-gray-800/30 rounded-2xl backdrop-blur-sm p-2 md:p-12"
             >
-                <img
-                    src="../assets/application_logo.svg"
-                    alt="Logo"
-                    class="mb-2 w-24 md:w-48"
-                />
-                <h1 class="text-3xl md:text-4xl font-bold text-white">APP</h1>
-                <p class="text-gray-200 max-w-md text-center">
-                    Welcome to APP! With fully customizable themes and
-                    components. It comes with
-                    <span class="text-emerald-400"
-                        >POS, Inventory, Sales, Messaging,</span
-                    >
-                    and
-                    <span class="text-emerald-400">Customer Management.</span>
-                    <br />Let's get started!
-                </p>
-            </div>
-
-            <div
-                class="md:flex-1 max-w-full w-[400px] md:max-w-lg bg-gray-800 md:bg-gray-900/50 p-8 rounded-lg shadow-lg mx-4 md:mx-0"
-            >
-                <h2 class="text-2xl font-semibold text-center text-white mb-6">
-                    Sign In
-                </h2>
-                <div class="mb-4">
-                    <label for="email" class="text-gray-300">Username</label>
-                    <input
-                        id="email"
-                        v-model="credentials.email"
-                        type="email"
-                        class="block w-full mt-1 p-3 bg-gray-700 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
-                        placeholder="Enter your username"
-                        required
-                        autofocus
-                    />
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="text-gray-300">Password</label>
-                    <input
-                        id="password"
-                        v-model="credentials.password"
-                        type="password"
-                        class="block w-full mt-1 p-3 bg-gray-700 text-white border-none rounded-md focus:ring-yellow-500 focus:ring-2 text-base placeholder-gray-400"
-                        placeholder="Enter your password"
-                        required
-                    />
-                </div>
-
-                <div class="flex items-center justify-between mb-6">
-                    <label for="remember" class="inline-flex items-center">
-                        <input
-                            id="remember"
-                            v-model="credentials.remember"
-                            type="checkbox"
-                            class="text-yellow-500 border-gray-300 rounded focus:ring-yellow-500"
-                        />
-                        <span class="ml-2 text-sm text-gray-400"
-                            >Remember me</span
-                        >
-                    </label>
-                </div>
-
-                <Button
-                    :disabled="loading"
-                    class="w-full bg-emerald-700 rounded-full transition duration-300 hover:bg-emerald-500"
-                    @click.prevent="login"
+                <NuxtLink
+                    to="/"
+                    class="absolute top-6 left-6 flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
                 >
-                    <SpinnerTadpole
-                        :class="{ hidden: !loading }"
-                        class="size-7 text-card dark:text-card-foreground mx-1"
+                    <Icon name="mdi:home" class="text-white" size="20" />
+                </NuxtLink>
+
+                <div
+                    class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left mb-8 md:mb-0 md:pr-12"
+                >
+                    <NuxtImage
+                        src="/landing/application_logo.png"
+                        alt="Logo"
+                        class="w-24 md:w-32 mx-auto md:mx-0 mb-6 transform hover:scale-105 transition-transform"
                     />
-                    <span
-                        class="font-bold"
-                        :class="{ 'animate-pulse ml-2': loading }"
-                        >{{ loading ? 'Logging in...' : 'Login' }}</span
+                    <h1
+                        class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight"
                     >
-                </Button>
+                        <span
+                            class="bg-gradient-to-r from-emerald-600 to-indigo-600 dark:from-emerald-400 dark:to-indigo-400 text-transparent bg-clip-text"
+                        >
+                            APP
+                        </span>
+                    </h1>
+                    <p
+                        class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed"
+                    >
+                        Welcome to APP! With fully customizable themes and
+                        components. It comes with
+                        <span
+                            class="text-emerald-600 dark:text-emerald-400 font-medium"
+                            >POS, Inventory, Sales, Messaging,</span
+                        >
+                        and
+                        <span
+                            class="text-emerald-600 dark:text-emerald-400 font-medium"
+                            >Customer Management.</span
+                        >
+                        <br />Let's get started!
+                    </p>
+                </div>
+
+                <div class="w-full md:w-1/2 max-w-md">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8">
+                        <h2
+                            class="text-2xl font-bold text-white text-center mb-8"
+                        >
+                            Sign In
+                        </h2>
+
+                        <form class="space-y-4" @submit.prevent="login">
+                            <div>
+                                <label
+                                    for="email"
+                                    class="block text-sm font-medium text-gray-200 mb-1"
+                                    >Username</label
+                                >
+                                <div class="relative">
+                                    <input
+                                        id="email"
+                                        v-model="credentials.email"
+                                        type="email"
+                                        required
+                                        class="w-full bg-white/5 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder-gray-400"
+                                        placeholder="Enter your username"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label
+                                    for="password"
+                                    class="block text-sm font-medium text-gray-200 mb-1"
+                                    >Password</label
+                                >
+                                <div class="relative">
+                                    <input
+                                        id="password"
+                                        v-model="credentials.password"
+                                        type="password"
+                                        required
+                                        class="w-full bg-white/5 mb-4 text-white border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder-gray-400"
+                                        placeholder="Enter your password"
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                :disabled="loading"
+                                class="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-semibold py-3 px-4 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                <div
+                                    class="flex items-center justify-center space-x-2"
+                                >
+                                    <SpinnerTadpole
+                                        v-if="loading"
+                                        class="w-5 h-5 text-white"
+                                    />
+                                    <span>{{
+                                        loading ? 'Logging in...' : 'Login'
+                                    }}</span>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
+import { useMagicKeys } from '@vueuse/core';
 
 const auth = useAuth();
 const loading = ref(false);

@@ -4,17 +4,15 @@
         :key="product.id"
         :class="
             !product.inventories[inventoryLocation]?.qty
-                ? 'cursor-not-allowed pointer-events-none'
+                ? 'cursor-not-allowed pointer-events-none opacity-50'
                 : ''
         "
-        class="relative rounded bg-card border-2 border-secondary p-1 flex-grow size-[130px] md:size-[190px] max-w-[250px] pb-1 font-medium overflow-hidden"
+        class="relative rounded bg-[hsl(var(--card))] border border-[hsl(var(--border))] flex-grow size-[130px] md:size-[190px] max-w-[250px] pb-2 font-medium overflow-hidden transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] cursor-pointer"
         @click="cartStore.addProductToCart(product)"
     >
         <div
-            class="flex items-center justify-center gap-1 text-white text-sm bg-destructive/70 p-2 rounded"
-            :class="
-                !product.inventories[inventoryLocation]?.qty ? '' : 'hidden'
-            "
+            v-if="!product.inventories[inventoryLocation]?.qty"
+            class="flex items-center justify-center gap-1 text-white text-sm bg-[hsl(var(--destructive)/0.7)] p-2 rounded-md"
         >
             <Icon name="mdi:warning" size="20" />
             Not in stock
@@ -24,66 +22,63 @@
                 !product.inventories[inventoryLocation]?.qty ? 'opacity-20' : ''
             "
         >
-            <div class="flex m-auto items-center justify-center">
-                <div
-                    :hidden="
+            <div class="flex m-auto items-center justify-center relative">
+                <Icon
+                    v-if="
                         product.inventories[inventoryLocation]?.qty < 1 ||
                         product.inventories[inventoryLocation]?.qty > restockQty
                     "
-                    class="text-destructive"
-                >
-                    <Icon
-                        name="mdi:warning-circle"
-                        class="animate-ping absolute top-2 right-3"
-                        size="25"
-                    />
-                </div>
+                    name="mdi:warning-circle"
+                    class="animate-ping absolute top-0.5 right-0.5 text-[hsl(var(--destructive))]"
+                    size="25"
+                />
                 <NuxtImg
                     alt="prod-image"
                     :src="product.image || noImage"
-                    class="rounded h-[68px] md:h-32 w-auto object-cover"
+                    class="rounded h-[68px] md:h-32 w-auto object-contain"
                 />
             </div>
 
             <div
-                class="border-t-2 border-secondary flex items-center justify-between absolute bottom-0 left-0 rounded-b-md w-full py-1 px-3 bg-card"
+                class="border-t border-[hsl(var(--border))] flex items-center justify-between absolute bottom-0 left-0 rounded-b-xl w-full py-2 px-3 bg-[hsl(var(--card))]"
             >
                 <div class="flex-1 overflow-hidden">
                     <div
-                        class="text-sm whitespace-nowrap overflow-hidden text-ellipsis"
+                        class="text-sm whitespace-nowrap overflow-hidden text-ellipsis text-[hsl(var(--foreground))]"
                     >
                         {{ product.name }}
                     </div>
                     <div
-                        class="text-sm md:text-[1rem] text-green-600 dark:text-green-400"
+                        class="text-sm md:text-[1rem] text-emerald-700 dark:text-emerald-500"
                     >
                         {{ currencyFormat(product.price) }}
                     </div>
                 </div>
                 <div
-                    class="text-sm flex items-center space-x-1 justify-center bg-gray-500/20 p-1 rounded-full"
+                    class="text-sm flex items-center space-x-1 justify-center bg-[hsl(var(--muted))] p-1 rounded-full"
                     :class="
                         product.inventories[inventoryLocation]?.qty > restockQty
                             ? ''
-                            : 'text-destructive animate-pulse'
+                            : 'text-[hsl(var(--destructive))] animate-pulse'
                     "
                 >
                     <Icon name="solar:box-minimalistic-linear" size="20" />
-                    <span class="text-xs font-medium text-foreground/70">{{
-                        product.inventories[inventoryLocation]?.qty
-                    }}</span>
+                    <span
+                        class="text-xs font-medium text-[hsl(var(--muted-foreground))]"
+                    >
+                        {{ product.inventories[inventoryLocation]?.qty }}
+                    </span>
                 </div>
             </div>
 
-            <!-- Cart icon (hidden by default) -->
             <div
-                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-foreground/50 rounded"
+                class="absolute cursor-pointer inset-0 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-[hsl(var(--foreground)/0.5)]"
             >
                 <div class="flex items-center justify-center">
                     <Icon
                         name="solar:add-circle-bold"
                         size="50"
-                        class="text-background"
+                        class="text-[hsl(var(--background))]"
                     />
                 </div>
             </div>
@@ -97,7 +92,6 @@ import { useCart } from '~/stores/useCart';
 
 const cartStore = useCart();
 
-// TODO: fix types
 const restockQty: any = inject('restockQty');
 const inventoryLocation: any = inject('inventoryLocation');
 

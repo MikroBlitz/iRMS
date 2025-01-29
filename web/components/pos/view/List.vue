@@ -7,7 +7,7 @@
                 ? 'cursor-not-allowed pointer-events-none'
                 : ''
         "
-        class="relative flex rounded bg-card border-2 border-secondary p-3 h-[60px] w-full font-medium overflow-hidden"
+        class="relative flex rounded bg-card border border-secondary p-3 h-[60px] w-full font-medium overflow-hidden"
         @click="cartStore.addProductToCart(product)"
     >
         <div
@@ -51,7 +51,7 @@
                     {{ product.name }}
                 </div>
                 <div
-                    class="text-sm md:text-[1rem] text-green-600 dark:text-green-400"
+                    class="text-sm md:text-[1rem] text-emerald-700 dark:text-emerald-500"
                 >
                     {{ currencyFormat(product.price) }}
                 </div>
