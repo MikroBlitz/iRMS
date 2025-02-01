@@ -115,6 +115,8 @@ export type CrudModalField = {
     max?: number;
     step?: number;
     optionTitle?: string;
+    class?: string;
+    enum?: any;
 };
 
 export type Action = {

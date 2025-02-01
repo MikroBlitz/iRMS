@@ -50,29 +50,30 @@
 
 <script setup lang="ts">
 import type { CrudModalField, Headers } from '~/types';
+import { Role } from '~/types/codegen/graphql';
 
 const modelName = 'user';
 const pageTitle = ref(getPluralName(toTitleCase(modelName)));
 const icon = 'solar:user-circle-linear';
 
+// Custom Styles in tables
+const userClasses: Record<Role, string> = {
+    [Role.Admin]:
+        'bg-red-50 text-red-700 border border-red-700 dark:bg-red-900 dark:text-white dark:border-red-400',
+    [Role.Staff]:
+        'bg-blue-50 text-blue-700 border border-blue-700 dark:bg-blue-900 dark:text-white dark:border-blue-400',
+    [Role.StoreManager]:
+        'bg-orange-50 text-orange-700 border border-orange-700 dark:bg-orange-900 dark:text-white dark:border-orange-400',
+    [Role.User]:
+        'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-400',
+};
+
 const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     {
         key: (val) => {
-            const userTypes: Record<number, string> = {
-                0: 'User',
-                1: 'Admin',
-                2: 'Staff',
-                3: 'Store Manager',
-            };
-            const userClasses: Record<number, string> = {
-                0: 'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-400',
-                1: 'bg-red-50 text-red-700 border border-red-700 dark:bg-red-900 dark:text-white dark:border-red-400',
-                2: 'bg-blue-50 text-blue-700 border border-blue-700 dark:bg-blue-900 dark:text-white dark:border-blue-400',
-                3: 'bg-orange-50 text-orange-700 border border-orange-700 dark:bg-orange-900 dark:text-white dark:border-orange-400',
-            };
-
-            return `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${userClasses[val.role]}">${userTypes[val.role]}</span>`;
+            const roleClass = userClasses[val.role as Role];
+            return `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${roleClass}">${transformStringEnumsToTitleKeys(val.role)}</span>`;
         },
         label: 'Role',
     },
@@ -82,7 +83,12 @@ const modelHeaders: Headers[] = [
 ];
 
 const modelFields: CrudModalField[] = [
-    { label: 'Role', name: 'role', type: 'roleSelect' },
+    {
+        enum: transformToKeyValuePairs(Role),
+        label: 'Role',
+        name: 'role',
+        type: 'select',
+    },
     { label: 'First Name', name: 'first_name', required: true, type: 'text' },
     { label: 'Middle Name', name: 'middle_name', type: 'text' },
     { label: 'Last Name', name: 'last_name', required: true, type: 'text' },

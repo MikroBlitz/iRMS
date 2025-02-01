@@ -85,3 +85,19 @@ export async function processFields(fields: any[], data: any) {
         }
     }
 }
+
+export const transformStringEnumsToTitleKeys = (input: string): string => {
+    return input
+        .replace(/_/g, ' ')
+        .toLowerCase()
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+export const transformToKeyValuePairs = (
+    enumObj: Record<string, string>,
+): { label: string; value: string }[] => {
+    return Object.values(enumObj).map((value) => ({
+        label: transformStringEnumsToTitleKeys(value),
+        value,
+    }));
+};

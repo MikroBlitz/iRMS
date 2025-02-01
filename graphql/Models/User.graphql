@@ -9,7 +9,7 @@ type User {
     messages: [Message] @hasMany
     contacts: [Contact] @hasMany
     email_verified_at: DateTime
-    role: Int # TODO: use enum
+    role: Role
     customers: [Customer] @hasMany
     usersCount: Int
     logs: [Log] @hasMany
@@ -26,7 +26,7 @@ input UserInput {
     name: String
     email: String
     password: String
-    role: Int # TODO: use enum
+    role: Role
     customers: ConnectCustomersRelation
     logs: ConnectUsersRelation
 }

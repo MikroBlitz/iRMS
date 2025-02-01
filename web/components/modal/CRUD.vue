@@ -5,7 +5,7 @@
     >
         <div
             v-on-click-outside="closeModal"
-            class="bg-card rounded-2xl shadow-lg w-full max-w-lg p-6 relative"
+            class="bg-card rounded-2xl shadow-lg w-full max-w-3xl p-6 relative"
         >
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl text-foreground">
@@ -21,11 +21,17 @@
                 </Button>
             </div>
 
-            <form @submit.prevent="handleSubmit">
+            <form
+                class="grid grid-cols-12 gap-2"
+                @submit.prevent="handleSubmit"
+            >
                 <div
                     v-for="(field, index) in fields"
                     :key="index"
-                    class="relative mb-4 px-4"
+                    class="relative mb-4 px-2"
+                    :class="
+                        field.class ? field.class : 'col-span-12 sm:col-span-6'
+                    "
                 >
                     <label
                         :for="field.name"
@@ -79,15 +85,6 @@
                         />
                     </template>
 
-                    <template v-if="field.type === 'roleSelect'">
-                        <InputRoles
-                            :field="field"
-                            :form="form"
-                            :get-data="getData"
-                            :submit-button-text="submitButtonText"
-                        />
-                    </template>
-
                     <!-- Toggle button for password visibility -->
                     <button
                         v-if="field.type === 'password' && form[field.name]"
@@ -114,7 +111,7 @@
 
                 <div
                     v-if="submitButtonText"
-                    class="flex justify-end space-x-2 px-4"
+                    class="space-x-2 px-2 col-span-12 flex justify-end"
                 >
                     <Button
                         :disabled="isLoading"

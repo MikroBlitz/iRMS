@@ -79,7 +79,6 @@ const modelHeaders: Headers[] = [
 ];
 
 const modelFields: CrudModalField[] = [
-    { label: 'Name', name: 'name', required: true, type: 'text' },
     {
         label: 'Category',
         model: 'Category',
@@ -88,12 +87,28 @@ const modelFields: CrudModalField[] = [
         queryName: 'categoryFilter',
         type: 'combobox',
     },
-    { label: 'PO Unit (ex: pcs, kg, etc.)', name: 'po_unit', type: 'text' },
-    { label: 'Image URL', name: 'image', type: 'text' },
-    // { name: 'image', label: 'Image Upload', type: 'file' },
-    { label: 'Description', name: 'description', type: 'textarea' },
-    { label: 'SKU', name: 'sku', type: 'text' },
-    { label: 'Price', name: 'price', type: 'text' },
+    { label: 'Name*', name: 'name', required: true, type: 'text' },
+    {
+        class: 'col-span-4',
+        label: 'PO Unit (ex: pcs, kg, etc.)',
+        name: 'po_unit',
+        type: 'text',
+    },
+    {
+        class: 'col-span-4',
+        label: 'SKU*',
+        name: 'sku',
+        required: true,
+        type: 'text',
+    },
+    { class: 'col-span-4', label: 'Price', name: 'price', type: 'text' },
+    { class: 'col-span-8', label: 'Image URL', name: 'image', type: 'text' },
+    {
+        class: 'col-span-12',
+        label: 'Description',
+        name: 'description',
+        type: 'textarea',
+    },
 ];
 
 const {

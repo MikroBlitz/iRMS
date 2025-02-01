@@ -4,8 +4,8 @@ type Order {
     cash_tendered: Float
     change: Float
     date: String
-    payment: Int # TODO: PaymentStatus
-    status: Int # TODO: OrderStatus
+    payment: PaymentStatus
+    status: OrderStatus
     total_amount: Float
     transaction_number: String
     customer: Customer @belongsTo
@@ -21,8 +21,8 @@ input OrderInput {
     cash_tendered: String
     change: Float
     date: String
-    payment: Int # TODO: PaymentStatus
-    status: Int # TODO: OrderStatus
+    payment: PaymentStatus
+    status: OrderStatus
     total_amount: Float
     transaction_number: String
     customer: ConnectCustomerRelation
@@ -43,8 +43,8 @@ input ConnectOrdersRelation {
 }
 
 enum OrderStatus {
-    PENDING @enum(value: 0)
-    COMPLETED @enum(value: 1)
+    COMPLETED @enum(value: 0)
+    ON_HOLD @enum(value: 1)
     CANCELLED @enum(value: 2)
 }
 

@@ -87,7 +87,8 @@ const modelHeaders: Headers[] = [
 
 const modelFields: CrudModalField[] = [
     {
-        label: 'Product *',
+        class: 'col-span-12',
+        label: 'Product*',
         model: 'Product',
         name: 'product_id',
         optionTitle: 'name',
@@ -95,7 +96,7 @@ const modelFields: CrudModalField[] = [
         required: true,
         type: 'combobox',
     },
-    { label: 'Stocks *', name: 'qty', required: true, type: 'number' },
+    { label: 'Stocks*', name: 'qty', required: true, type: 'number' },
     { label: 'Location', name: 'location', type: 'text' },
 ];
 

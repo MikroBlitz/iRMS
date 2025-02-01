@@ -65,8 +65,20 @@ const modelHeaders: Headers[] = [
 ];
 
 const modelFields: CrudModalField[] = [
-    { label: 'Name *', name: 'name', required: true, type: 'text' },
-    { label: 'Slug *', name: 'slug', required: true, type: 'text' },
+    {
+        class: 'col-span-12',
+        label: 'Name*',
+        name: 'name',
+        required: true,
+        type: 'text',
+    },
+    {
+        class: 'col-span-12',
+        label: 'Slug*',
+        name: 'slug',
+        required: true,
+        type: 'text',
+    },
 ];
 
 const {
