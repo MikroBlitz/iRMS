@@ -498,8 +498,8 @@ export type Order = {
   deleted_at?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   order_items?: Maybe<Array<Maybe<OrderItem>>>;
-  payment?: Maybe<Scalars['Int']['output']>;
-  status?: Maybe<Scalars['Int']['output']>;
+  payment?: Maybe<PaymentStatus>;
+  status?: Maybe<OrderStatus>;
   total_amount?: Maybe<Scalars['Float']['output']>;
   transaction_number?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['DateTime']['output']>;
@@ -541,8 +541,8 @@ export type OrderInput = {
   date?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   order_items?: InputMaybe<ConnectOrderItemsRelation>;
-  payment?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<Scalars['Int']['input']>;
+  payment?: InputMaybe<PaymentStatus>;
+  status?: InputMaybe<OrderStatus>;
   total_amount?: InputMaybe<Scalars['Float']['input']>;
   transaction_number?: InputMaybe<Scalars['String']['input']>;
 };
@@ -594,7 +594,7 @@ export type OrderPaginator = {
 export enum OrderStatus {
   Cancelled = 'CANCELLED',
   Completed = 'COMPLETED',
-  Pending = 'PENDING'
+  OnHold = 'ON_HOLD'
 }
 
 /** Information about pagination using a fully featured paginator. */
@@ -1105,7 +1105,7 @@ export type ProductFragment = { __typename?: 'Product', id: string, name: string
 
 export type InventoryFragment = { __typename?: 'Inventory', id: string, product_id?: string | null, qty: number, location?: string | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null, product?: { __typename?: 'Product', id: string, name: string, po_unit?: string | null } | null } & { ' $fragmentName'?: 'InventoryFragment' };
 
-export type OrderFragment = { __typename?: 'Order', id?: string | null, cash_tendered?: number | null, change?: number | null, date?: string | null, payment?: number | null, status?: number | null, total_amount?: number | null, transaction_number?: string | null, customer_guest?: string | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null, order_items?: Array<(
+export type OrderFragment = { __typename?: 'Order', id?: string | null, cash_tendered?: number | null, change?: number | null, date?: string | null, payment?: PaymentStatus | null, status?: OrderStatus | null, total_amount?: number | null, transaction_number?: string | null, customer_guest?: string | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null, order_items?: Array<(
     { __typename?: 'OrderItem' }
     & { ' $fragmentRefs'?: { 'OrderItemFragment': OrderItemFragment } }
   ) | null> | null } & { ' $fragmentName'?: 'OrderFragment' };

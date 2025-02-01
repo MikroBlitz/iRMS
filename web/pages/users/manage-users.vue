@@ -72,7 +72,7 @@ const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     {
         key: (val) => {
-            const roleClass = userClasses[val.role as Role] || 'text-gray-500';
+            const roleClass = userClasses[val.role as Role];
             return `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${roleClass}">${transformStringEnumsToTitleKeys(val.role)}</span>`;
         },
         label: 'Role',
@@ -84,7 +84,6 @@ const modelHeaders: Headers[] = [
 
 const modelFields: CrudModalField[] = [
     {
-        class: 'col-span-12',
         enum: transformToKeyValuePairs(Role),
         label: 'Role',
         name: 'role',

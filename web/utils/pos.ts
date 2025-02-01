@@ -71,7 +71,7 @@ export const orderDetails = (
     change: Ref<number | string>,
     customerName: Ref<string>,
     paymentMethod: Ref<string | number>,
-    status: Ref<string | number>,
+    status: string,
     totalAmount: CartStore,
     transaction_number: string,
 ) => ({
@@ -81,7 +81,7 @@ export const orderDetails = (
     date: new Date().toISOString(),
     order_items: { upsert: orderItems },
     payment: paymentMethod.value,
-    status: status.value,
+    status: status,
     total_amount: totalAmount,
     transaction_number: transaction_number,
 });

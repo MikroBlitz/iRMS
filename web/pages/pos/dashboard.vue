@@ -31,8 +31,6 @@ const selectedCategory = ref('');
 
 const customerName: Ref<string> = ref('Guest');
 const cashTendered: Ref<string> = ref('');
-const paymentMethod: Ref<number> = ref(0);
-const status: Ref<number> = ref(0);
 
 const modelName = 'product';
 const modelFields = ['name', 'image', 'price', 'qty'].map((name) => ({
@@ -97,6 +95,4 @@ provide('filteredItems', filteredItems);
 provide('products', products);
 provide('isLoading', isLoading);
 provide('cashTendered', cashTendered);
-provide('status', status);
-provide('paymentMethod', paymentMethod);
 </script>

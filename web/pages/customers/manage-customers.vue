@@ -78,7 +78,7 @@ const modelFields: CrudModalField[] = [
     // },
     { label: 'Customer', name: 'name', type: 'text' },
     { label: 'Phone', name: 'phone', type: 'text' },
-    { label: 'Address', name: 'address', type: 'text' },
+    { class: 'col-span-12', label: 'Address', name: 'address', type: 'text' },
     // { label: 'Points', name: 'points', type: 'text' },
 ];
 

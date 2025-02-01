@@ -63,7 +63,9 @@
                             >
                                 <span>Payment Method</span>
                                 <span class="font-medium">{{
-                                    getPaymentMethod(paymentMethod)
+                                    paymentMethods.find(
+                                        (val) => val.value === paymentMethod,
+                                    ).name
                                 }}</span>
                             </div>
                             <div class="flex justify-between">
@@ -194,13 +196,9 @@ import { useMagicKeys } from '@vueuse/core';
 import type { ModalField } from '~/types';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { getPaymentMethod, paymentMethods } from '~/composables/useConstant';
+import { paymentMethods } from '~/composables/useConstant';
 import { errorOrder, itemsToReduce } from '~/utils/pos';
-import { OrderStatus } from '~/types/codegen/graphql';
-
-const auth = useAuth();
-const keys = useMagicKeys();
-const proceedPayment: any = keys['Ctrl+Enter'];
+import { OrderStatus, PaymentStatus } from '~/types/codegen/graphql';
 
 const emit = defineEmits(['close']);
 defineProps({
@@ -231,6 +229,10 @@ defineProps({
     visible: Boolean,
 });
 
+const auth = useAuth();
+const keys = useMagicKeys();
+const proceedPayment: any = keys['Ctrl+Enter'];
+
 const { upsertOrder } = await import('~/graphql/Order');
 const { reduceInventory } = await import('~/graphql/Inventory');
 
@@ -240,11 +242,10 @@ const receiptVisible = ref(false);
 
 const cartStore: any = useCart();
 const totalAmount = cartStore.totalAmountWithTaxAndDiscount;
+const paymentMethod = ref(PaymentStatus.Cash);
 
 const customerName: any = inject('customerName');
 const cashTendered: any = inject('cashTendered');
-const paymentMethod: any = inject('paymentMethod');
-const status: any = inject('status');
 const change: ComputedRef<number> = computed(() =>
     parseFloat((cashTendered.value - totalAmount).toFixed(2)),
 );
@@ -264,9 +265,7 @@ const appendDot = () =>
         ? (cashTendered.value = cashTendered.value + '.')
         : null;
 
-const closeModal = () => {
-    emit('close');
-};
+const closeModal = () => emit('close');
 
 const completeOrder = async () => {
     try {
@@ -285,6 +284,7 @@ const completeOrder = async () => {
         }
 
         const { mutate: mutateOrderDetails } = useMutation(upsertOrder);
+        const status = OrderStatus.Completed;
         await mutateOrderDetails({
             input: orderDetails(
                 orderItems(cartStore),
@@ -309,7 +309,6 @@ const completeOrder = async () => {
 
         cashTendered.value = '';
         customerName.value = 'Guest';
-        paymentMethod.value = 0;
     } catch (error: any) {
         errorOrder(error);
     }

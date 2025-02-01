@@ -1,3 +1,5 @@
+import { PaymentStatus } from '~/types/codegen/graphql';
+
 // pos
 const paymentMethods = [
     {
@@ -6,7 +8,7 @@ const paymentMethods = [
         icon: 'mdi:philippine-peso',
         iconSize: 20,
         name: 'Cash',
-        value: 0,
+        value: PaymentStatus.Cash,
         variant: 'default',
     },
     {
@@ -15,7 +17,7 @@ const paymentMethods = [
         icon: 'arcticons:gcash',
         iconSize: 20,
         name: 'Gcash',
-        value: 1,
+        value: PaymentStatus.Gcash,
         variant: 'outline',
     },
     {
@@ -24,17 +26,11 @@ const paymentMethods = [
         icon: 'solar:card-transfer-outline',
         iconSize: 25,
         name: 'Bank',
-        value: 2,
+        value: PaymentStatus.Bank,
         variant: 'outline',
     },
 ];
-const paymentMap: any = {
-    0: 'Cash',
-    1: 'Gcash',
-    2: 'Bank Transfer',
-};
 const noImage = 'https://static.thenounproject.com/png/340719-200.png';
-const getPaymentMethod = (value: any) => paymentMap[value] || 'N/A';
 
 // receipt
 const storeName = ref('Shop Name');
