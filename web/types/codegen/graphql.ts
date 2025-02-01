@@ -932,7 +932,7 @@ export type User = {
   middle_name?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   password?: Maybe<Scalars['String']['output']>;
-  role?: Maybe<Scalars['Int']['output']>;
+  role?: Maybe<Role>;
   updated_at?: Maybe<Scalars['DateTime']['output']>;
   usersCount?: Maybe<Scalars['Int']['output']>;
 };
@@ -947,7 +947,7 @@ export type UserInput = {
   middle_name?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
-  role?: InputMaybe<Scalars['Int']['input']>;
+  role?: InputMaybe<Role>;
 };
 
 /** A paginated list of User items. */
@@ -1095,7 +1095,7 @@ export type RestoreCustomerMutation = { __typename?: 'Mutation', restoreCustomer
 
 export type LogFragment = { __typename?: 'Log', id: string, ip_address?: string | null, browser?: string | null, event?: string | null, created_at?: any | null, deleted_at?: any | null, updated_at?: any | null, user?: { __typename?: 'User', id: string, name?: string | null } | null } & { ' $fragmentName'?: 'LogFragment' };
 
-export type UserFragment = { __typename?: 'User', id: string, first_name?: string | null, middle_name?: string | null, last_name?: string | null, name?: string | null, email?: string | null, password?: string | null, role?: number | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null } & { ' $fragmentName'?: 'UserFragment' };
+export type UserFragment = { __typename?: 'User', id: string, first_name?: string | null, middle_name?: string | null, last_name?: string | null, name?: string | null, email?: string | null, password?: string | null, role?: Role | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null } & { ' $fragmentName'?: 'UserFragment' };
 
 export type OrderItemFragment = { __typename?: 'OrderItem', id?: string | null, order_id?: string | null, product_id?: string | null, qty?: number | null, total_amount?: number | null, created_at?: any | null, updated_at?: any | null, deleted_at?: any | null, product?: { __typename?: 'Product', id: string, name: string } | null } & { ' $fragmentName'?: 'OrderItemFragment' };
 

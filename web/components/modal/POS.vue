@@ -5,7 +5,7 @@
     >
         <div v-auto-animate class="flex space-x-2 items-center justify-center">
             <div
-                class="w-full max-w-lg overflow-hidden rounded-xl bg-background shadow-xl"
+                class="w-full md:w-[700px] max-w-lg overflow-hidden rounded-xl bg-card shadow-xl"
             >
                 <div class="border-b bg-muted/40 pl-4 p-2">
                     <div class="flex items-center justify-between">
@@ -196,6 +196,7 @@ import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { getPaymentMethod, paymentMethods } from '~/composables/useConstant';
 import { errorOrder, itemsToReduce } from '~/utils/pos';
+import { OrderStatus } from '~/types/codegen/graphql';
 
 const auth = useAuth();
 const keys = useMagicKeys();
@@ -234,7 +235,6 @@ const { upsertOrder } = await import('~/graphql/Order');
 const { reduceInventory } = await import('~/graphql/Inventory');
 
 const isMobile = inject('isMobile');
-const form = ref<Record<string, any>>({});
 const loading = ref(false);
 const receiptVisible = ref(false);
 
