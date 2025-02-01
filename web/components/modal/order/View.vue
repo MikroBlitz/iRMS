@@ -152,7 +152,7 @@
 
         <div
             v-if="showReceipt"
-            class="h-[calc(100vh-230px)] border bg-card overflow-y-auto ml-2"
+            class="max-h-[calc(100vh-230px)] border bg-card overflow-y-auto ml-2"
         >
             <ModalOrderReceipt
                 :id="data.id"

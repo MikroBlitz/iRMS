@@ -1,21 +1,21 @@
 <template>
-    <div v-auto-animate class="bg-secondary px-3 py-1 pb-2 rounded-b">
-        <div class="flex justify-between items-center gap-1">
+    <div v-auto-animate class="bg-secondary px-6 pb-4 pt-1 shadow-md">
+        <div class="flex justify-between items-center gap-3">
             <PosCartScanner />
 
-            <div class="flex gap-1">
+            <div class="flex gap-4">
                 <Button
-                    class="rounded p-4 py-8 bg-primary/70 hover:bg-primary hover:scale-105 transition ease-in-out delay-150"
+                    class="rounded-lg p-4 py-6 bg-primary/70 hover:bg-primary/80 hover:scale-105 transition-all ease-in-out"
                     :class="
                         cartStore.cartItems.length
                             ? ''
-                            : 'opacity-0 disabled cursor-default'
+                            : 'opacity-50 cursor-not-allowed'
                     "
                     @click.prevent="handleSubmit"
                 >
                     <Icon
                         name="mdi:gesture-tap-hold"
-                        size="30"
+                        size="32"
                         class="text-white"
                     />
                     <p class="text-secondary dark:text-foreground text-xl">
@@ -25,7 +25,7 @@
 
                 <Button
                     type="button"
-                    class="rounded p-6 py-8 bg-emerald-700 hover:bg-emerald-500 hover:scale-105 transition ease-in-out delay-150"
+                    class="rounded-lg p-6 py-6 bg-emerald-700 hover:bg-emerald-500 hover:scale-105 transition-all ease-in-out"
                     :disabled="!cartStore.cartItems.length"
                     @click.prevent="openPosModal"
                 >
@@ -35,7 +35,7 @@
                                 ? 'solar:hand-money-bold'
                                 : 'mdi:cart-arrow-down'
                         "
-                        size="30"
+                        size="32"
                         class="text-white"
                         :class="cartStore.cartItems.length ? 'mr-2' : ''"
                     />
@@ -46,7 +46,6 @@
             </div>
         </div>
 
-        <!-- PosModal Component -->
         <ModalPOS
             v-if="showModal"
             :visible="showModal"
@@ -66,7 +65,6 @@
 <script setup lang="ts">
 import { useMagicKeys, useTimeoutFn } from '@vueuse/core';
 import { Button } from '@/components/ui/button';
-
 import { useCart } from '~/stores/useCart';
 
 const keys = useMagicKeys();
@@ -93,16 +91,13 @@ const closePosModal = () => {
 
 const customerName: any = inject('customerName');
 
-// TODO: Hold Order
 const handleSubmit = () => {
-    const orderData = cartStore.cartItems.map((product) => {
-        return {
-            item: product.item,
-            price: product.price,
-            qty: product.qty,
-            total_amount: product.amount,
-        };
-    });
+    const orderData = cartStore.cartItems.map((product) => ({
+        item: product.item,
+        price: product.price,
+        qty: product.qty,
+        total_amount: product.amount,
+    }));
     cartStore.holdOrder(customerName.value);
     if (customerName.value.length > 0) {
         console.log(`Order for ${customerName.value}:`, orderData);

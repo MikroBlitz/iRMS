@@ -31,7 +31,7 @@
                 @end=""
             >
                 <Card
-                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                    class="py-6 pr-6 bg-[hsl(var(--secondary))]/50 border border-[hsl(var(--border))] transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] rounded-2xl"
                 >
                     <BarChart
                         :data="barChartData"
@@ -47,7 +47,7 @@
                     />
                 </Card>
                 <Card
-                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                    class="py-6 pr-6 bg-[hsl(var(--secondary))]/50 border border-[hsl(var(--border))] transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] rounded-2xl"
                 >
                     <LineChart
                         :data="lineChartData"
@@ -66,7 +66,7 @@
                     />
                 </Card>
                 <Card
-                    class="py-6 pr-6 bg-secondary/50 hover:bg-secondary rounded-2xl"
+                    class="py-6 pr-6 bg-[hsl(var(--secondary))]/50 border border-[hsl(var(--border))] transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] rounded-2xl"
                 >
                     <AreaChart
                         :data="lineChartData"
@@ -84,8 +84,8 @@
 import { VueDraggable } from 'vue-draggable-plus';
 import type { Chart } from '~/types';
 import { BarChart } from '@/components/ui/chart-bar';
-import { LineChart } from '@/components/ui/chart-line';
 import { AreaChart } from '@/components/ui/chart-area';
+import { LineChart } from '@/components/ui/chart-line';
 
 const pageTitle = ref('Dashboard');
 const chartData: Ref<Chart[]> = ref([]);

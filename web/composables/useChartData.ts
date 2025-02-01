@@ -57,43 +57,28 @@ export default async function useChartData() {
             predicted: Math.floor(Math.random() * 2000) + 500,
             total: Math.floor(Math.random() * 2000) + 500,
         },
-        {
-            name: 'Apr',
-            predicted: Math.floor(Math.random() * 2000) + 500,
-            total: Math.floor(Math.random() * 2000) + 500,
-        },
-        {
-            name: 'May',
-            predicted: Math.floor(Math.random() * 2000) + 500,
-            total: Math.floor(Math.random() * 2000) + 500,
-        },
-        {
-            name: 'Jun',
-            predicted: Math.floor(Math.random() * 2000) + 500,
-            total: Math.floor(Math.random() * 2000) + 500,
-        },
-        {
-            name: 'Jul',
-            predicted: Math.floor(Math.random() * 2000) + 500,
-            total: Math.floor(Math.random() * 2000) + 500,
-        },
     ]);
 
     const lineChart = ref([
         {
-            'Export Growth Rate': 2.04,
-            'Import Growth Rate': 1.53,
-            year: 1970,
+            'Export Growth Rate': 1.07,
+            'Import Growth Rate': 2.45,
+            year: 2018,
         },
         {
-            'Export Growth Rate': 1.96,
-            'Import Growth Rate': 1.58,
-            year: 1971,
+            'Export Growth Rate': 1.03,
+            'Import Growth Rate': 2.47,
+            year: 2019,
         },
         {
-            'Export Growth Rate': 1.96,
-            'Import Growth Rate': 1.61,
-            year: 1972,
+            'Export Growth Rate': 0.92,
+            'Import Growth Rate': 2.48,
+            year: 2020,
+        },
+        {
+            'Export Growth Rate': 0.82,
+            'Import Growth Rate': 2.51,
+            year: 2021,
         },
     ]);
 
@@ -110,6 +95,16 @@ export default async function useChartData() {
         },
         {
             name: 'Mar',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'Apr',
+            predicted: Math.floor(Math.random() * 2000) + 500,
+            total: Math.floor(Math.random() * 2000) + 500,
+        },
+        {
+            name: 'May',
             predicted: Math.floor(Math.random() * 2000) + 500,
             total: Math.floor(Math.random() * 2000) + 500,
         },

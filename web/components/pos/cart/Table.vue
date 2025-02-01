@@ -17,7 +17,9 @@
         <PosTable>
             <TableHeader v-show="cartStore.cartItems.length">
                 <TableRow>
-                    <TableHead class="md:w-[480px] h-[50px] text-foreground">
+                    <TableHead
+                        class="md:w-[480px] h-[50px] text-foreground font-bold"
+                    >
                         <span>ITEM</span>
                     </TableHead>
                     <TableHead
@@ -45,7 +47,7 @@
                             >
                                 <NuxtImg
                                     :src="product.image || noImage"
-                                    class="size-[65px] object-cover rounded"
+                                    class="size-[60px] object-cover rounded"
                                 />
                                 <div class="flex flex-col">
                                     <div class="text-overflow-hidden">
@@ -59,7 +61,7 @@
                         </div>
                     </TableCell>
                     <TableCell class="flex items-center justify-center">
-                        <div class="mt-2">
+                        <div class="mt-1.5">
                             <NumberField
                                 :default-value="product.qty"
                                 :min="0"

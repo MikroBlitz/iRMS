@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 space-y-4">
+    <div class="p-2 space-y-4 pb-8">
         <div
             class="relative h-0.5 w-full overflow-hidden rounded-full bg-[hsl(var(--muted))]"
         >
