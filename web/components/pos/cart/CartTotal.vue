@@ -1,30 +1,37 @@
 <template>
-    <div class="m-auto bg-secondary px-4 py-1">
+    <div class="m-auto bg-secondary px-6 py-1 shadow-md">
         <div
             class="flex flex-col text-foreground text-sm font-medium"
-            :class="{ 'opacity-5': !cartStore.totalAmount }"
+            :class="{ 'opacity-50': !cartStore.totalAmount }"
         >
             <div class="flex justify-between items-center">
-                <div>Base Total</div>
-                <div>{{ currencyFormat(cartStore.totalAmount) }}</div>
+                <span class="font-semibold text-lg">Base Total</span>
+                <strong>{{ currencyFormat(cartStore.totalAmount) }}</strong>
             </div>
-            <div class="flex justify-between items-center text-foreground">
-                <div>Promotions</div>
-                <div>- {{ currencyFormat(cartStore.promotionAmount) }}</div>
-            </div>
-            <div class="flex justify-between items-center">
-                <div>Taxes</div>
-                <div>{{ currencyFormat(cartStore.totalTax) }}</div>
-            </div>
+
             <div
-                class="flex justify-between items-center text-2xl font-bold border-y-2 border-primary"
+                class="flex justify-between items-center text-emerald-700 dark:text-emerald-500"
             >
-                <div>Checkout</div>
-                <div>
+                <span class="font-semibold">Promotions</span>
+                <span>- {{ currencyFormat(cartStore.promotionAmount) }}</span>
+            </div>
+
+            <div
+                class="flex justify-between items-center text-destructive dark:text-red-500"
+            >
+                <span class="font-semibold">Taxes</span>
+                <span>{{ currencyFormat(cartStore.totalTax) }}</span>
+            </div>
+
+            <div
+                class="flex justify-between items-center text-xl font-bold border-t-2 pt-1 border-primary"
+            >
+                <span>Checkout</span>
+                <span>
                     {{
                         currencyFormat(cartStore.totalAmountWithTaxAndDiscount)
                     }}
-                </div>
+                </span>
             </div>
         </div>
     </div>
