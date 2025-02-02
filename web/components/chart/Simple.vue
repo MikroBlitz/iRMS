@@ -14,7 +14,7 @@
 
         <div
             v-else
-            class="w-full min-w-[350px] p-8 rounded-2xl flex flex-col bg-[hsl(var(--secondary))]/50 border border-[hsl(var(--border))] transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] cursor-pointer"
+            class="w-full min-w-[350px] p-6 rounded-2xl flex flex-col bg-[hsl(var(--secondary))]/50 border border-[hsl(var(--border))] transition duration-300 hover:shadow-lg hover:shadow-[hsl(var(--primary)/0.1)] hover:border-[hsl(var(--primary)/0.5)] cursor-pointer"
         >
             <div class="flex items-start justify-between">
                 <div>

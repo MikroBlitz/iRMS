@@ -67,7 +67,6 @@ const modelHeaders: Headers[] = [
 
 const modelFields: CrudModalField[] = [
     {
-        disabled: true,
         label: 'Product *',
         model: 'Product',
         name: 'product_id',

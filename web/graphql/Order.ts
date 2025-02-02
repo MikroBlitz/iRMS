@@ -59,3 +59,27 @@ export const restoreOrder = gql`
         }
     }
 `;
+
+export const overallSales = gql`
+    query overallSales {
+        overallSales
+    }
+`;
+
+export const dailySales = gql`
+    query dailySales {
+        dailySales
+    }
+`;
+
+export const weeklySales = gql`
+    query weeklySales {
+        weeklySales
+    }
+`;
+
+export const monthlySales = gql`
+    query monthlySales {
+        monthlySales
+    }
+`;

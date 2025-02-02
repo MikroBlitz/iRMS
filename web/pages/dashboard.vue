@@ -169,7 +169,12 @@ const isMobile = inject('isMobile');
 
 onMounted(async () => {
     const { areaChart, barChart, charts, lineChart } = await useChartData();
-    chartData.value = charts;
+    chartData.value = charts.filter(
+        (chart) =>
+            chart.title !== 'Daily Sales' &&
+            chart.title !== 'Weekly Sales' &&
+            chart.title !== 'Monthly Sales',
+    );
     lineChartData.value = lineChart;
     barChartData.value = barChart;
     areaChartData.value = areaChart;

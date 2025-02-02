@@ -62,6 +62,11 @@ extend type Query {
         search: String @scope(name: "search")
     ): [Order!]! @paginate(model: "App\\Modules\\Order\\Models\\Order")
     ordersCount: Int! @count(model: "App\\Modules\\Order\\Models\\Order")
+    dailySales: Float @field(resolver: "OrderSalesQuery@dailySales")
+    weeklySales: Float @field(resolver: "OrderSalesQuery@weeklySales")
+    monthlySales: Float @field(resolver: "OrderSalesQuery@monthlySales")
+    overallSales: Float @field(resolver: "OrderSalesQuery@overallSales")
+
 }
 
 extend type Mutation {

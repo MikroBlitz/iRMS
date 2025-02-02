@@ -55,6 +55,10 @@ const documents = {
     "\n    mutation upsertOrder($input: OrderInput!) {\n        upsertOrder(input: $input) {\n            ...order\n        }\n    }\n    \n": types.UpsertOrderDocument,
     "\n    mutation deleteOrder($id: [ID!]!) {\n        deleteOrder(id: $id) {\n            id\n        }\n    }\n": types.DeleteOrderDocument,
     "\n    mutation restoreOrder($id: [ID!]!) {\n        restoreOrder(id: $id) {\n            id\n        }\n    }\n": types.RestoreOrderDocument,
+    "\n    query overallSales {\n        overallSales\n    }\n": types.OverallSalesDocument,
+    "\n    query dailySales {\n        dailySales\n    }\n": types.DailySalesDocument,
+    "\n    query weeklySales {\n        weeklySales\n    }\n": types.WeeklySalesDocument,
+    "\n    query monthlySales {\n        monthlySales\n    }\n": types.MonthlySalesDocument,
     "\n    query orderItemFilter {\n        orderItems {\n            id\n        }\n    }\n": types.OrderItemFilterDocument,
     "\n    query orderItems {\n        orderItems {\n            ...orderItem\n        }\n    }\n    \n": types.OrderItemsDocument,
     "\n    query orderItemsPaginate($first: Int!, $page: Int) {\n        orderItemsPaginate(first: $first, page: $page) {\n            data {\n                ...orderItem\n            }\n            paginatorInfo {\n                currentPage\n                lastPage\n                perPage\n                total\n            }\n        }\n    }\n    \n": types.OrderItemsPaginateDocument,
@@ -254,6 +258,22 @@ export function graphql(source: "\n    mutation deleteOrder($id: [ID!]!) {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    mutation restoreOrder($id: [ID!]!) {\n        restoreOrder(id: $id) {\n            id\n        }\n    }\n"): (typeof documents)["\n    mutation restoreOrder($id: [ID!]!) {\n        restoreOrder(id: $id) {\n            id\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query overallSales {\n        overallSales\n    }\n"): (typeof documents)["\n    query overallSales {\n        overallSales\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query dailySales {\n        dailySales\n    }\n"): (typeof documents)["\n    query dailySales {\n        dailySales\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query weeklySales {\n        weeklySales\n    }\n"): (typeof documents)["\n    query weeklySales {\n        weeklySales\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query monthlySales {\n        monthlySales\n    }\n"): (typeof documents)["\n    query monthlySales {\n        monthlySales\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
