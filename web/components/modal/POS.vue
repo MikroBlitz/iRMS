@@ -99,7 +99,7 @@
                                 Change:
                                 <span
                                     :class="[
-                                        'pl-1 text-xl font-bold',
+                                        'pl-2 text-xl font-bold',
                                         change < 0 || change == null
                                             ? 'text-transparent'
                                             : 'text-emerald-700 dark:text-emerald-500',
@@ -112,7 +112,7 @@
                                 type="number"
                                 readonly
                                 :class="[
-                                    'h-14 pl-24 text-xl font-bold',
+                                    'h-14 pl-28 text-xl font-bold',
                                     change < 0 || change == null
                                         ? 'text-transparent'
                                         : 'text-emerald-700 dark:text-emerald-500',
