@@ -8,6 +8,7 @@
                 class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-1 sm:items-start"
                 :animation="500"
                 group="charts"
+                :disabled="isMobile"
                 @end=""
             >
                 <ChartSimple
@@ -28,6 +29,7 @@
                 class="p-2 flex flex-col md:grid md:grid-cols-3 gap-5 sm:items-start"
                 :animation="500"
                 group="charts"
+                :disabled="isMobile"
                 @end=""
             >
                 <Card
@@ -162,6 +164,8 @@ useHead({
     meta: [{ content: 'View dashboard', name: 'Dashboard' }],
     title: pageTitle.value,
 });
+
+const isMobile = inject('isMobile');
 
 onMounted(async () => {
     const { areaChart, barChart, charts, lineChart } = await useChartData();
