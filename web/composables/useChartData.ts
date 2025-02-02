@@ -1,6 +1,12 @@
 import { reactiveComputed } from '@vueuse/core';
 import { chartsData } from '~/graphql/Chart';
 import type { Product } from '~/types/codegen/graphql';
+import {
+    overallSales,
+    dailySales,
+    monthlySales,
+    weeklySales,
+} from '~/graphql/Order';
 
 export default async function useChartData() {
     const { error, loading, result } = useQuery(chartsData);
@@ -30,16 +36,27 @@ export default async function useChartData() {
         return calculateTotalInventoryStockValue(products);
     });
 
-    const calculateTotalSalesValue = () => {
-        const orders = data.value.orders || [];
-        return orders.reduce(
-            (totalValue: number, order: { total_amount: number }) =>
-                totalValue + order.total_amount,
-            0,
-        );
-    };
+    const { loading: dailySalesLoading, result: totalDailyOrderSales } =
+        useQuery(dailySales);
+    const { loading: weeklySalesLoading, result: totalWeeklyOrderSales } =
+        useQuery(weeklySales);
+    const { loading: monthlySalesLoading, result: totalMonthlyOrderSales } =
+        useQuery(monthlySales);
+    const { loading: totalSalesLoading, result: totalOrderSales } =
+        useQuery(overallSales);
 
-    const totalSalesValues = computed(() => calculateTotalSalesValue());
+    const totalDailySales = computed(
+        () => totalDailyOrderSales?.value?.dailySales ?? 0,
+    );
+    const totalWeeklySales = computed(
+        () => totalWeeklyOrderSales?.value?.weeklySales ?? 0,
+    );
+    const totalMonthlySales = computed(
+        () => totalMonthlyOrderSales?.value?.monthlySales ?? 0,
+    );
+    const totalOverallSales = computed(
+        () => totalOrderSales?.value?.overallSales ?? 0,
+    );
 
     const areaChart = ref([
         {
@@ -163,9 +180,33 @@ export default async function useChartData() {
             borderColor: 'border-pink-300/80 dark:border-pink-500/50',
             color: 'bg-secondary/50',
             icon: 'mdi:currency-usd',
-            loading: loading.value,
+            loading: dailySalesLoading.value,
+            title: 'Daily Sales',
+            value: currencyFormat(totalDailySales.value),
+        },
+        {
+            borderColor: 'border-pink-300/80 dark:border-pink-500/50',
+            color: 'bg-secondary/50',
+            icon: 'mdi:currency-usd',
+            loading: weeklySalesLoading.value,
+            title: 'Weekly Sales',
+            value: currencyFormat(totalWeeklySales.value),
+        },
+        {
+            borderColor: 'border-pink-300/80 dark:border-pink-500/50',
+            color: 'bg-secondary/50',
+            icon: 'mdi:currency-usd',
+            loading: monthlySalesLoading.value,
+            title: 'Monthly Sales',
+            value: currencyFormat(totalMonthlySales.value),
+        },
+        {
+            borderColor: 'border-pink-300/80 dark:border-pink-500/50',
+            color: 'bg-secondary/50',
+            icon: 'mdi:currency-usd',
+            loading: totalSalesLoading.value,
             title: 'Overall Sales',
-            value: currencyFormat(totalSalesValues.value) || 0,
+            value: currencyFormat(totalOverallSales.value),
         },
         {
             borderColor: 'border-orange-300/80 dark:border-orange-500/50',

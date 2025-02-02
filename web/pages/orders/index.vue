@@ -73,7 +73,10 @@ onMounted(async () => {
         (chart) =>
             chart.title === 'Total Orders' ||
             chart.title === 'Total Customers' ||
-            chart.title === 'Overall Sales',
+            chart.title === 'Overall Sales' ||
+            chart.title === 'Daily Sales' ||
+            chart.title === 'Weekly Sales' ||
+            chart.title === 'Monthly Sales',
     );
 });
 </script>
