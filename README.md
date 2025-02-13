@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a full-stack application built using **Nuxt.js** on the frontend and **Laravel** on the backend, with **Apollo GraphQL** for data fetching and **Laravel Lighthouse** handling GraphQL on the server. The state management is handled by **Pinia**, and **Sanctum** provides secure authentication.
+This project is a full stack monolith built using **Nuxt.js** on the frontend and **Laravel** on the backend, with **Apollo GraphQL** for data fetching and **Laravel Lighthouse** handling GraphQL on the server. The state management is handled by **Pinia**, and **Sanctum** provides secure authentication.
 
 This APP project features a Retail Management System, a comprehensive software solution designed to streamline and manage various aspects of retail operations.
 
@@ -87,13 +87,13 @@ Make sure you have the following software installed on your system:
 1. Install the frontend dependencies:
 
     ```bash
-    npm install
+    bun install
     ```
 
 2. Start the Nuxt.js development server and Laravel server:
 
     ```bash
-    npm start
+    bun start
     ```
 
 ## Authentication
@@ -112,7 +112,7 @@ http://localhost:8000/graphiql
 To generate the GraphQL types, run the following command:
 
 ```bash
-npm codegen
+bun codegen
 ```
 
 ## Clear backend cache
@@ -120,5 +120,5 @@ npm codegen
 This will clear all the cache files in the backend.
 
 ```bash
-npm clear
+bun clear
 ```
