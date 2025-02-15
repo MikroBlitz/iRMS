@@ -53,7 +53,7 @@
                                     ]"
                                 />
                                 <span
-                                    class="font-bold transition duration-100 group-hover:text-accent dark:group-hover:text-accent"
+                                    class="transition duration-100 group-hover:text-accent dark:group-hover:text-accent"
                                     :class="[
                                         'transition duration-100 group-hover:text-accent dark:group-hover:text-accent',
                                         route.path.startsWith(link.path)
