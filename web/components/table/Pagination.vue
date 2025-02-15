@@ -15,7 +15,7 @@
                         :value="option"
                         class="text-sm"
                     >
-                        {{ option }}
+                        {{ option === -1 ? 'All' : option }}
                     </option>
                 </select>
             </div>
@@ -176,6 +176,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update:perPage']);
 
-const perPageOptions = [10, 50, 100, 1000];
+const perPageOptions = [10, 50, 100, 1000, -1];
 const localPerPage = ref(props.paginatorInfo.perPage || 10);
 </script>

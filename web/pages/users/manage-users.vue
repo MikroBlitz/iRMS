@@ -73,7 +73,7 @@ const modelHeaders: Headers[] = [
     {
         key: (val) => {
             const roleClass = userClasses[val.role as Role];
-            return `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${roleClass}">${transformStringEnumsToTitleKeys(val.role)}</span>`;
+            return `<span class="inline-block px-2 py-0.5 rounded-lg text-xs ${roleClass}">${transformStringEnumsToTitleKeys(val.role)}</span>`;
         },
         label: 'Role',
     },

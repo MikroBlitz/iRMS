@@ -8,7 +8,7 @@
                     <div class="h-full w-full animate-loading-bar" />
                 </div>
                 <div
-                    class="absolute flex-col top-60 flex justify-center items-center text-xl mt-4"
+                    class="absolute flex-col flex justify-center items-center text-xl mt-4"
                 >
                     <SpinnerBlocksWave
                         class="size-8 mb-1 text-primary dark:text-foreground"
@@ -16,7 +16,7 @@
                     <p class="animate-pulse">Loading data...</p>
                 </div>
                 <div
-                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
+                    class="h-[calc(100vh-9.5rem)] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
                 />
                 <div
                     class="absolute bottom-3 px-4 flex items-center justify-between w-full"
@@ -48,7 +48,7 @@
             </template>
             <div v-else class="flex flex-col w-full items-center">
                 <div
-                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary flex items-center justify-center"
+                    class="h-[calc(100vh-9.5rem)] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary flex items-center justify-center"
                 >
                     <div class="flex flex-col items-center justify-center">
                         <Icon
@@ -94,7 +94,7 @@
                     <p class="animate-pulse">Unauthorized Access</p>
                 </div>
                 <div
-                    class="h-[600px] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
+                    class="h-[calc(100vh-9.5rem)] rounded-b-2xl rounded-t-none w-full bg-secondary dark:bg-primary"
                 />
             </div>
         </template>

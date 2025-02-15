@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div class="w-full bg-card border border-secondary dark:border-primary">
+        <div
+            class="w-full max-h-[calc(100vh-13rem)] overflow-auto bg-card border border-secondary dark:border-primary"
+        >
             <Datatable
                 v-auto-animate
                 :options="options"

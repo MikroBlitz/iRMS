@@ -8,7 +8,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
     const modalFields = ref(fields);
     const isLoading = ref(false);
 
-    const paginatorInfo: any = ref<PaginatorInfo>();
+    const paginatorInfo: Record<string, any> = ref<PaginatorInfo>();
     const currentPage: number = paginatorInfo.value?.currentPage || 1;
     const perPage: number = paginatorInfo.value?.perPage || 10;
 
@@ -49,7 +49,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             : console.error('You are not authorized to view.');
     };
 
-    const handleCrudSubmit = async (formData: any) => {
+    const handleCrudSubmit = async (formData: { [key: string]: any }) => {
         const input = transformGraphQLInputData(formData);
 
         // TODO: temporary fix for user password
@@ -73,7 +73,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                       type: 'warning',
                   }));
             isLoading.value = false;
-        } catch (error: any) {
+        } catch (error) {
             handleGraphQLError(
                 error,
                 selectedModel.value ? 'update' : 'create',
@@ -87,7 +87,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                 ? ((isLoading.value = true),
                   await deleteMutation({ id: [id] }),
                   (modelData.value = modelData.value.filter(
-                      (e: any) => e.id !== id,
+                      (e: { id: number | string }) => e.id !== id,
                   )),
                   fetchDataPaginate(perPage, currentPage),
                   toasts(`${toTitleCase(singularName)} deleted.`, {
@@ -97,7 +97,7 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
                       type: 'warning',
                   });
             isLoading.value = false;
-        } catch (error: any) {
+        } catch (error) {
             handleGraphQLError(error, 'delete');
         }
     };
@@ -159,8 +159,11 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             fetchDataPaginate(perPage, paginatorInfo.value.lastPage);
     };
     const numberPage = (page: number) => fetchDataPaginate(perPage, page);
-    const handlePerPageChange = async (perPage: number, page: number) =>
-        await fetchDataPaginate(perPage, page);
+    const handlePerPageChange = async (perPage: number, page: number) => {
+        const totalRecords = (await paginatorInfo?.total) || 100000000; // TODO: fix paginator total
+        const itemsToFetch = perPage === -1 ? totalRecords : perPage;
+        await fetchDataPaginate(itemsToFetch, page);
+    };
 
     const paginationControls = {
         firstPage,

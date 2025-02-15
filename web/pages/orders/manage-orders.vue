@@ -60,7 +60,7 @@ const modelHeaders: Headers[] = [
     { key: 'id', label: 'ID' },
     {
         key: (val) =>
-            `<span class="bg-card px-3 py-1 rounded-full text-xs font-bold">${val.transaction_number}</span>`,
+            `<span class="bg-secondary px-3 py-1 rounded-lg text-xs font-bold">${val.transaction_number}</span>`,
         label: 'Transaction Number',
     },
     {
@@ -82,7 +82,7 @@ const modelHeaders: Headers[] = [
     {
         key: (val) => {
             const statusCLass = statusClasses[val.status as OrderStatus];
-            return `<span class="inline-block px-3 py-1 rounded-full text-xs ${statusCLass}">${transformStringEnumsToTitleKeys(val.status)}</span>`;
+            return `<span class="inline-block px-3 py-1 rounded-lg text-xs ${statusCLass}">${transformStringEnumsToTitleKeys(val.status)}</span>`;
         },
         label: 'Status',
     },

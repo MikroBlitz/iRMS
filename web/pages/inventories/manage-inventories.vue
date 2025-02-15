@@ -77,7 +77,7 @@ const modelHeaders: Headers[] = [
                     'bg-emerald-50 text-emerald-700 border border-emerald-700 dark:bg-emerald-900 dark:text-white dark:border-emerald-400';
             }
 
-            return `<span class="inline-block px-3 py-1 rounded-full text-xs ${bgColor}">${thousandSeparator(qty)} ${val.product.po_unit || 'unit'}</span>`;
+            return `<span class="inline-block px-3 py-1 rounded-lg text-xs ${bgColor}">${thousandSeparator(qty)} ${val.product.po_unit || 'unit'}</span>`;
         },
         label: 'Stocks',
     },
