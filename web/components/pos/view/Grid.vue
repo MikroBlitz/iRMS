@@ -25,8 +25,7 @@
             <div class="flex m-auto items-center justify-center relative">
                 <Icon
                     v-if="
-                        product.inventories[inventoryLocation]?.qty < 1 ||
-                        product.inventories[inventoryLocation]?.qty > restockQty
+                        product.inventories[inventoryLocation]?.qty < restockQty
                     "
                     name="mdi:warning-circle"
                     class="animate-ping absolute top-0.5 right-0.5 text-[hsl(var(--destructive))]"
