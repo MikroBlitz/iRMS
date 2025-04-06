@@ -12,7 +12,7 @@
         "laravel/tinker": "^2.9",
         "mll-lab/graphql-php-scalars": "^6.3",
         "mll-lab/laravel-graphiql": "^3.2",
-        "nuwave/lighthouse": "^6.42",
+        "nuwave/lighthouse": "^6.54",
         "spiral/roadrunner-cli": "^2.6.0",
         "spiral/roadrunner-http": "^3.3.0"
     },
