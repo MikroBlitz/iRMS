@@ -145,20 +145,20 @@ export async function useModelCrud(model: string, fields: CrudModalField[]) {
             paginatorInfo.value.lastPage > 1 &&
             paginatorInfo.value.currentPage > 1
         )
-            fetchDataPaginate(perPage, paginatorInfo.value.currentPage - 1);
+            fetchDataPaginate(paginatorInfo.value.perPage, paginatorInfo.value.currentPage - 1);
     };
     const nextPage = () => {
         if (
             paginatorInfo.value.lastPage > 1 &&
             paginatorInfo.value.currentPage < paginatorInfo.value.lastPage
         )
-            fetchDataPaginate(perPage, paginatorInfo.value.currentPage + 1);
+            fetchDataPaginate(paginatorInfo.value.perPage, paginatorInfo.value.currentPage + 1);
     };
     const lastPage = () => {
         if (paginatorInfo.value.lastPage > 1)
-            fetchDataPaginate(perPage, paginatorInfo.value.lastPage);
+            fetchDataPaginate(paginatorInfo.value.perPage, paginatorInfo.value.lastPage);
     };
-    const numberPage = (page: number) => fetchDataPaginate(perPage, page);
+    const numberPage = (page: number) => fetchDataPaginate(paginatorInfo.value.perPage, page);
     const handlePerPageChange = async (perPage: number, page: number) => {
         const totalRecords = (await paginatorInfo?.total) || 100000000; // TODO: fix paginator total
         const itemsToFetch = perPage === -1 ? totalRecords : perPage;

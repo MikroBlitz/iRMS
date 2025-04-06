@@ -39,7 +39,7 @@
     "graphql": "^16.10.0",
     "jszip": "^3.10.1",
     "nuxt": "^3.15.4",
-    "pinia-plugin-persistedstate": "^4.2.0",
+    "pinia-plugin-persistedstate-2": "^2.0.30",
     "prettier": "^3.5.1",
     "radix-vue": "^1.9.14",
     "shadcn-nuxt": "^0.10.4",
