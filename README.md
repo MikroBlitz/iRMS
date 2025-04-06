@@ -72,8 +72,7 @@ Make sure you have the following software installed on your system:
 4. Set up the database configuration in the `.env` file and run migration and seeders:
 
     ```bash
-    php artisan migrate:fresh
-    php artisan db:seed
+    php artisan migrate:fresh --seed
     ```
 
 5. Install Laravel Lighthouse for GraphQL:
