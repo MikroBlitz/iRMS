@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     colorMode: { classSuffix: '' },
     compatibilityDate: '2024-04-03',
     devtools: { enabled: import.meta.env.DEVTOOLS !== 'false' },
+    dir: {
+        public: "public/web",
+    },
     eslint: {
         config: {
             stylistic: {
