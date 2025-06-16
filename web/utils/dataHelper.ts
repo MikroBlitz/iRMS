@@ -1,103 +1,136 @@
 export const getNestedValue = (item: any, key: any) =>
-    key.split('.').reduce((acc: any, part: any) => acc && acc[part], item);
+	key.split('.').reduce((acc: any, part: any) => acc && acc[part], item);
 
 export const transformGraphQLInputData = (formData: any) => {
-    const input = JSON.parse(
-        JSON.stringify(formData, (key, value) =>
-            ['__typename', 'created_at', 'updated_at', 'deleted_at'].includes(
-                key,
-            )
-                ? undefined
-                : value,
-        ),
-    );
+	const input = JSON.parse(
+		JSON.stringify(formData, (key, value) =>
+			['__typename', 'created_at', 'updated_at', 'deleted_at'].includes(
+				key,
+			)
+				? undefined
+				: value,
+		),
+	);
 
-    Object.keys(input).forEach((key) => {
-        const value = input[key];
+	Object.keys(input).forEach((key) => {
+		const value = input[key];
 
-        // for select fields
-        if (key.endsWith('_id')) {
-            if (value !== null)
-                input[key.replace('_id', '')] = { connect: value };
-            delete input[key];
-        }
+		// for select fields
+		if (key.endsWith('_id')) {
+			if (value !== null)
+				input[key.replace('_id', '')] = { connect: value };
+			delete input[key];
+		}
 
-        // dynamically handle combobox fields
-        if (value && typeof value === 'object' && 'id' in value)
-            input[key] = { connect: value.id || value };
+		// dynamically handle combobox fields
+		if (value && typeof value === 'object' && 'id' in value)
+			input[key] = { connect: value.id || value };
 
-        if (Array.isArray(value)) {
-            input[key] = {
-                upsert: value.map((arr) => ({
-                    id: arr?.id,
-                    ...arr,
-                })),
-            };
-        }
-    });
+		if (Array.isArray(value)) {
+			input[key] = {
+				upsert: value.map(arr => ({
+					id: arr?.id,
+					...arr,
+				})),
+			};
+		}
+	});
 
-    return input;
+	return input;
 };
 
 export const handleGraphQLError = (error: any, action: string) => {
-    const graphQLError = error?.graphQLErrors?.[0];
-    const errorMessage =
-        graphQLError?.extensions?.debugMessage ||
-        graphQLError?.message ||
-        'An error occurred';
-    toasts(`Failed to ${action}: ${errorMessage}`, { type: 'error' });
-    console.error(`Error during ${action}:`, error);
+	const graphQLError = error?.graphQLErrors?.[0];
+	const errorMessage
+        = graphQLError?.extensions?.debugMessage
+        	|| graphQLError?.message
+        	|| 'An error occurred';
+	toasts(`Failed to ${action}: ${errorMessage}`, { type: 'error' });
+	console.error(`Error during ${action}:`, error);
 };
 
 export async function fetchGraphQLQuery(
-    model: string,
-    queryName: string,
+	model: string,
+	queryName: string,
 ): Promise<any> {
-    const queryModule = await import(`~/graphql/${model}.ts`);
-    return queryModule[queryName];
+	const queryModule = await import(`~/graphql/${model}.ts`);
+	return queryModule[queryName];
 }
 
 export async function loadFieldOptions(field: any, data: any) {
-    try {
-        const query = await fetchGraphQLQuery(field.model, field.queryName);
-        if (query) {
-            const result: any = await useAsyncQuery(query);
-            const resultKey: any = Object.keys(result.data.value)[0];
-            data.value[field.model.toLowerCase()] =
-                result.data.value[resultKey] || [];
-        }
-    } catch (error) {
-        console.error(
-            `Failed to load options for field ${field.model}:`,
-            error,
-        );
-    }
+	try {
+		const query = await fetchGraphQLQuery(field.model, field.queryName);
+		if (query) {
+			const result: any = await useAsyncQuery(query);
+			const resultKey: any = Object.keys(result.data.value)[0];
+			data.value[field.model.toLowerCase()]
+                = result.data.value[resultKey] || [];
+		}
+	}
+	catch (error) {
+		console.error(
+			`Failed to load options for field ${field.model}:`,
+			error,
+		);
+	}
 }
 
 export async function processFields(fields: any[], data: any) {
-    for (const field of fields) {
-        if (
-            (field.type === 'select' || field.type === 'combobox') &&
-            field.model &&
-            field.queryName
-        ) {
-            await loadFieldOptions(field, data);
-        }
-    }
+	for (const field of fields) {
+		if (
+			(field.type === 'select' || field.type === 'combobox')
+			&& field.model
+			&& field.queryName
+		) {
+			await loadFieldOptions(field, data);
+		}
+	}
 }
 
 export const transformStringEnumsToTitleKeys = (input: string): string => {
-    return input
-        .replace(/_/g, ' ')
-        .toLowerCase()
-        .replace(/\b\w/g, (char) => char.toUpperCase());
+	return input
+		.replace(/_/g, ' ')
+		.toLowerCase()
+		.replace(/\b\w/g, char => char.toUpperCase());
 };
 
 export const transformToKeyValuePairs = (
-    enumObj: Record<string, string>,
+	enumObj: Record<string, string>,
 ): { label: string; value: string }[] => {
-    return Object.values(enumObj).map((value) => ({
-        label: transformStringEnumsToTitleKeys(value),
-        value,
-    }));
+	return Object.values(enumObj).map(value => ({
+		label: transformStringEnumsToTitleKeys(value),
+		value,
+	}));
+};
+
+export const formatTimeAgo = (dateString: string) => {
+	if (!dateString) return '';
+
+	const now = new Date();
+	const messageDate = new Date(dateString);
+	const diffInSeconds = Math.floor((now.getTime() - messageDate.getTime()) / 1000);
+
+	if (diffInSeconds < 60) {
+		return 'just now';
+	}
+	else if (diffInSeconds < 3600) {
+		const minutes = Math.floor(diffInSeconds / 60);
+		return `${minutes}m ago`;
+	}
+	else if (diffInSeconds < 86400) {
+		const hours = Math.floor(diffInSeconds / 3600);
+		return `${hours}h ago`;
+	}
+	else if (diffInSeconds < 604800) {
+		const days = Math.floor(diffInSeconds / 86400);
+		return `${days}d ago`;
+	}
+	else {
+		// For messages older than a week, show the actual date
+		return messageDate.toLocaleDateString('en-US', {
+			day: 'numeric',
+			month: 'short',
+			year: messageDate.getFullYear() !== now.getFullYear() ? 'numeric' : undefined,
+		});
+	}
 };

@@ -4,9 +4,19 @@ export const getMessages = gql`
             first: $first
             page: $page
             where: {
-                AND: [
-                    { column: SENDER_ID, operator: EQ, value: $sender }
-                    { column: RECEIVER_ID, operator: EQ, value: $receiver }
+                OR: [
+                    {
+                        AND: [
+                            { column: SENDER_ID, operator: EQ, value: $sender }
+                            { column: RECEIVER_ID, operator: EQ, value: $receiver }
+                        ]
+                    }
+                    {
+                        AND: [
+                            { column: SENDER_ID, operator: EQ, value: $receiver }
+                            { column: RECEIVER_ID, operator: EQ, value: $sender }
+                        ]
+                    }
                 ]
             }
         ) {

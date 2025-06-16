@@ -25,8 +25,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-//    'allowed_origins' => [env('WEB_URL', 'http://localhost:3000')],
-    'allowed_origins' => ['https://posui.markethub.blog'],
+    'allowed_origins' => [env('WEB_URL', 'http://localhost:3000')],
 
     'allowed_origins_patterns' => [],
 
