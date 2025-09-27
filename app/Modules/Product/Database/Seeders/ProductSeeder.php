@@ -4,7 +4,6 @@ namespace App\Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
 
 class ProductSeeder extends Seeder
 {
@@ -13,43 +12,84 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
-
         $products = [];
-        $productNames = [];
         $categoryIds = DB::table('categories')->pluck('id')->toArray();
 
-        for ($i = 0; $i < 6000; $i++) {
-            $uniqueName = $faker->word . ' ' . $faker->randomLetter . $faker->randomNumber(2);
+        // Sample Filipino grocery products
+        $sampleProducts = [
+            'Lucky Me Pancit Canton',
+            'Safeguard Soap',
+            'Bear Brand Powdered Milk',
+            'Nescafe Classic Coffee',
+            'Milo Chocolate Drink',
+            'SkyFlakes Crackers',
+            'Century Tuna',
+            'Argentina Corned Beef',
+            '555 Sardines',
+            'Mang Tomas All Purpose Sauce',
+            'Silver Swan Soy Sauce',
+            'Datu Puti Vinegar',
+            'UFC Banana Ketchup',
+            'San Miguel Beer Pale Pilsen',
+            'Coke Regular 1.5L',
+            'Royal Tru-Orange 1.5L',
+            'Sprite 1.5L',
+            'Wilkins Distilled Water 1L',
+            'Jack ’n Jill Piattos',
+            'Chippy BBQ',
+            'Presto Peanut Butter Sandwich',
+            'Hansel Mocha Sandwich',
+            'Cream-O Cookies',
+            'Oishi Prawn Crackers',
+            'Rebisco Crackers',
+            'Fudgee Barr',
+            'Nova Chips',
+            'Yakult',
+            'Selecta Ice Cream (Tub)',
+            'Purefoods Hotdog',
+            'Tender Juicy Hotdog',
+            'Magnolia Chicken',
+            'Maya Pancake Mix',
+            'White King Champorado Mix',
+            'Knorr Sinigang Mix',
+            'Knorr Cubes',
+            'Lucky Me Cup Noodles',
+            'Joy Dishwashing Liquid',
+            'Surf Detergent Powder',
+            'Tide Detergent',
+            'Downy Fabric Conditioner',
+            'Colgate Toothpaste',
+            'Closeup Toothpaste',
+            'Palmolive Shampoo',
+            'Head & Shoulders Shampoo',
+            'Cream Silk Conditioner',
+            'Johnson’s Baby Powder',
+            'Safeguard Liquid Soap',
+            'Listerine Mouthwash',
+            'Hapee Toothpaste',
+            'Enchanted Corn Chips',
+        ];
 
-            while (in_array($uniqueName, $productNames)) {
-                $uniqueName = $faker->word . ' ' . $faker->randomLetter . $faker->randomNumber(2);
-            }
+        // Duplicate until we reach 100 products
+        while (count($sampleProducts) < 100) {
+            $sampleProducts = array_merge($sampleProducts, $sampleProducts);
+        }
 
-            $productNames[] = $uniqueName;
+        $sampleProducts = array_slice($sampleProducts, 0, 100);
 
+        foreach ($sampleProducts as $name) {
             $products[] = [
-                'name' => $uniqueName,
+                'name' => $name,
                 'image' => null,
-                'description' => $faker->sentence(),
-                'sku' => $faker->unique()->randomNumber(6),
-                'price' => $faker->randomFloat(2, 1000, 50000),
-                'category_id' => $faker->randomElement($categoryIds),
-                'po_unit' => $this->getRandomUnit(),
+                'description' => "Sample product: {$name}",
+                'sku' => uniqid('SKU-'),
+                'price' => rand(10, 500), // realistic grocery price
+                'po_unit' => 'pcs',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
 
-        DB::table('products')->insert($products);
-    }
-
-    /**
-     * Get a random unit from a predefined list.
-     */
-    private function getRandomUnit(): string
-    {
-        $units = ['pcs', 'kg', 'g', 'm', 'cm', 'box', 'set'];
-        return $units[array_rand($units)];
+        DB::table('products')->upsert($products, ['name'], ['sku', 'updated_at']);
     }
 }
